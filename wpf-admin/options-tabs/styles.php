@@ -14,19 +14,19 @@
 				<td>
                 <label style="display:inline-block; text-align:center; font-size:14px;">
                 	<span><?php _e('Forums','wpforo'); ?>:</span> 
-                	<select name="wpforo_style_options[font_size_forum]" style="min-width:80px;">
+                	<select name="wpforo_style_options[font_size_forum]" style="min-width:80px;direction:ltr;">
                     	<?php for( $a=11; $a < 28; $a++ ): ?><option value="<?php echo intval($a) ?>" <?php wpfo_check( WPF()->tpl->style['font_size_forum'], $a, 'selected') ?>><?php echo intval($a); ?>px</option><?php endfor; ?>
                     </select>
                 </label> &nbsp; 
                 <label style="display:inline-block; text-align:center; font-size:14px;">
                 	<span><?php _e('Topics','wpforo'); ?>:</span> 
-                	<select name="wpforo_style_options[font_size_topic]" style="min-width:80px;">
+                	<select  name="wpforo_style_options[font_size_topic]" style="min-width:80px;direction:ltr;">
                     	<?php for( $a=11; $a < 28; $a++ ): ?><option value="<?php echo intval($a) ?>" <?php wpfo_check( WPF()->tpl->style['font_size_topic'], $a, 'selected') ?>><?php echo intval($a); ?>px</option><?php endfor; ?>
                     </select>
                 </label> &nbsp; 
                 <label style="display:inline-block; text-align:center; font-size:14px;">
                 	<span><?php _e('Post Content','wpforo'); ?>:</span> 
-                	<select name="wpforo_style_options[font_size_post_content]" style="min-width:80px;">
+                	<select name="wpforo_style_options[font_size_post_content]" style="min-width:80px;direction:ltr;">
                     	<?php for( $a=11; $a < 28; $a++ ): ?><option value="<?php echo intval($a) ?>" <?php wpfo_check( WPF()->tpl->style['font_size_post_content'], $a, 'selected') ?>><?php echo intval($a); ?>px</option><?php endfor; ?>
                     </select>
                 </label>
@@ -35,7 +35,7 @@
             <tr>
 				<th style="width:30%;"><label><?php _e('Custom CSS Code', 'wpforo'); ?>:</label></th>
 				<td>
-               		<textarea name="wpforo_style_options[custom_css]" style="width:90%; height:130px; font-family:Consolas, 'Andale Mono', 'Lucida Console'; color:#666666; background:#fdfdfd;"><?php echo esc_textarea(stripslashes(WPF()->tpl->style['custom_css'])); ?></textarea>
+               		<textarea name="wpforo_style_options[custom_css]" style="width:90%; height:130px; font-family:Consolas, 'Andale Mono', 'Lucida Console'; color:#666666; background:#fdfdfd; direction: ltr;"><?php echo esc_textarea(stripslashes(WPF()->tpl->style['custom_css'])); ?></textarea>
 				</td>
 			</tr>
 		</tbody>
@@ -64,7 +64,7 @@
                                 <tr>
                                     <td>
                                     <div style="float:left; text-align:center; width:27px;"><input style="margin:0px;" <?php if( $style == WPF()->tpl->options['style'] ) echo ' checked="checked"'; ?> type="radio" name="wpforo_theme_options[style]" value="<?php wpfo($style) ?>" id="wpforo_stle_<?php wpfo($style) ?>" /></div>
-                                    <div style="text-transform:uppercase; text-align:left;float:left; font-weight:bold; font-size:14px;"><label for="wpforo_stle_<?php wpfo($style) ?>">&nbsp;<?php wpfo($style) ?></label></div>
+                                    <div style="text-transform:uppercase; text-align:left;float:left; font-weight:bold; font-size:14px;"><label for="wpforo_stle_<?php wpfo($style) ?>">&nbsp;<?php wpfo(__($style, 'wpforo')); ?></label></div>
                                     <div style="clear:both;"></div>
                                 	</td>
                                 </tr>
