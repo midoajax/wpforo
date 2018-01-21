@@ -24,8 +24,8 @@
                         <div class="inside">
                             <div class="main" style="padding:5px 15px 15px 15px;">
                             	<div style="float:left; vertical-align:top; width:calc(100% - 300px);;">
-                                	<p style="font-size:30px; margin:0px 0px 10px 0px; font-family:Constantia, 'Lucida Bright', 'DejaVu Serif', Georgia, serif">Welcome to wpForo <?php echo esc_html(WPFORO_VERSION) ?></p>
-                                	<p style="margin:0px; font-size:14px;font-family:'Lucida Bright', 'DejaVu Serif', Georgia, serif"">
+                                	<p style="font-size:30px; margin:0 0 10px 0;"><?php printf(__('Welcome to wpForo %s', 'wpforo'), esc_html(WPFORO_VERSION)); ?></p>
+                                	<p style="margin:0; font-size:14px; text-align: justify;">
                                     <?php _e('Thank you for using wpForo! wpForo is a professional bulletin board for WorPress, and the only forum software which comes with Multi-layout template system.
                                     The "Extended", "Simplified" and "Question &amp Answer" layouts fit almost all type of discussions needs. You can use wpForo for small and extremely large communities. 
                                     <br />If you found some issue or bug please open a support topic in plugin page or in our support forum at gVectors.com. If you liked wpForo please leave some good review for this plugin. We really need your good reviews. 
@@ -33,9 +33,8 @@
                                 </div>
                             	<div style="float:right; vertical-align:top; padding-right:20px; width:280px; text-align:right; padding-top:20px;">
                                 	<img class="wpforo-dashboard-logo" src="<?php echo WPFORO_URL ?>/wpf-assets/images/wpforo-logo.png"/>
-                                    <p style="font-size:11px; color:#B1B1B1; font-style:italic; text-align:right; line-height:14px; padding-top:15px; margin:0px;">
-                                        Thank you!<br> Sincerely yours,<br>
-                                        gVectors Team&nbsp;
+                                    <p style="font-size:11px; color:#B1B1B1; font-style:italic; text-align:right; line-height:14px; padding-top:15px; margin:0;">
+                                        <?php _e('Thank you!', 'wpforo'); echo '<br />'; _e('Sincerely', 'wpforo'); echo '<br />';  _e('gVectors Team', 'wpforo'); ?>
                                     </p>
                                 </div>
                                 <div style="clear:both;"></div>
@@ -74,9 +73,9 @@
                                 <span class="toggle-indicator"></span>
                             </button>
                             <h2 class="hndle ui-sortable-handle"><span><?php _e('Server Information', 'wpforo'); ?></span></h2>
-                            <div class="inside">
+                            <div class="inside" style="direction: ltr;">
                                 <div class="main">
-                                    <table style="width:98%; margin:0px auto; text-align:left;">
+                                    <table style="width:98%; margin:0px auto;">
                                         <tr class="wpf-dw-tr">
                                             <td class="wpf-dw-td">USER AGENT</td>
                                             <td class="wpf-dw-td-value"><?php echo $_SERVER['HTTP_USER_AGENT'] ?></td>
@@ -131,7 +130,7 @@
                             <h2 class="hndle ui-sortable-handle"><span><?php _e('Board Statistic', 'wpforo'); ?></span></h2>
                             <div class="inside">
                                 <div class="main">
-                                    <table style="width:98%; margin:0px auto; text-align:left;">
+                                    <table style="width:98%; margin:0px auto;">
                                         <?php $statistic = WPF()->statistic();  ?>
                                         <tr class="wpf-dw-tr">
                                             <td class="wpf-dw-td"><?php _e('Forums', 'wpforo'); ?></td>
