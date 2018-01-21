@@ -18,7 +18,7 @@
 			</tr>
 			<tr>
 				<th><label><?php _e('Members URL structure', 'wpforo'); ?>:</label></th>
-				<td>
+				<td style="direction: ltr; text-align: left;">
 					<?php $opt_id_attr = ''; $opt_nicename_attr = ''; ?>
 					<?php if( wpfo(WPF()->member->options['url_structure'], false) == 'id' ){ $opt_id_attr = 'checked="checked"'; }else{ $opt_nicename_attr = 'checked="checked"'; } ?>
 					<input id="id" type="radio" name="wpforo_member_options[url_structure]" value="id" <?php echo $opt_id_attr ?>/><label style="color: gray" for="id"><?php echo wpforo_home_url() ?>profile/<b style="color: #4093bf">USER_ID</b>/</label><br/>
@@ -47,9 +47,9 @@
                 </th>
 				<td>
 					<ul>
-                        <li><?php echo trim(get_bloginfo('url'),'/'); ?><input style="width:30%;padding: 3px 10px 3px 3px; vertical-align:middle; font-size:13px" type="text" name="wpforo_member_options[login_url]" value="<?php wpfo(WPF()->member->options['login_url']) ?>" /> &nbsp;<label style="font-size:13px"><?php _e('Login URL', 'wpforo') ?></label></li>
-                        <li><?php echo trim(get_bloginfo('url'),'/'); ?><input style="width:30%;padding: 3px 10px 3px 3px; vertical-align:middle; font-size:13px" type="text" name="wpforo_member_options[register_url]" value="<?php wpfo(WPF()->member->options['register_url']) ?>" /> &nbsp;<label style="font-size:13px"><?php _e('Register URL', 'wpforo') ?></label></li>
-                        <li><?php echo trim(get_bloginfo('url'),'/'); ?><input style="width:30%;padding: 3px 10px 3px 3px; vertical-align:middle; font-size:13px" type="text" name="wpforo_member_options[lost_password_url]" value="<?php wpfo(WPF()->member->options['lost_password_url']) ?>" /> &nbsp;<label style="font-size:13px"><?php _e('Lost Password URL', 'wpforo') ?></label></li>
+                        <li><div style="direction: ltr;"><?php echo trim(get_bloginfo('url'),'/'); ?><input style="width:30%;padding: 3px 10px 3px 3px; vertical-align:middle; font-size:13px" type="text" name="wpforo_member_options[login_url]" value="<?php wpfo(WPF()->member->options['login_url']) ?>" /></div>&nbsp;<label style="font-size:13px"><?php _e('Login URL', 'wpforo') ?></label></li>
+                        <li><div style="direction: ltr;"><?php echo trim(get_bloginfo('url'),'/'); ?><input style="width:30%;padding: 3px 10px 3px 3px; vertical-align:middle; font-size:13px" type="text" name="wpforo_member_options[register_url]" value="<?php wpfo(WPF()->member->options['register_url']) ?>" /></div>&nbsp;<label style="font-size:13px"><?php _e('Register URL', 'wpforo') ?></label></li>
+                        <li><div style="direction: ltr;"><?php echo trim(get_bloginfo('url'),'/'); ?><input style="width:30%;padding: 3px 10px 3px 3px; vertical-align:middle; font-size:13px" type="text" name="wpforo_member_options[lost_password_url]" value="<?php wpfo(WPF()->member->options['lost_password_url']) ?>" /></div>&nbsp;<label style="font-size:13px"><?php _e('Lost Password URL', 'wpforo') ?></label></li>
                     </ul>
                 </td>
 			</tr>
@@ -92,7 +92,7 @@
             <tr>
                 <th><label><?php _e('Member Custom Title by default', 'wpforo'); ?>:</label></th>
                 <td>
-                    <input class="wpf-field-small" type="text" name="wpforo_member_options[default_title]" value="<?php wpfo(WPF()->member->options['default_title']) ?>" />
+                    <input class="wpf-field-small" type="text" name="wpforo_member_options[default_title]" value="<?php wpfo(__(WPF()->member->options['default_title'], 'wpforo')) ?>" />
                 </td>
             </tr>
             <tr>
