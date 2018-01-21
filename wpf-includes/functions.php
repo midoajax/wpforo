@@ -852,7 +852,7 @@ function wpforo_admin_tools_tabs( $tabs, $current = 'antispam', $subtab = FALSE,
 			$tab =  esc_attr($tab);
 			$sub =  esc_attr($sub);
 			$name = esc_html($name);
-	        echo "<a class='nav-tab$class $class_attr' href='?page=wpforo-tools&tab=". ($subtab ? $current : $tab ) ."$sub' style='float:left'>$name</a>";
+	        echo "<a class='nav-tab$class $class_attr' href='?page=wpforo-tools&tab=". ($subtab ? $current : $tab ) ."$sub'>$name</a>";
 	    }
 	    echo '</h2>';
 	}

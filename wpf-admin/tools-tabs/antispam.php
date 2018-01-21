@@ -93,7 +93,7 @@
                         <tr>
                             <th colspan="2">
                             <label><?php _e('Do not allow to attach files with following extensions:', 'wpforo'); ?></label>
-                            <textarea name="wpforo_tools_antispam[limited_file_ext]" style="width:100%; height:60px; margin-top:10px;  color:#666666; background:#fdfdfd;"><?php echo esc_textarea(stripslashes(WPF()->tools_antispam['limited_file_ext'])); ?></textarea></td>
+                            <textarea name="wpforo_tools_antispam[limited_file_ext]" style="width:100%; height:60px; margin-top:10px;  color:#666666; background:#fdfdfd; direction: ltr;"><?php echo esc_textarea(stripslashes(WPF()->tools_antispam['limited_file_ext'])); ?></textarea></td>
                         </tr>	  	
                       </tbody>
                     </table>
@@ -117,13 +117,13 @@
                             <th style="width:35%;">
                             	<label ><?php _e('Site Key', 'wpforo'); ?>:</label>
                             </th>
-                            <td><input type="text" name="wpforo_tools_antispam[rc_site_key]" value="<?php wpfo(WPF()->tools_antispam['rc_site_key']) ?>" class="wpf-field" style="width: 100%" /></td>
+                            <td><input type="text" name="wpforo_tools_antispam[rc_site_key]" value="<?php wpfo(WPF()->tools_antispam['rc_site_key']) ?>" class="wpf-field" style="width: 100%; direction: ltr;" /></td>
                         </tr>
                         <tr>
                             <th style="width:35%;">
                             	<label ><?php _e('Secret Key', 'wpforo'); ?>:</label>
                             </th>
-                            <td><input type="text" name="wpforo_tools_antispam[rc_secret_key]" value="<?php wpfo(WPF()->tools_antispam['rc_secret_key']) ?>" class="wpf-field" style="width: 100%" /></td>
+                            <td><input type="text" name="wpforo_tools_antispam[rc_secret_key]" value="<?php wpfo(WPF()->tools_antispam['rc_secret_key']) ?>" class="wpf-field" style="width: 100%; direction: ltr;" /></td>
                         </tr>	  	
                       </tbody>
                     </table>

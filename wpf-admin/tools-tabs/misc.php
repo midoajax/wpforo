@@ -18,7 +18,7 @@
                             	<label style="padding-bottom:5px; display:block;"><?php _e('Allowed dofollow domains', 'wpforo'); ?>:</label>
                             	<p class="wpf-info"><?php _e('wpForo adds nofollow to all links with external URLs. If you want to keep some domains as internal please insert domains one per line in the textarea bellow.', 'wpforo'); ?></p>    
                             	<br>
-                                <textarea name="wpforo_tools_misc[dofollow]" style="font-size: 13px; display:block; width:100%; height:120px;" placeholder="example.com" /><?php wpfo(WPF()->tools_misc['dofollow']) ?></textarea></td>
+                                <textarea name="wpforo_tools_misc[dofollow]" style="font-size: 13px; display:block; width:100%; height:120px; direction: ltr;" placeholder="example.com" /><?php wpfo(WPF()->tools_misc['dofollow']) ?></textarea></td>
                         	</th>
                         </tr>
                         <tr>
@@ -26,7 +26,7 @@
                             	<label style="padding-bottom:5px; display:block;"><?php _e('Noindex forum page URLs', 'wpforo'); ?>:</label>
                             	<p class="wpf-info"><?php _e('The noIndex code tells Google and other search engines to NOT index the page, so that it cannot be found in search results. Please insert page URLs you do not want to be indexed one per line in the textarea bellow.', 'wpforo'); ?></p>    
                             	<br>
-                                <textarea name="wpforo_tools_misc[noindex]" style="font-size: 13px; display:block; width:100%; height:120px;" placeholder="https://myforum.com/community/main-forum/my-topic/" /><?php wpfo(WPF()->tools_misc['noindex']) ?></textarea></td>
+                                <textarea name="wpforo_tools_misc[noindex]" style="font-size: 13px; display:block; width:100%; height:120px; direction: ltr;" placeholder="https://myforum.com/community/main-forum/my-topic/" /><?php wpfo(WPF()->tools_misc['noindex']) ?></textarea></td>
                        		</th>
                         </tr>
                         </tbody>
