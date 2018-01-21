@@ -23,14 +23,14 @@
                 	<p class="wpf-info"><?php _e('In order to get an App ID and Secret Key from Facebook, you’ll need to register a new application. Don’t worry – its very easy, and your application doesn\'t need to do anything. We only need the keys.', 'wpforo'); ?> <a href="https://wpforo.com/community/faq/how-to-get-facebook-app-id-and-secret-key/" target="_blank"><?php _e('Please follow to this instruction', 'wpforo'); ?> &raquo;</a></p>
                 </th>
 				<td style="padding-top:15px;">
-					<input name="wpforo_api_options[fb_api_id]" placeholder="<?php _e('App ID', 'wpforo'); ?>" type="text" value="<?php echo trim(WPF()->api->options['fb_api_id']); ?>"/>&nbsp; <?php _e('App ID', 'wpforo'); ?><br />
-                    <input name="wpforo_api_options[fb_api_secret]" placeholder="<?php _e('App Secret', 'wpforo'); ?>" type="text" value="<?php echo trim(WPF()->api->options['fb_api_secret']); ?>"/>&nbsp; <?php _e('App Secret', 'wpforo'); ?>
+					<input style="direction: ltr;" name="wpforo_api_options[fb_api_id]" placeholder="<?php _e('App ID', 'wpforo'); ?>" type="text" value="<?php echo trim(WPF()->api->options['fb_api_id']); ?>"/>&nbsp; <?php _e('App ID', 'wpforo'); ?><br />
+                    <input style="direction: ltr;" name="wpforo_api_options[fb_api_secret]" placeholder="<?php _e('App Secret', 'wpforo'); ?>" type="text" value="<?php echo trim(WPF()->api->options['fb_api_secret']); ?>"/>&nbsp; <?php _e('App Secret', 'wpforo'); ?>
 				</td>
 			</tr>
             <tr>
                 <th>
                 	<label><?php _e('Facebook Login', 'wpforo'); ?></label>
-                	<p class="wpf-info"><?php _e('Adds Facebook Login button on Registration and Login pages.') ?></p>
+                	<p class="wpf-info"><?php _e('Adds Facebook Login button on Registration and Login pages.', 'wpforo') ?></p>
                 </th>
                 <td>
                     <div class="wpf-switch-field">
@@ -42,7 +42,7 @@
             <tr>
                 <th>
                 	<label><?php _e('Facebook SDK for JavaScript', 'wpforo'); ?></label>
-                	<p class="wpf-info"><?php _e('Facebook API connection script (sharing, login, cross-posting...)') ?></p>
+                	<p class="wpf-info"><?php _e('Facebook API connection script (sharing, login, cross-posting...)', 'wpforo') ?></p>
                 </th>
                 <td>
                     <div class="wpf-switch-field">
@@ -83,7 +83,7 @@
                     	   <input type="radio" value="home" name="wpforo_api_options[fb_redirect]" id="fb_redirect_1" <?php wpfo_check(WPF()->api->options['fb_redirect'], 'home'); ?>><label for="fb_redirect_1">&nbsp;<?php _e('Forums', 'wpforo'); ?>&nbsp;</label> &nbsp;
                     	   <input type="radio" value="custom" name="wpforo_api_options[fb_redirect]" id="fb_redirect_3" <?php wpfo_check(WPF()->api->options['fb_redirect'], 'custom'); ?>><label for="fb_redirect_3">&nbsp;<?php _e('Custom', 'wpforo'); ?>&nbsp;</label> &nbsp;
                     </div>
-                    <input style="margin-top:10px; padding:3px 5px; font-size:13px; width:48%;" name="wpforo_api_options[fb_redirect_url]" placeholder="<?php _e('Custom URL, e.g.: http://example.com/my-page/', 'wpforo'); ?>" type="text" value="<?php echo trim(WPF()->api->options['fb_redirect_url']); ?>"/>&nbsp; <?php _e('Custom URL', 'wpforo'); ?>
+                    <input style="margin-top:10px; padding:3px 5px; font-size:13px; width:48%; direction: ltr;" name="wpforo_api_options[fb_redirect_url]" placeholder="<?php _e('Custom URL, e.g.: http://example.com/my-page/', 'wpforo'); ?>" type="text" value="<?php echo trim(WPF()->api->options['fb_redirect_url']); ?>"/>&nbsp; <?php _e('Custom URL', 'wpforo'); ?>
                 </td>
             </tr>
             <?php do_action('wpforo_settings_api_bottom'); ?>

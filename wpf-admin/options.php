@@ -5,7 +5,7 @@
 ?>
 
 <?php $plugins = true; ?>
-<div id="icon-tools" class="icon32"><br></div><div class="wrap"><h2 style="padding:20px 0px 30px 0px;line-height: 20px;"><?php _e('Forum Settings') ?></h2></div>
+<div id="icon-tools" class="icon32"><br></div><div class="wrap"><h2 style="padding:20px 0px 30px 0px;line-height: 20px;"><?php _e('Forum Settings', 'wpforo') ?></h2></div>
 <?php WPF()->notice->show(FALSE) ?>
 <?php do_action('wpforo_settings_page_top') ?>
 <div id="wpf-admin-wrap" class="wrap"><div id="icon-users" class="icon32"><br /></div>
