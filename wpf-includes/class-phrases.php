@@ -234,7 +234,7 @@ class wpForoPhrase{
 		if(!empty($langs)){
 			foreach($langs as $lang) : 
 				extract($lang, EXTR_OVERWRITE); ?>
-				<option value="<?php echo esc_attr($langid) ?>"<?php if($langid == WPF()->general_options['lang']) echo ' selected' ?>><?php echo esc_html($name) ?></option>
+				<option value="<?php echo esc_attr($langid) ?>"<?php if($langid == WPF()->general_options['lang']) echo ' selected' ?>><?php echo esc_html(__($name)) ?></option>
 				<?php 
 			endforeach;
 		}

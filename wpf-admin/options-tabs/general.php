@@ -16,8 +16,10 @@
 						</th>
 						<td align="left">
                             <?php if(!WPF()->use_home_url): ?>
-                            	<span style="font-size:14px;"><?php echo esc_url( home_url('/') ) ?></span>
-                                <input required id="wpforourl" type="text" name="wpforo_url" value="<?php echo esc_attr( urldecode( WPF()->permastruct ) ) ?>" style="width:47%;"/>/<br>
+								<div style="direction: ltr;">
+									<span style="font-size:14px;"><?php echo esc_url( home_url('/') ) ?></span>
+									<input required id="wpforourl" type="text" name="wpforo_url" value="<?php echo esc_attr( urldecode( WPF()->permastruct ) ) ?>" style="width:47%;"/>/<br>
+								</div>
                             <?php endif; ?>
                             <label for="wpforo_use_home_url">
 							<input id="wpforo_use_home_url" type="checkbox" name="wpforo_use_home_url" value="1" <?php echo (WPF()->use_home_url ? 'checked' : '') ?>/>
@@ -60,7 +62,7 @@
                         </th>
 						<td>
                         	<input type="number" name="wpforo_general_options[menu_position]" value="<?php if(!isset(WPF()->general_options['menu_position'])) WPF()->general_options['menu_position'] = 23; wpfo(WPF()->general_options['menu_position']); ?>"/>&nbsp;
-                        	<a href="https://developer.wordpress.org/reference/functions/add_menu_page/" target="_blank" style="text-decoration:none;">More info &raquo;</a>
+                        	<a href="https://developer.wordpress.org/reference/functions/add_menu_page/" target="_blank" style="text-decoration:none;"><?php _e('More info &raquo;', 'wpforo'); ?></a>
                         </td>
 					</tr>
 					<tr>
@@ -69,10 +71,10 @@
                         	<p class="wpf-info"><?php _e('This option is only related to XML language files. You should upload a translation XML file to have a new language option in this drop-down. If you are using PO/MO translation files you should change WordPress Language in Dashboard > Settings admin page to load according translation for wpForo.', 'wpforo'); ?></p>
                         </th>
 						<td>
-                        	<select id="langid" name="wpforo_general_options[lang]" style="float:left;">
+                        	<select id="langid" name="wpforo_general_options[lang]" style="display: inline-block;">
                         		<?php  WPF()->phrase->show_lang_list() ?>
 							</select>
-							<h2 style="margin: 0;padding: 0;float: left;"><a href="<?php echo admin_url( 'admin.php?page=wpforo-settings&tab=general&action=newlang' ) ?>" class="add-new-h2"><?php _e('Add New', 'wpforo'); ?></a></h2>
+							<h2 style="margin: 0;padding: 0;display: inline-block;"><a href="<?php echo admin_url( 'admin.php?page=wpforo-settings&tab=general&action=newlang' ) ?>" class="add-new-h2"><?php _e('Add New', 'wpforo'); ?></a></h2>
 						</td>
 					</tr>
                     <?php do_action( 'wpforo_settings_general'); ?>
