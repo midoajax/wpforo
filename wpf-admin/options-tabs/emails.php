@@ -14,14 +14,14 @@
             </tr>
             <tr>
                 <th><label for="from_email"><?php _e('FROM Email Address', 'wpforo'); ?>:</label></th>
-                <td><input id="from_email" name="wpforo_subscribe_options[from_email]" type="text" value="<?php wpfo(WPF()->sbscrb->options['from_email']); ?>" required /></td>
+                <td><input style="direction: ltr;" id="from_email" name="wpforo_subscribe_options[from_email]" type="text" value="<?php wpfo(WPF()->sbscrb->options['from_email']); ?>" required /></td>
             </tr>
             <tr>
                 <th>
                     <label for="admin_emails"><?php _e('Forum Admins email addresses', 'wpforo'); ?>:</label>
                     <p class="wpf-info"><?php _e('Comma separated email addresses of forum administrators to get forum notifications. For example post report messages.', 'wpforo') ?></p>
                 </th>
-                <td><input id="admin_emails" name="wpforo_subscribe_options[admin_emails]" type="text" value="<?php wpfo(WPF()->sbscrb->options['admin_emails']); ?>" required /></td>
+                <td><input style="direction: ltr;" id="admin_emails" name="wpforo_subscribe_options[admin_emails]" type="text" value="<?php wpfo(WPF()->sbscrb->options['admin_emails']); ?>" required /></td>
             </tr>
             <tr>
                 <th>

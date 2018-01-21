@@ -63,7 +63,7 @@ $options = array(
                         <div class="wpf-switch-field">
                             <input type="radio" value="1" name="wpforo_features[<?php echo esc_attr($key); ?>]" id="wpf_<?php echo esc_attr($key); ?>_1" <?php wpfo_check(WPF()->features[$key], 1); ?>><label for="wpf_<?php echo esc_attr($key); ?>_1"><?php _e('Yes', 'wpforo'); ?></label> &nbsp;
                             <input type="radio" value="0" name="wpforo_features[<?php echo esc_attr($key); ?>]" id="wpf_<?php echo esc_attr($key); ?>_0" <?php wpfo_check(WPF()->features[$key], 0); ?>><label for="wpf_<?php echo esc_attr($key); ?>_0"><?php _e('No', 'wpforo'); ?></label>
-                        	<?php if($key == 'copyright') echo '<span style="color:#009900; font-weight:400; font-size:14px;">&nbsp;Thank you!</span>'; ?>
+                        	<?php if($key == 'copyright') echo '<span style="color:#009900; font-weight:400; font-size:14px;">' . __('&nbsp;Thank you!', 'wpforo') . '</span>'; ?>
                         </div>
                     </td>
                 </tr>
