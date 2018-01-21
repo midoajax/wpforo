@@ -113,7 +113,7 @@
                       	<tr>
                           <td><h4><?php _e('Level', 'wpforo'); ?> <?php echo esc_html($level) ?></h4></td>
                           <td><input type="number" value="<?php echo WPF()->member->rating($level, 'points') ?>" name="wpforo_member_options[rating][<?php echo esc_attr($level) ?>][points]" placeholder="<?php _e('Number of Posts', 'wpforo'); ?>"></td>
-                          <td style="text-align:center;"><input type="text" value="<?php echo WPF()->member->rating($level, 'title') ?>" name="wpforo_member_options[rating][<?php echo esc_attr($level) ?>][title]" placeholder="<?php _e('Custom Title', 'wpforo'); ?>"></td>
+                          <td style="text-align:center;"><input type="text" value="<?php _e(WPF()->member->rating($level, 'title'), 'wpforo'); ?>" name="wpforo_member_options[rating][<?php echo esc_attr($level) ?>][title]" placeholder="<?php _e('Custom Title', 'wpforo'); ?>"></td>
                           <td style="text-align:center;"><div class="wpf-badge-short wpf-badge-level-<?php echo esc_attr($level) ?>" style="background-color:<?php echo WPF()->member->rating($level, 'color') ?>;"><?php echo WPF()->member->rating_badge($level, 'short'); ?></div></td>
                           <td style="text-align:center;"><div class="wpf-badge-full wpf-badge-level-<?php echo esc_attr($level) ?>" style="color:<?php echo WPF()->member->rating($level, 'color') ?>;"><?php echo WPF()->member->rating_badge($level, 'full'); ?></div></td>
                           <td style="text-align:center;"><input type="color" value="<?php echo WPF()->member->rating($level, 'color') ?>" name="wpforo_member_options[rating][<?php echo esc_attr($level) ?>][color]" placeholder="<?php _e('Color', 'wpforo'); ?>"></td>

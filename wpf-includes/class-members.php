@@ -1166,7 +1166,7 @@ class wpForoMember{
 		$rating = array();
 		$rating['color'] = array( 0 => '#d2d2d2', 1 => '#4dca5c', 2 => '#4dca5c', 3 => '#4dca5c', 4 => '#4dca5c', 5 => '#4dca5c', 6 => '#E5D600', 7 => '#E5D600', 8 => '#E5D600', 9 => '#FF812D', 10 => '#E04A47' );
 		$rating['points'] = array( 0 => 0, 1 => 5, 2 => 20, 3 => 50, 4 => 100, 5 => 250, 6 => 500, 7 => 750, 8 => 1000, 9 => 2500, 10 => 5000 );
-		$rating['title'] = array( 0 => 'New Member', 1 => 'Active Member', 2 => 'Eminent Member', 3 => 'Trusted Member', 4 => 'Estimable Member', 5 => 'Reputable  Member', 6 => 'Honorable Member', 7 => 'Prominent Member', 8 => 'Noble Member', 9 => 'Famed Member', 10 => 'Illustrious Member' );
+		$rating['title'] = array( 0 => __('New Member', 'wpforo'), 1 => __('Active Member', 'wpforo'), 2 => __('Eminent Member', 'wpforo'), 3 => __('Trusted Member', 'wpforo'), 4 => __('Estimable Member', 'wpforo'), 5 => __('Reputable  Member', 'wpforo'), 6 => __('Honorable Member', 'wpforo'), 7 => __('Prominent Member', 'wpforo'), 8 => __('Noble Member', 'wpforo'), 9 => __('Famed Member', 'wpforo'), 10 => __('Illustrious Member', 'wpforo') );
 		$rating['icon']  = array( 0 => 'fa-star-half-o', 1 => 'fa-star', 2 => 'fa-star', 3 => 'fa-star', 4 => 'fa-star', 5 => 'fa-star', 6 => 'fa-certificate', 7 => 'fa-certificate', 8 => 'fa-certificate', 9 => 'fa-shield', 10 => 'fa-trophy' );
 		
 		if(!empty(WPF()->member->options['rating'])){
