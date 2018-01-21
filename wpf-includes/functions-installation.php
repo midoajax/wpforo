@@ -335,8 +335,8 @@ function wpforo_activation(){
 	$sql = "SELECT COUNT(*) FROM `".WPF()->db->prefix."wpforo_forums`";
 	$count = WPF()->db->get_var($sql);
 	if(!$count){
-		if( $parentid = WPF()->forum->add( array( 'title' => 'Main Category', 'description' => 'This is a simple category / section' ), FALSE ) ){
-			WPF()->forum->add( array( 'title' => 'Main Forum', 'description' => 'This is a simple parent forum', 'parentid' => $parentid, 'icon' => 'fa-comments' ), FALSE );
+		if( $parentid = WPF()->forum->add( array( 'title' => __('Main Category', 'wpforo'), 'description' => __('This is a simple category / section', 'wpforo') ), FALSE ) ){
+			WPF()->forum->add( array( 'title' => __('Main Forum', 'wpforo'), 'description' => __('This is a simple parent forum', 'wpforo'), 'parentid' => $parentid, 'icon' => 'fa-comments' ), FALSE );
 		}
 	}
 	
