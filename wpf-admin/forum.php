@@ -162,7 +162,7 @@
                                 
                                 <div id="forum_permissions" class="postbox" style="display: block; ">
 									<div class="handlediv" title="Click to toggle"><br></div>
-									<h3 class="hndle"><span>Forum Permissions</span></h3>
+									<h3 class="hndle"><span><?php _e('Forum Permissions', 'wpforo'); ?></span></h3>
 									<div class="inside">
 										<table>
 											<?php WPF()->forum->permissions(); ?>
