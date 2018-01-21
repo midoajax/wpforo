@@ -128,7 +128,7 @@
 #wpf-admin-wrap .nav-tab{ padding: 7px 12px; }
 #wpf-admin-wrap .nav-tab-active, 
 #wpf-admin-wrap .nav-tab-active:hover{ background-color:#FFFFFF; border-bottom-color:#FFFFFF; }
-#wpf-admin-wrap .wpf-info-bar { background: none repeat scroll 0 0 #fff; border: 1px solid #e5e5e5;  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05); font-size: 13px; line-height: 2.1em;  margin:0px; overflow: auto; padding: 10px 15px 15px 15px; position: relative; border-top:none; }
+#wpf-admin-wrap .wpf-info-bar { background: none repeat scroll 0 0 #fff; border: 1px solid #e5e5e5;  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.05); font-size: 13px; line-height: 2.1em;  margin:0px; overflow: auto; overflow: -webkit-paged-x; padding: 10px 15px 15px 15px; position: relative; border-top:none; }
 #wpf-admin-wrap .major-publishing-actions{ margin-top:20px; }
 #wpf-admin-wrap .wpf-label-big{ font-size:16px; display:table; margin-bottom:13px; margin-top:10px; }
 #wpf-admin-wrap .wpf-field-small{ width:25% }

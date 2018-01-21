@@ -117,7 +117,7 @@
                           <td style="text-align:center;"><div class="wpf-badge-short wpf-badge-level-<?php echo esc_attr($level) ?>" style="background-color:<?php echo WPF()->member->rating($level, 'color') ?>;"><?php echo WPF()->member->rating_badge($level, 'short'); ?></div></td>
                           <td style="text-align:center;"><div class="wpf-badge-full wpf-badge-level-<?php echo esc_attr($level) ?>" style="color:<?php echo WPF()->member->rating($level, 'color') ?>;"><?php echo WPF()->member->rating_badge($level, 'full'); ?></div></td>
                           <td style="text-align:center;"><input type="color" value="<?php echo WPF()->member->rating($level, 'color') ?>" name="wpforo_member_options[rating][<?php echo esc_attr($level) ?>][color]" placeholder="<?php _e('Color', 'wpforo'); ?>"></td>
-                          <td><input type="text" value="<?php echo WPF()->member->rating($level, 'icon') ?>" name="wpforo_member_options[rating][<?php echo esc_attr($level) ?>][icon]" placeholder="<?php _e('Badge Icon', 'wpforo'); ?>"></td>
+                          <td><input style="direction: ltr;" type="text" value="<?php echo WPF()->member->rating($level, 'icon') ?>" name="wpforo_member_options[rating][<?php echo esc_attr($level) ?>][icon]" placeholder="<?php _e('Badge Icon', 'wpforo'); ?>"></td>
                        </tr>
                       <?php endforeach; ?>
                       <?php $ugroups = WPF()->usergroup->usergroup_list_data(); ?>
