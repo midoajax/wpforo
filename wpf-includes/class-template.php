@@ -1165,9 +1165,13 @@ class wpForoTemplate{
 	
 	function show_layout_selectbox($layoutid = 0){
 		$layouts = $this->find_layouts( WPFORO_THEME );
+		// Just to add these to translation dictionary
+		__('Extended', 'wpforo');
+		__('Simplified', 'wpforo');
+		__('QA', 'wpforo');
 		if( !empty($layouts) ){
 			foreach( $layouts as $layout ) : ?>  
-				<option value="<?php echo esc_attr(trim($layout['id'])) ?>" <?php echo ( $layoutid == $layout['id'] ? 'selected' : '' ); ?> ><?php echo esc_html($layout['name']) ?></option>
+				<option value="<?php echo esc_attr(trim($layout['id'])) ?>" <?php echo ( $layoutid == $layout['id'] ? 'selected' : '' ); ?> ><?php echo esc_html(__($layout['name'], 'wpforo')); ?></option>
 				<?php
 			endforeach;
 		}

@@ -757,7 +757,7 @@ class wpForoForum{
 					extract($usergroup, EXTR_OVERWRITE);
 					echo '
 						<tr>
-							<td>'.esc_html($name).'</td>
+							<td>'.esc_html(__($name, 'wpforo')).'</td>
 							<td>
 								<select name="forum[permission]['.intval($groupid).']">';
 									foreach($access_arr as $value){
