@@ -77,7 +77,7 @@ class wpForoUsergroup{
 		return $ugdata;
 	}
 	
-	function add($title, $cans = array(), $description = '', $role = 'subscriber', $access = 'standard', $color = '' ){
+	function add($title, $cans = array(), $description = '', $role = 'subscriber', $access = 'standard', $color = '', $visible = 1 ){
 		$i = 2;
 		$real_title = $title;
 		while( WPF()->db->get_var(
@@ -100,7 +100,8 @@ class wpForoUsergroup{
 					'utitle' => sanitize_text_field($real_title), 
 					'role' => $role,
 					'access' => $access,
-					'color' => $color
+					'color' => $color,
+					'visible' => $visible
 				),
 				array( 
 					'%s',
@@ -109,7 +110,8 @@ class wpForoUsergroup{
 					'%s',
 					'%s',
 					'%s',
-					'%s'
+					'%s',
+					'%d'
 				)
 			)
 		){
@@ -135,7 +137,7 @@ class wpForoUsergroup{
 		return FALSE;
 	}
 	
-	function edit( $groupid, $title, $cans, $description = '', $role = NULL, $access = NULL, $color = ''  ){
+	function edit( $groupid, $title, $cans, $description = '', $role = NULL, $access = NULL, $color = '', $visible = 1 ){
 		
 		if( $groupid == 1 ) return false;
 		if( !current_user_can('administrator') ){
@@ -157,7 +159,8 @@ class wpForoUsergroup{
 					'utitle' => $usergroup['utitle'],
 					'role' => $role,
 					'access' => $access,
-					'color' => $color
+					'color' => $color,
+					'visible' => $visible
 				),
 				array( 'groupid' => intval($groupid) ),
 				array( 
@@ -167,7 +170,8 @@ class wpForoUsergroup{
 					'%s',
 					'%s',
 					'%s',
-					'%s'
+					'%s',
+					'%d'
 				),
 				array( '%d' ))
 		){
@@ -260,4 +264,10 @@ class wpForoUsergroup{
 			echo '<option value="'.esc_attr($ugroup['groupid']).'" '.($groupid == $ugroup['groupid'] ? 'selected' : '').'>' . esc_html( __($ugroup['name'], 'wpforo') ) . '</option>';
 		}
 	}
+	
+	function get_visible_usergroup_ids(){
+		return $results = WPF()->db->get_col("SELECT `groupid` FROM `".WPF()->db->prefix."wpforo_usergroups` WHERE `visible` = 1");
+	
+	}
+	
 }

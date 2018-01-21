@@ -495,7 +495,7 @@ function wpforo_activation(){
 	if( !wpforo_db_check( $args ) ){
 		@$wpdb->query( "ALTER TABLE `" . $wpdb->prefix . "wpforo_posts` ADD `private` TINYINT(1) NOT NULL DEFAULT 0, ADD INDEX `is_private` (`private`)" );
 	}
-
+	#################################################################
 	// ADD `unique_vote` KEY in post Votes  ///////////////////////////
 	$args = array( 'table' => $wpdb->prefix . 'wpforo_votes', 'col' => 'unique_vote', 'check' => 'key_exists' );
 	if( !wpforo_db_check( $args ) ){
@@ -503,6 +503,31 @@ function wpforo_activation(){
         if( wpforo_db_check( $args ) ) @$wpdb->query( "ALTER TABLE `" . $wpdb->prefix . "wpforo_votes` DROP KEY `userid`" );
 		@$wpdb->query( "ALTER TABLE `" . $wpdb->prefix . "wpforo_votes` ADD UNIQUE KEY `unique_vote` (`userid`, `postid`, `reaction`)" );
 	}
+	#################################################################
+	//Add user_name col in subsciption table///////////////////////////
+    $args = array( 'table' => $wpdb->prefix . 'wpforo_subscribes', 'col' => 'user_name', 'check' => 'col_exists' );
+    if( !wpforo_db_check( $args ) ){
+        @$wpdb->query( "ALTER TABLE `" . $wpdb->prefix . "wpforo_subscribes` ADD `user_name` VARCHAR(255) NOT NULL DEFAULT ''" );
+    }
+    //Add user_email col in subsciption table
+    $args = array( 'table' => $wpdb->prefix . 'wpforo_subscribes', 'col' => 'user_email', 'check' => 'col_exists' );
+    if( !wpforo_db_check( $args ) ){
+        @$wpdb->query( "ALTER TABLE `" . $wpdb->prefix . "wpforo_subscribes` ADD `user_email` VARCHAR(255) NOT NULL DEFAULT ''" );
+    }
+    //Add indexes for subscribe new fields
+    $args = array( 'table' => $wpdb->prefix . 'wpforo_subscribes', 'col' => 'fld_group_unq', 'check' => 'key_exists' );
+    if( !wpforo_db_check( $args ) ){
+        $args = array( 'table' => $wpdb->prefix . 'wpforo_subscribes', 'col' => 'itemid', 'check' => 'key_exists' );
+        if( wpforo_db_check( $args ) ) @$wpdb->query( "ALTER TABLE `" . $wpdb->prefix . "wpforo_subscribes` DROP KEY `itemid`" );
+        @$wpdb->query( "ALTER TABLE `" . $wpdb->prefix . "wpforo_subscribes` ADD UNIQUE KEY `fld_group_unq`( `itemid`, `type`, `userid`, `user_email` )" );
+    }
+	#################################################################
+	// ADD `visible` field in usergroups TABLE  ///////////////////////////
+	$args = array( 'table' => $wpdb->prefix . 'wpforo_usergroups', 'col' => 'visible', 'check' => 'col_exists' );
+	if( !wpforo_db_check( $args ) ){
+		@$wpdb->query( "ALTER TABLE `" . $wpdb->prefix . "wpforo_usergroups` ADD `visible` TINYINT(1) NOT NULL DEFAULT 1;" );
+	}
+
 
 	#################################################################
 	// CHECK Addon Notice /////////////////////////////////////////

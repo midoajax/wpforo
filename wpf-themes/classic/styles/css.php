@@ -282,15 +282,12 @@ $css = '/* wpForo Dynamic CSS Document */
 #wpforo-wrap .wpforo-members-wrap td.wpf-members-regdate-head{ border-bottom:1px solid '. $WPFCOLOR_8 .'; }
 #wpforo-wrap .wpforo-members-wrap td.wpf-members-foot { border-top:1px solid '. $WPFCOLOR_8 .'; }
 
-#wpforo-wrap .wpforo-register-wrap .wpforo-register-content { border-top:'. $WPFCOLOR_8 .' 1px solid; border-bottom:'. $WPFCOLOR_8 .' 1px solid; border-top: 35px solid '. $WPFCOLOR_7 .'!important; border-bottom: 2px solid '. $WPFCOLOR_7 .'!important; }
-#wpforo-wrap .wpforo-login-wrap .wpforo-login-content { border-top:'. $WPFCOLOR_8 .' 1px solid; border-bottom:'. $WPFCOLOR_8 .' 1px solid; border-top: 35px solid '. $WPFCOLOR_7 .'!important; border-bottom: 2px solid '. $WPFCOLOR_7 .'!important; }
-
-#wpforo-wrap .wpforo-login-wrap .wpforo-login-content { border-top:'. $WPFCOLOR_8 .' 1px solid;  border-bottom:'. $WPFCOLOR_8 .' 1px solid; }
-#wpforo-wrap .wpforo-login-wrap td.wpf-login-label{ border-right:'. $WPFCOLOR_1 .' 1px solid; border-bottom:'. $WPFCOLOR_1 .' 1px solid; }
-#wpforo-wrap .wpforo-login-wrap td.wpf-login-field{ border-bottom:'. $WPFCOLOR_1 .' 1px solid; }
-#wpforo-wrap .wpforo-login-wrap table {border-top: 40px solid '. $WPFCOLOR_7 .'!important; border-bottom: 2px solid '. $WPFCOLOR_7 .'!important;}
-#wpforo-wrap .wpforo-login-wrap table tr {background-color: '. $WPFCOLOR_9 .';}
-
+#wpforo-wrap .wpforo-register-wrap .wpforo-register-content { border-top:'. $WPFCOLOR_12 .' 1px solid; border-bottom:'. $WPFCOLOR_7 .' 1px solid; padding: 40px 1%; }
+#wpforo-wrap .wpforo-register-wrap .wpforo-register-content h3{color:'. $WPFCOLOR_3 .'}
+#wpforo-wrap .wpforo-login-wrap .wpforo-login-content { border-top:'. $WPFCOLOR_12 .' 1px solid; border-bottom:'. $WPFCOLOR_7 .' 1px solid; padding: 40px 1%; }
+#wpforo-wrap .wpforo-login-wrap .wpforo-login-content .wpforo-login-table{ padding:1%; }
+#wpforo-wrap .wpforo-login-wrap .wpforo-login-content .wpforo-login-table .wpf-field{border-bottom:none;}
+#wpforo-wrap .wpforo-login-wrap .wpforo-login-content h3{color:'. $WPFCOLOR_3 .'}
 
 #wpforo-wrap .wpforo-404-wrap .wpforo-404-content { border-top:'. $WPFCOLOR_8 .' 1px solid; border-bottom:'. $WPFCOLOR_8 .' 1px solid; }
 #wpforo-wrap .wpforo-404-wrap .wpf-search-box { border:'. $WPFCOLOR_7 .' 1px dashed; }
@@ -454,6 +451,8 @@ $css = '/* wpForo Dynamic CSS Document */
 #wpforo-wrap.wpf-dark #wpf-post-create {border: none;}
 #wpforo-wrap.wpf-dark #wpf-topic-create {border: none;}
 #wpforo-wrap.wpf-dark #wpforo-description{color:'. $WPFCOLOR_5 .'}
+#wpforo-wrap.wpf-dark .wpforo-login-wrap .wpforo-login-table{background-color: transparent;}
+#wpforo-wrap.wpf-dark .wpforo-login-wrap .wpforo-login-content > h3, #wpforo-wrap .wpforo-register-wrap .wpforo-register-content > h3{color:'. $WPFCOLOR_5 .'}
 ';
 
 

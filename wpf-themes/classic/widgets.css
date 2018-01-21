@@ -26,9 +26,9 @@
 .wpforo-widget-wrap .wpforo-widget-content li{padding:8px 0px!important; margin:0px; list-style:none; border:none;}
 .wpforo-widget-wrap .wpforo-widget-content .avatar{border-radius: 50%;}
 .wpforo-widget-wrap .wpforo-widget-content .wpf-widget-note{ font-size:13px; line-height:18px;}
-.wpforo-widget-wrap .wpforo-widget-content .wpforo-list-item-left{float:left; width:14%;}
-.wpforo-widget-wrap .wpforo-widget-content .wpforo-list-item-left img{ width:3vw; height:vw; max-width:100%!important;}
-.wpforo-widget-wrap .wpforo-widget-content .wpforo-list-item-right{float:right; width:84%;}
+.wpforo-widget-wrap .wpforo-widget-content .wpforo-list-item-left{float:left; width:16%;}
+.wpforo-widget-wrap .wpforo-widget-content .wpforo-list-item-left img{ width:3vw; height:3vw; max-width:100%!important;}
+.wpforo-widget-wrap .wpforo-widget-content .wpforo-list-item-right{float:right; width:80%;}
 #wpforo-wrap .wpforo-widget-wrap .wpforo-widget-content li:last-child{border:none;}
 #wpf-widget-recent-replies .wpforo-list-item-right p.posttitle{font-size:14px; padding:0px; margin:0px; line-height:18px; font-weight:normal;}
 #wpf-widget-recent-replies .wpforo-list-item-right p.posttext{font-size:13px!important; padding:0px; margin:5px 0px 0px; line-height:17px;}

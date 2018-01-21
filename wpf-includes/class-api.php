@@ -3,7 +3,8 @@
 	if( !defined( 'ABSPATH' ) ) exit;
 
 class wpForoAPI{
-	
+	private $default;
+	public $options;
 	public $locale = 'en_US';
 	public $locales = array( 'af_ZA', 'ar_AR', 'az_AZ', 'be_BY', 'bg_BG', 'bn_IN', 'bs_BA', 'ca_ES', 'cs_CZ', 'cy_GB', 'da_DK', 'de_DE', 'el_GR', 'en_US', 
 							 'en_GB', 'eo_EO', 'es_ES', 'es_LA', 'et_EE', 'eu_ES', 'fa_IR', 'fb_LT', 'fi_FI', 'fo_FO', 'fr_FR', 'fr_CA', 'fy_NL', 'ga_IE', 
@@ -37,9 +38,15 @@ class wpForoAPI{
     }
 	
 	public function hooks(){
+		
+		$template = WPF()->current_object['template'];
+		
+		###############################################################################
+		############### Facebook API ##################################################
+		###############################################################################
+		
 		if(!is_user_logged_in()){
 			if( $this->options['fb_login'] ){
-				$template = WPF()->current_object['template'];
 				if( $template == 'login' || $template == 'register' ){
 					add_action('wp_enqueue_scripts', array($this, 'fb_enqueue'));
 					if( $this->options['fb_load_sdk'] ){
@@ -56,6 +63,63 @@ class wpForoAPI{
 				add_action('wp_ajax_nopriv_wpforo_facebook_auth', array($this, 'fb_auth'));
 			}
 		}
+		
+		###############################################################################
+		############### reCAPTCHA API #################################################
+		###############################################################################
+		
+		$site_key = WPF()->tools_antispam['rc_site_key'];
+		$secret_key = WPF()->tools_antispam['rc_secret_key'];
+		
+		if( !is_user_logged_in() && $site_key && $secret_key ){
+			
+			$rc_reg_form = WPF()->tools_antispam['rc_reg_form'];
+			$rc_login_form = WPF()->tools_antispam['rc_login_form'];
+			$rc_lostpass_form = WPF()->tools_antispam['rc_lostpass_form'];
+			$rc_wpf_reg_form = WPF()->tools_antispam['rc_wpf_reg_form'];
+			$rc_wpf_login_form = WPF()->tools_antispam['rc_wpf_login_form'];
+			$rc_wpf_lostpass_form = WPF()->tools_antispam['rc_wpf_lostpass_form'];
+			$rc_post_editor = WPF()->tools_antispam['rc_post_editor'];
+			$rc_topic_editor = WPF()->tools_antispam['rc_topic_editor'];
+
+			add_filter('script_loader_tag', array(&$this,'rc_enqueue_async'), 10, 3);
+			
+			//Verification Hooks: Login / Register / Reset Pass 
+			if( $rc_login_form || $rc_wpf_login_form ) add_filter('wp_authenticate_user', array($this, 'rc_verify_wp_login'), 15, 2);
+			if( $rc_reg_form || $rc_wpf_reg_form ) add_filter('registration_errors', array($this, 'rc_verify_wp_register'), 10, 3);
+			if( $rc_lostpass_form || $rc_wpf_lostpass_form ) add_action('lostpassword_post', array($this, 'rc_verify_wp_lostpassword'), 10);
+			
+			//Load reCAPTCHA API and Widget on wp-login.php
+			if( $rc_reg_form || $rc_login_form || $rc_lostpass_form ){
+				add_action('login_enqueue_scripts', array($this, 'rc_enqueue'));
+				add_action('login_enqueue_scripts', array($this, 'rc_enqueue_css'));
+				if( $rc_login_form && $template != 'login' ) add_action('login_form', array($this, 'rc_widget'));
+				if( $rc_reg_form && $template != 'register') add_action('register_form', array($this, 'rc_widget'));
+				if( $rc_lostpass_form && $template != 'lostpassword' )add_action('lostpassword_form', array( $this, 'rc_widget'));
+			}
+			
+			//Load reCAPTCHA API on wpForo pages: Login / Register / Reset Pass 
+			if( $template == 'login' || $template == 'register' || $template == 'lostpassword'){
+				if( $rc_wpf_reg_form || $rc_wpf_login_form || $rc_wpf_lostpass_form ){
+					add_action('wp_enqueue_scripts', array($this, 'rc_enqueue'));
+				}
+			} 
+			
+			//Load reCAPTCHA Widget wpForo forms: Login / Register / Reset Pass 
+			if( $rc_wpf_login_form && $template == 'login' ) add_action('login_form', array($this, 'rc_widget'));
+			if( $rc_wpf_reg_form && $template == 'register') add_action('register_form', array($this, 'rc_widget'));
+			if( $rc_wpf_lostpass_form && $template == 'lostpassword' ) add_action('lostpassword_form', array( $this, 'rc_widget'));
+			
+			//Load reCAPTCHA API and Widget for Topic and Post Editor
+			if( $template == 'forum' || $template == 'topic' || $template == 'post' ){
+				add_action('wp_enqueue_scripts', array($this, 'rc_enqueue'));
+				add_action('wpforo_verify_form_end', array($this, 'rc_verify'));
+				add_action('wpforo_topic_form_extra_fields_after', array($this, 'rc_widget'));
+				add_action('wpforo_reply_form_extra_fields_after', array($this, 'rc_widget'));
+			}
+		}
+		
+		###############################################################################
 	}
 	
 	public function fb_local(){
@@ -64,7 +128,7 @@ class wpForoAPI{
 			return $wplocal;
 		}
 		else{
-			return $this->local;
+			return $this->locale;
 		}
 	}
 	
@@ -167,6 +231,110 @@ class wpForoAPI{
             <img data-no-lazy="1" src="<?php echo WPFORO_URL . '/wpf-assets/images/loading.gif'; ?>" class="wpforo_fb-spinner" style="display:none"/> 
 		</div>
         <?php
+	}
+	
+	public function rc_enqueue() {
+		$theme = WPF()->tools_antispam['rc_theme'];
+		$site_key = WPF()->tools_antispam['rc_site_key'];
+		wp_register_script( 'wpforo_recaptcha', 'https://www.google.com/recaptcha/api.js?onload=wpForoReCallback&render=explicit' );
+		wp_enqueue_script( 'wpforo_recaptcha' );
+		wp_localize_script('wpforo_recaptcha', 'wpForoRC', 
+			array( 	'wpforo_rc_site_key' => $site_key, 'wpforo_rc_theme' => $theme )
+		);
+	}
+	
+	public function rc_enqueue_async( $tag, $handle, $src ) {
+		if ( $handle == 'wpforo_recaptcha' ) return str_replace( '<script', '<script async defer', $tag );
+		return $tag;
+	} 
+	
+	public function rc_enqueue_css() {
+		wp_register_style( 'wpforo-rc-style', false );
+		wp_enqueue_style( 'wpforo-rc-style' );
+        $custom_css = "#wpforo_recaptcha_widget{ -webkit-transform:scale(0.9); transform:scale(0.9); -webkit-transform-origin:left 0; transform-origin:left 0; }";
+        wp_add_inline_style( 'wpforo-rc-style', $custom_css );
+	}
+	
+	public function rc_widget() {
+		$site_key = WPF()->tools_antispam['rc_site_key'];
+		if( $site_key ){
+			echo '<div id="wpforo_recaptcha_widget"></div><div class="wpf-cl"></div>';
+			echo "\r\n<script>var wpForoReCallback = function () { grecaptcha.render('wpforo_recaptcha_widget', { 'sitekey': wpForoRC.wpforo_rc_site_key, 'theme': wpForoRC.wpforo_rc_theme, }); };</script>";
+		}
+	}
+	
+	public function rc_check() {
+        if ( isset( $_POST['g-recaptcha-response'] ) ) {
+            $secret_key = WPF()->tools_antispam['rc_secret_key'];
+            $url = 'https://www.google.com/recaptcha/api/siteverify?secret=' . $secret_key . '&response=' . $_POST['g-recaptcha-response'];
+			$response = wp_remote_get( $url );
+			if ( is_wp_error( $response ) || empty( $response['body'] ) ) {
+                $error = wpforo_phrase("ERROR: Can't connect to Google reCAPTCHA API", false);
+                if( WP_DEBUG === true ) $error .=  ' ( '. $response->get_error_message() .' )';
+			    return $error;
+		    }
+			$response = json_decode( $response['body'], true );
+			if ( $response['success'] == true ) {
+				return 'success';
+			} else {
+				return wpforo_phrase('Google reCAPTCHA verification failed', false);
+			}
+		}
+		else{
+			return wpforo_phrase('Google reCAPTCHA data are not submitted', false);
+		}
+	}
+	
+	public function rc_verify() {
+		$result = $this->rc_check();
+		if ( $result == 'success' ) {
+			return true;
+		} else {
+			WPF()->notice->add( $result , 'error');
+			wp_redirect( wpforo_get_request_uri() );
+			exit();
+		}
+	}
+	
+	public function rc_verify_wp_login( $user ) {
+		if ( !isset($_POST['log']) && !isset($_POST['pwd'])) return $user;
+		$errors = is_wp_error($user) ? $user : new WP_Error();
+		$result = $this->rc_check();
+        if( $result != 'success' ) {
+            $errors->add('wpforo-recaptcha-error', $result);
+			$user = is_wp_error($user) ? $user : $errors;
+			remove_filter('authenticate', 'wp_authenticate_username_password', 10);
+			remove_filter('authenticate', 'wp_authenticate_cookie', 10);
+		}
+		return $user;
+	} 
+	
+	public function rc_verify_wp_register( $errors = '' ){
+		if ( !is_wp_error($errors) ) $errors = new WP_Error();
+		$result = $this->rc_check();
+	    if( $result != 'success' ) {
+		   $errors->add('wpforo-recaptcha-error', $result);
+	    }
+	    return $errors;
+	}
+	
+	public function rc_verify_wp_lostpassword( $errors = '' ){
+		if ( !is_wp_error($errors) ) $errors = new WP_Error();
+		$result = $this->rc_check();
+		if( $result != 'success' ) {
+			if ( isset($_POST['wc_reset_password']) && isset($_POST['_wp_http_referer']) ) {
+				 //$errors->add('wpforo-recaptcha-error', $result);
+				 //return $errors;
+				return;
+			 } else {
+				 wp_die( $result, 'reCAPTCHA ERROR', array( 'back_link' => true ) ); 
+			 }
+		 }
+		 return;
+	}
+	
+	public function rc_exists(){
+		
 	}
 	
 }

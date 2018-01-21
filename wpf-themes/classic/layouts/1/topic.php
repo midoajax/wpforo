@@ -57,7 +57,7 @@
               <div class="wpforo-last-posts-list">
                 <ul>
                     <li> 
-                        <div class="wpforo-last-post-title"><i class="fa fa-comments fa-flip-horizontal fa-0x wpfcl-0"></i> &nbsp; <a href="<?php echo esc_url($first_post['url']) ?>"><?php echo esc_html( wpforo_text($first_post['body'], WPF()->post->options['layout_extended_intro_posts_length'], false)) ?></a></div>
+                        <div class="wpforo-last-post-title"><i class="fa fa-comments fa-flip-horizontal wpfsx wpfcl-0"></i> &nbsp; <a href="<?php echo esc_url($first_post['url']) ?>"><?php echo esc_html( wpforo_text($first_post['body'], WPF()->post->options['layout_extended_intro_posts_length'], false)) ?></a></div>
                         <div class="wpforo-last-post-user"><?php wpforo_member_link($first_poster, 'by %s', 9); ?></div>
                         <div class="wpforo-last-post-date"><?php wpforo_date($first_post['created']); ?></div> 
                         <br class="wpf-clear">
@@ -66,7 +66,7 @@
 						<?php foreach($posts as $post) : ?>
 							<?php $poster = wpforo_member($post); ?>
 		                    <li>
-		                        <div class="wpforo-last-post-title"><i class="fa fa-reply fa-rotate-180 fa-0x wpfcl-0"></i> &nbsp; <a href="<?php echo esc_url( wpforo_post($post['postid'], 'url') ); ?>" title="<?php wpforo_phrase('REPLY:') ?> <?php echo esc_html( wpforo_text($post['body'], 100, false)) ?>"><?php echo (( $post_body = esc_html(wpforo_text($post['body'], WPF()->post->options['layout_extended_intro_posts_length'], FALSE)) ) ? $post_body : esc_html($post['title'])) ?></a></div>
+		                        <div class="wpforo-last-post-title"><i class="fa fa-reply fa-rotate-180 wpfsx wpfcl-0"></i> &nbsp; <a href="<?php echo esc_url( wpforo_post($post['postid'], 'url') ); ?>" title="<?php wpforo_phrase('REPLY:') ?> <?php echo esc_html( wpforo_text($post['body'], 100, false)) ?>"><?php echo (( $post_body = esc_html(wpforo_text($post['body'], WPF()->post->options['layout_extended_intro_posts_length'], FALSE)) ) ? $post_body : esc_html($post['title'])) ?></a></div>
 		                        <div class="wpforo-last-post-user"><?php wpforo_member_link($poster, 'by %s', 9); ?></div>
 		                        <div class="wpforo-last-post-date"><?php wpforo_date($post['created']); ?></div> 
 		                        <br class="wpf-clear">

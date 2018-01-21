@@ -2,6 +2,11 @@
 	// Exit if accessed directly
 	if( !defined( 'ABSPATH' ) ) exit;
 	if( !current_user_can('administrator') ) exit;
+	$nocan = array( 	
+		'no_access' => array('et', 'dt', 'dot', 'er', 'dr', 'dor', 'l', 's', 'at', 'cot', 'p', 'op', 'vp', 'au', 'sv', 'mt', 'ccp' ,'r', 'ct', 'cr', 'eot', 'eor', 'oat', 'osv', 'cvp', 'v', 'a'),
+		'read_only' => array('et', 'dt', 'dot', 'er', 'dr', 'dor', 'l', 's', 'at', 'cot', 'p', 'op', 'vp', 'au', 'sv', 'mt', 'ccp' ,'r'),
+		'standard' => array('et', 'dt', 'er', 'dr', 'at', 'cot', 'p', 'vp', 'au', 'sv', 'mt')
+	);
 ?>
 
 <?php if( !isset($_GET['action']) ): ?>
@@ -50,7 +55,6 @@
                 <?php if( isset( $_GET['access'] ) ){ $access = WPF()->perm->get_access( $_GET['access'] );} ?>
                 <input name="access[name]" type="text" size="40" required="TRUE" value="<?php echo ( $_GET['action'] == 'edit' ? esc_attr($access['title']) : '') ?>" style="background:#FDFDFD; width:30%; min-width:320px;">
                 <p>&nbsp;</p>
-                
                 <?php 
                 $access_key = ( isset( $_GET['access'] ) ? $_GET['access'] : 0 ); 
                 $cans = WPF()->perm->forum_cans_form( $access_key ); ?>
@@ -60,8 +64,8 @@
                     <table class="wpf-table-box-left" style="margin-right:15px; margin-bottom:15px;  min-width:320px;">
                          <?php endif; ?>
                         <tr>
-                            <th class="wpf-dw-td-nowrap"><label class="wpf-td-label" for="wpf-can-<?php echo esc_attr($can) ?>"><?php echo esc_html( __( $data['name'], 'wpforo' ) ) ?></label></th>
-                            <td class="wpf-dw-td-value" style="text-align:center;"><input id="wpf-can-<?php echo esc_attr($can) ?>" type="checkbox" name="cans[<?php echo esc_attr($can) ?>]" value="1" <?php echo ( $data['value'] ) ? 'checked="checked"' : ''; ?>></td>
+                            <th class="wpf-dw-td-nowrap"><label class="wpf-td-label" for="wpf-can-<?php echo esc_attr($can) ?>" <?php if(isset($_GET['access']) && isset($nocan[$_GET['access']]) && in_array($can, $nocan[$_GET['access']])) echo 'style="color: #aaa;" ' ?>><?php echo esc_html( __( $data['name'], 'wpforo' ) ) ?></label></th>
+                            <td class="wpf-dw-td-value" style="text-align:center;"><input <?php if(isset($_GET['access']) && isset($nocan[$_GET['access']]) && in_array($can, $nocan[$_GET['access']])) echo ' disabled' ?> id="wpf-can-<?php echo esc_attr($can) ?>" type="checkbox" name="cans[<?php echo esc_attr($can) ?>]" value="1" <?php echo ( $data['value'] ) ? 'checked="checked"' : ''; ?>></td>
                         </tr>
                 <?php $n++; endforeach ?>
                 </table>

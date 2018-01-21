@@ -8,14 +8,16 @@ function wpforo_actions(){
 	if( isset($_POST['wpfreg']) && !empty($_POST['wpfreg']) && $userid = WPF()->member->create($_POST['wpfreg'])){
 		wpforo_verify_form('ref');
         WPF()->member->reset($userid);
-		wp_redirect( WPF()->member->get_profile_url( $userid, 'account' ) );
+        $redirect_url = WPF()->member->get_profile_url( $userid, 'account' );
+        if( WPF()->member->options['redirect_url_after_register'] ) $redirect_url = WPF()->member->options['redirect_url_after_register'];
+		wp_redirect($redirect_url);
 		exit();
 	}
 	
 	if(isset($_POST['wpforologin']) && isset($_POST['log']) && isset($_POST['pwd'])){
 		wpforo_verify_form('ref');
 		if ( !is_wp_error( $user = wp_signon() ) ) {
-			$wpf_login_times = get_user_meta($user->ID, '_wpf_login_times', true);
+			$wpf_login_times = intval( get_user_meta($user->ID, '_wpf_login_times', true) );
 			if( isset($user->ID) && $wpf_login_times >= 1) {
 				$name = ( isset($user->data->display_name) ) ? $user->data->display_name : '';
 				WPF()->notice->add( 'Welcome back %s!', 'success', $name);
@@ -23,9 +25,11 @@ function wpforo_actions(){
 			else{
 				WPF()->notice->add('Welcome to our Community!', 'success');
 			}
-			(int)$wpf_login_times++;
+			$wpf_login_times++;
 			update_user_meta( $user->ID, '_wpf_login_times', $wpf_login_times );
-			wp_redirect( wpforo_home_url( preg_replace('#\?.*$#is', '', wpforo_get_request_uri()) ) );
+			$redirect_url = wpforo_home_url( preg_replace('#\?.*$#is', '', wpforo_get_request_uri()) );
+			if( WPF()->member->options['redirect_url_after_login'] ) $redirect_url = WPF()->member->options['redirect_url_after_login'];
+			wp_redirect($redirect_url);
 			exit();
 		}else{
 			$args = array();
@@ -136,7 +140,9 @@ function wpforo_actions(){
 		}else{
 			WPF()->sbscrb->delete($sbs_key);
 		}
-		wp_redirect( wpforo_home_url( preg_replace('#\?.*$#is', '', wpforo_get_request_uri()) ) );
+        $redirect_url = wpforo_home_url( preg_replace('#\?.*$#is', '', wpforo_get_request_uri()) );
+        if( WPF()->member->options['redirect_url_after_confirm_sbscrb'] ) $redirect_url = WPF()->member->options['redirect_url_after_confirm_sbscrb'];
+		wp_redirect($redirect_url);
 		exit();
 	}
 
@@ -610,7 +616,8 @@ function wpforo_actions(){
 				$insert_usergroup_role = sanitize_text_field($_POST['usergroup']['role']);
 				$insert_usergroup_access = sanitize_text_field($_POST['usergroup']['access']);
                 $insert_usergroup_color = ( isset($_POST['wpfugc']) && $_POST['wpfugc'] ) ? '' : sanitize_text_field($_POST['usergroup']['color']);
-				$insert_usergroup_id = WPF()->usergroup->add( $insert_usergroup_name, $board_cans, '', $insert_usergroup_role, $insert_usergroup_access, $insert_usergroup_color );
+				$insert_usergroup_visible = intval($_POST['usergroup']['visible']);
+				$insert_usergroup_id = WPF()->usergroup->add( $insert_usergroup_name, $board_cans, '', $insert_usergroup_role, $insert_usergroup_access, $insert_usergroup_color, $insert_usergroup_visible );
 				if(isset($$insert_usergroup_id)) wpforo_clean_cache( $insert_usergroup_id, 'loop' );
 				wp_redirect( admin_url( 'admin.php?page=wpforo-usergroups' ) );
 				exit();
@@ -619,7 +626,8 @@ function wpforo_actions(){
 				$insert_usergroup_name = sanitize_text_field($_POST['usergroup']['name']);
 				$insert_usergroup_role = sanitize_text_field($_POST['usergroup']['role']);
 				$insert_usergroup_color = ( isset($_POST['wpfugc']) && $_POST['wpfugc'] ) ? '' : sanitize_text_field($_POST['usergroup']['color']);
-				WPF()->usergroup->edit( $insert_usergroup_id, $insert_usergroup_name, $board_cans, '', $insert_usergroup_role, NULL, $insert_usergroup_color );
+				$insert_usergroup_visible = intval($_POST['usergroup']['visible']);
+				WPF()->usergroup->edit( $insert_usergroup_id, $insert_usergroup_name, $board_cans, '', $insert_usergroup_role, NULL, $insert_usergroup_color, $insert_usergroup_visible );
 				if(isset($insert_usergroup_id)) wpforo_clean_cache( $insert_usergroup_id, 'loop' );
 				wp_redirect( admin_url( 'admin.php?page=wpforo-usergroups' ) );
 				exit();

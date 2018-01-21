@@ -6,8 +6,8 @@
 <div class="wpfl-2">
 
     <div class="wpforo-post-head"> 
-        <div class="wpf-left">&nbsp;<a href="<?php echo esc_url( wpforo_post($topic['last_post'], 'url') ); ?>" class="wpfcl-2"><i class="fa fa-caret-square-o-down fa-0x wpfcl-3"></i> &nbsp; <span class="wpfcl-3"><?php wpforo_phrase('Last Post'); ?></span></a></div>
-        <div class="wpf-right">&nbsp;<?php if( wpforo_feature('rss-feed') ): ?><a href="<?php WPF()->feed->rss2_url(); ?>" class="wpfcl-2" title="<?php wpforo_phrase('Topic RSS Feed') ?>"><span class="wpfcl-3"><?php wpforo_phrase('RSS') ?></span> <i class="fa fa-rss fa-0x wpfcl-3"></i></a><?php endif; ?></div>
+        <div class="wpf-left">&nbsp;<a href="<?php echo esc_url( wpforo_post($topic['last_post'], 'url') ); ?>" class="wpfcl-2"><i class="fa fa-caret-square-o-down wpfsx wpfcl-3"></i> &nbsp; <span class="wpfcl-3"><?php wpforo_phrase('Last Post'); ?></span></a></div>
+        <div class="wpf-right">&nbsp;<?php if( wpforo_feature('rss-feed') ): ?><a href="<?php WPF()->feed->rss2_url(); ?>" class="wpfcl-2" title="<?php wpforo_phrase('Topic RSS Feed') ?>"><span class="wpfcl-3"><?php wpforo_phrase('RSS') ?></span> <i class="fa fa-rss wpfsx wpfcl-3"></i></a><?php endif; ?></div>
         <div class="wpf-clear"></div>
     </div>
   
@@ -44,14 +44,14 @@
                                 WPF()->tpl->buttons( $buttons, $forum, $topic, $post );
                             } ?>
                         </div>
-                        <a href="<?php echo esc_url( wpforo_post($post['postid'], 'url') ); ?>"><i class="fa fa-link fa-0x"></i></a>
+                        <a href="<?php echo esc_url( wpforo_post($post['postid'], 'url') ); ?>"><i class="fa fa-link wpfsx"></i></a>
                     </div>
                     <div class="wpforo-post-content">
                         <?php echo wpforo_content_filter( wpforo_kses($post['body'], 'post') ) ?>
                         <?php wpforo_post_edited($post); ?>
                         <?php do_action( 'wpforo_tpl_post_loop_after_content', $post, $member ) ?>
                         <?php if( wpforo_feature('signature') ): ?>
-                        	<?php if($member['signature']): ?><div class="wpforo-post-signature"><?php echo wpautop(wpforo_kses(stripslashes($member['signature']), 'user_description')) ?></div><?php endif; ?>
+                        	<?php if($member['signature']): ?><div class="wpforo-post-signature"><?php wpforo_signature( $member ) ?></div><?php endif; ?>
                         <?php endif; ?>
                         <div class="wpf-post-button-actions">
                         <?php if( $post['is_first_post'] ){

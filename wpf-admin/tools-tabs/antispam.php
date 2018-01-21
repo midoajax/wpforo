@@ -34,7 +34,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <th><label><?php _e('Ban user when spam is suspicted','wpforo'); ?>:</label></th>
+                            <th><label><?php _e('Ban user when spam is suspected','wpforo'); ?>:</label></th>
                             <td>
                                 <div class="wpf-switch-field">
                                     <input id="spam_user_ban_yes" type="radio" name="wpforo_tools_antispam[spam_user_ban]" value="1" <?php wpfo_check(WPF()->tools_antispam['spam_user_ban'], 1); ?>/><label for="spam_user_ban_yes"><?php _e('Yes','wpforo'); ?></label> &nbsp;
@@ -99,7 +99,126 @@
                     </table>
                 </div>
             </div>
-            <div class="wpf-tool-box wpf-spam-attach right-box" id="spam-files">
+            
+			<div class="wpf-tool-box wpf-spam-attach right-box" style="max-height: inherit;">
+            	<h3>
+				<?php _e('Google reCAPTCHA', 'wpforo'); ?>
+                <p class="wpf-info"><?php _e('reCAPTCHA protects you against spam and other types of automated abuse. It makes secure topic and post editors when Guest Posting is allowed, also it protects login and registration forms against spam attacks.', 'wpforo'); ?></p>
+                </h3>
+				<div style="padding-top: 3px;"><strong><?php _e('reCAPTCHA API keys', 'wpforo'); ?></strong></div>
+                <p class="wpf-info">
+					<?php _e('To start using reCAPTCHA, you need to sign up for an API key pair for your site.', 'wpforo'); ?> <br />
+					<a href="http://www.google.com/recaptcha/admin" target="_blank"><?php _e('Register your site and get API keys here &raquo;', 'wpforo'); ?></a>
+				</p>
+                <div style="margin-top:10px; clear:both;">
+                	<table style="width:100%;">
+                      <tbody>
+                        <tr>
+                            <th style="width:35%;">
+                            	<label ><?php _e('Site Key', 'wpforo'); ?>:</label>
+                            </th>
+                            <td><input type="text" name="wpforo_tools_antispam[rc_site_key]" value="<?php wpfo(WPF()->tools_antispam['rc_site_key']) ?>" class="wpf-field" style="width: 100%" /></td>
+                        </tr>
+                        <tr>
+                            <th style="width:35%;">
+                            	<label ><?php _e('Secret Key', 'wpforo'); ?>:</label>
+                            </th>
+                            <td><input type="text" name="wpforo_tools_antispam[rc_secret_key]" value="<?php wpfo(WPF()->tools_antispam['rc_secret_key']) ?>" class="wpf-field" style="width: 100%" /></td>
+                        </tr>	  	
+                      </tbody>
+                    </table>
+                </div>
+				<div style="padding-top: 3px; border-bottom: 1px dotted #ccc;"> <strong><?php _e('reCAPTCHA Settings', 'wpforo'); ?></strong></div>
+				<div style="margin-top:10px; clear:both;">
+                	<table style="width:100%;">
+                      <tbody> 
+						 <tr>
+                            <th style="width:50%;"><label><?php _e('reCAPTCHA Theme','wpforo'); ?>:</label></th>
+                            <td>
+                                <div class="wpf-switch-field">
+                                    <input id="rc_theme_light" type="radio" name="wpforo_tools_antispam[rc_theme]" value="light" <?php wpfo_check(WPF()->tools_antispam['rc_theme'], 'light'); ?>/><label for="rc_theme_light"><?php _e('Light','wpforo'); ?></label> &nbsp;
+                                    <input id="rc_theme_dark" type="radio" name="wpforo_tools_antispam[rc_theme]" value="dark" <?php wpfo_check(WPF()->tools_antispam['rc_theme'], 'dark'); ?>/><label for="rc_theme_dark"><?php _e('Dark','wpforo'); ?></label>
+                                </div>
+                            </td>
+                        </tr>
+						<tr>
+                            <th style="width:50%;"><label><?php _e('Guest Topic Editor','wpforo'); ?>:</label></th>
+                            <td>
+                                <div class="wpf-switch-field">
+                                    <input id="rc_topic_editor_yes" type="radio" name="wpforo_tools_antispam[rc_topic_editor]" value="1" <?php wpfo_check(WPF()->tools_antispam['rc_topic_editor'], 1); ?>/><label for="rc_topic_editor_yes"><?php _e('Yes','wpforo'); ?></label> &nbsp;
+                                    <input id="rc_topic_editor_no" type="radio" name="wpforo_tools_antispam[rc_topic_editor]" value="0" <?php wpfo_check(WPF()->tools_antispam['rc_topic_editor'], 0); ?>/><label for="rc_topic_editor_no"><?php _e('No','wpforo'); ?></label>
+                                </div>
+                            </td>
+                        </tr>
+						<tr>
+                            <th style="width:50%;"><label><?php _e('Guest Post Editor','wpforo'); ?>:</label></th>
+                            <td>
+                                <div class="wpf-switch-field">
+                                    <input id="rc_post_editor_yes" type="radio" name="wpforo_tools_antispam[rc_post_editor]" value="1" <?php wpfo_check(WPF()->tools_antispam['rc_post_editor'], 1); ?>/><label for="rc_post_editor_yes"><?php _e('Yes','wpforo'); ?></label> &nbsp;
+                                    <input id="rc_post_editor_no" type="radio" name="wpforo_tools_antispam[rc_post_editor]" value="0" <?php wpfo_check(WPF()->tools_antispam['rc_post_editor'], 0); ?>/><label for="rc_post_editor_no"><?php _e('No','wpforo'); ?></label>
+                                </div>
+                            </td>
+                        </tr>
+						
+						<tr>
+                            <th style="width:50%;"><label><?php _e('wpForo Login Form','wpforo'); ?>:</label></th>
+                            <td>
+                                <div class="wpf-switch-field">
+                                    <input id="rc_wpf_login_form_yes" type="radio" name="wpforo_tools_antispam[rc_wpf_login_form]" value="1" <?php wpfo_check(WPF()->tools_antispam['rc_wpf_login_form'], 1); ?>/><label for="rc_wpf_login_form_yes"><?php _e('Yes','wpforo'); ?></label> &nbsp;
+                                    <input id="rc_wpf_login_form_no" type="radio" name="wpforo_tools_antispam[rc_wpf_login_form]" value="0" <?php wpfo_check(WPF()->tools_antispam['rc_wpf_login_form'], 0); ?>/><label for="rc_wpf_login_form_no"><?php _e('No','wpforo'); ?></label>
+                                </div>
+                            </td>
+                        </tr>
+						<tr>
+                            <th style="width:50%;"><label><?php _e('wpForo Registration Form','wpforo'); ?>:</label></th>
+                            <td>
+                                <div class="wpf-switch-field">
+                                    <input id="rc_wpf_reg_form_yes" type="radio" name="wpforo_tools_antispam[rc_wpf_reg_form]" value="1" <?php wpfo_check(WPF()->tools_antispam['rc_wpf_reg_form'], 1); ?>/><label for="rc_wpf_reg_form_yes"><?php _e('Yes','wpforo'); ?></label> &nbsp;
+                                    <input id="rc_wpf_reg_form_no" type="radio" name="wpforo_tools_antispam[rc_wpf_reg_form]" value="0" <?php wpfo_check(WPF()->tools_antispam['rc_wpf_reg_form'], 0); ?>/><label for="rc_wpf_reg_form_no"><?php _e('No','wpforo'); ?></label>
+                                </div>
+                            </td>
+                        </tr>
+						<tr>
+                            <th style="width:50%;"><label><?php _e('wpForo Reset Password Form','wpforo'); ?>:</label></th>
+                            <td>
+                                <div class="wpf-switch-field">
+                                    <input id="rc_wpf_lostpass_form_yes" type="radio" name="wpforo_tools_antispam[rc_wpf_lostpass_form]" value="1" <?php wpfo_check(WPF()->tools_antispam['rc_wpf_lostpass_form'], 1); ?>/><label for="rc_wpf_lostpass_form_yes"><?php _e('Yes','wpforo'); ?></label> &nbsp;
+                                    <input id="rc_wpf_lostpass_form_no" type="radio" name="wpforo_tools_antispam[rc_wpf_lostpass_form]" value="0" <?php wpfo_check(WPF()->tools_antispam['rc_wpf_lostpass_form'], 0); ?>/><label for="rc_wpf_lostpass_form_no"><?php _e('No','wpforo'); ?></label>
+                                </div>
+                            </td>
+                        </tr>
+						<tr>
+                            <th style="width:50%;"><label><?php _e('WordPress Login Form','wpforo'); ?>:</label></th>
+                            <td>
+                                <div class="wpf-switch-field">
+                                    <input id="rc_login_form_yes" type="radio" name="wpforo_tools_antispam[rc_login_form]" value="1" <?php wpfo_check(WPF()->tools_antispam['rc_login_form'], 1); ?>/><label for="rc_login_form_yes"><?php _e('Yes','wpforo'); ?></label> &nbsp;
+                                    <input id="rc_login_form_no" type="radio" name="wpforo_tools_antispam[rc_login_form]" value="0" <?php wpfo_check(WPF()->tools_antispam['rc_login_form'], 0); ?>/><label for="rc_login_form_no"><?php _e('No','wpforo'); ?></label>
+                                </div>
+                            </td>
+                        </tr>
+						<tr>
+                            <th style="width:50%;"><label><?php _e('WordPress Registration Form','wpforo'); ?>:</label></th>
+                            <td>
+                                <div class="wpf-switch-field">
+                                    <input id="rc_reg_form_yes" type="radio" name="wpforo_tools_antispam[rc_reg_form]" value="1" <?php wpfo_check(WPF()->tools_antispam['rc_reg_form'], 1); ?>/><label for="rc_reg_form_yes"><?php _e('Yes','wpforo'); ?></label> &nbsp;
+                                    <input id="rc_reg_form_no" type="radio" name="wpforo_tools_antispam[rc_reg_form]" value="0" <?php wpfo_check(WPF()->tools_antispam['rc_reg_form'], 0); ?>/><label for="rc_reg_form_no"><?php _e('No','wpforo'); ?></label>
+                                </div>
+                            </td>
+                        </tr>
+						<tr>
+                            <th style="width:50%;"><label><?php _e('WordPress Reset Password Form','wpforo'); ?>:</label></th>
+                            <td>
+                                <div class="wpf-switch-field">
+                                    <input id="rc_lostpass_form_yes" type="radio" name="wpforo_tools_antispam[rc_lostpass_form]" value="1" <?php wpfo_check(WPF()->tools_antispam['rc_lostpass_form'], 1); ?>/><label for="rc_lostpass_form_yes"><?php _e('Yes','wpforo'); ?></label> &nbsp;
+                                    <input id="rc_lostpass_form_no" type="radio" name="wpforo_tools_antispam[rc_lostpass_form]" value="0" <?php wpfo_check(WPF()->tools_antispam['rc_lostpass_form'], 0); ?>/><label for="rc_lostpass_form_no"><?php _e('No','wpforo'); ?></label>
+                                </div>
+                            </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                </div>
+            </div>
+			<div class="wpf-tool-box wpf-spam-attach left-box" id="spam-files">
 				<?php 
 				$site = get_bloginfo('url');
                 $upload_dir = wp_upload_dir();

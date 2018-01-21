@@ -8,7 +8,7 @@
         	<?php wp_nonce_field( 'wpforo-tools-misc' ); ?>
 			<div class="wpf-tool-box" style="width:60%;">
             	<h3><?php _e('SEO Tools', 'wpforo'); ?>
-                <p class="wpf-info"><?php _e('', 'wpforo'); ?></p>
+                <p class="wpf-info"></p>
                 </h3>
                 <div style="margin-top:10px; clear:both;">
                 <table style="width:100%;">

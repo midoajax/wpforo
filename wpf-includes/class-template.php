@@ -89,7 +89,22 @@ class wpForoTemplate{
                 <input type="hidden" name="topic[action]" value="add"/>
 				<input type="hidden" id="parent" name="topic[forumid]" value="<?php echo intval($forumid) ?>" />
 				
-				<label style="padding-left: 8px;"> <?php wpforo_phrase('Topic Title') ?>:&nbsp; </label>
+                <?php if(!is_user_logged_in()): ?>
+                	<?php $guest = WPF()->member->get_guest_cookies(); ?>
+                    <div class="wpf-topic-guest-fields">
+                        <div class="wpf-topic-guest-name">
+                            <label style="padding-left:8px;"> <?php wpforo_phrase('Author Name') ?> * </label>
+                            <input id="wpf_user_name" type="text" placeholder="<?php esc_attr( wpforo_phrase('Your name') ) ?>" name="topic[name]" value="<?php echo esc_attr($guest['name']) ?>" />
+                        </div>
+                        <div class="wpf-topic-guest-email">
+                            <label style="padding-left:8px;"> <?php wpforo_phrase('Author Email') ?> * </label>
+                            <input id="wpf_user_email" type="text" placeholder="<?php esc_attr( wpforo_phrase('Your email') ) ?>" name="topic[email]" value="<?php echo esc_attr($guest['email']) ?>" />
+                        </div>
+                        <div class="wpf-clear"></div>
+                    </div>
+                <?php endif; ?>
+                
+				<label style="padding-left:8px;"> <?php wpforo_phrase('Topic Title') ?> * </label>
 				<input required="true" autofocus type="text" name="topic[title]" class="wpf-subject" value="" id="title" autocomplete="off" placeholder="<?php esc_attr( wpforo_phrase('Enter title here') ) ?>">
 				<?php
 				$content   = '';
@@ -106,7 +121,7 @@ class wpForoTemplate{
 					'teeny'=> FALSE,		// output the minimal editor config used in Press This
 					'dfw'=> false,			// replace the default fullscreen with DFW (supported on the front - end in WordPress 3.4)
 					'tinymce'=> array(
-						'toolbar1' => 'bold,italic,underline,strikethrough,forecolor,bullist,numlist,hr,alignleft,aligncenter,alignright,alignjustify,link,unlink,blockquote,pre,undo,redo,pastetext,source_code,emoticons',
+						'toolbar1' => 'fontsizeselect,bold,italic,underline,strikethrough,forecolor,bullist,numlist,hr,alignleft,aligncenter,alignright,alignjustify,link,unlink,blockquote,pre,undo,redo,pastetext,source_code,emoticons',
 						'toolbar2' => '', 
 						'toolbar3' => '', 
 						'toolbar4' => '',
@@ -123,12 +138,12 @@ class wpForoTemplate{
                    <div class="wpf-main-fields">
                         <?php if(WPF()->perm->forum_can('s', $forumid)) : ?>
                             <input id="t_sticky" name="topic[type]" type="checkbox" value="1">&nbsp;&nbsp;
-                            <i class="fa fa-exclamation fa-0x"></i>&nbsp;&nbsp;<label for="t_sticky" style="padding-bottom:2px; cursor: pointer;"><?php wpforo_phrase('Set Topic Sticky'); ?>&nbsp;</label>
+                            <i class="fa fa-exclamation wpfsx"></i>&nbsp;&nbsp;<label for="t_sticky" style="padding-bottom:2px; cursor: pointer;"><?php wpforo_phrase('Set Topic Sticky'); ?>&nbsp;</label>
                             <span class="wpfbs">&nbsp;&nbsp;|&nbsp;&nbsp;</span>
                         <?php endif; ?>
                         <?php if(WPF()->perm->forum_can('p', $forumid) || WPF()->perm->forum_can('op', $forumid)) : ?>
                             <input id="t_private" name="topic[private]" type="checkbox" value="1">&nbsp;&nbsp;
-                            <i class="fa fa-eye-slash fa-0x"></i>&nbsp;&nbsp;<label for="t_private" style="padding-bottom:2px; cursor: pointer;" title="<?php wpforo_phrase('Only Admins and Moderators can see your private topics.'); ?>"><?php wpforo_phrase('Private Topic'); ?>&nbsp;</label>
+                            <i class="fa fa-eye-slash wpfsx"></i>&nbsp;&nbsp;<label for="t_private" style="padding-bottom:2px; cursor: pointer;" title="<?php wpforo_phrase('Only Admins and Moderators can see your private topics.'); ?>"><?php wpforo_phrase('Private Topic'); ?>&nbsp;</label>
                             
                         <?php endif; ?>
                         <?php do_action('wpforo_topic_form_buttons_hook'); ?>&nbsp;&nbsp;
@@ -220,6 +235,21 @@ class wpForoTemplate{
 					<input type="hidden" id="postparentid" name="post[parentid]" value="0"/>
 					<input type="hidden" id="formpostid" name="post[postid]" value=""/>
 					<input type="hidden" id="parent" name="post[forumid]" value="<?php echo intval($forumid) ?>" />
+                    <?php if(!is_user_logged_in()): ?>
+                		<?php $guest = WPF()->member->get_guest_cookies(); ?>
+                        <div class="wpf-post-guest-fields">
+                            <div class="wpf-post-guest-name">
+                                <label style="padding-left:8px;"> <?php wpforo_phrase('Author Name') ?> * </label>
+                                <input id="wpf_user_name" type="text" placeholder="<?php esc_attr( wpforo_phrase('Your name') ) ?>" name="post[name]" value="<?php echo esc_attr($guest['name']) ?>" />
+                            </div>
+                            <div class="wpf-post-guest-email">
+                                <label style="padding-left:8px;"> <?php wpforo_phrase('Author Email') ?> * </label>
+                                <input id="wpf_user_email" type="text" placeholder="<?php esc_attr( wpforo_phrase('Your email') ) ?>" name="post[email]" value="<?php echo esc_attr($guest['email']) ?>" />
+                            </div>
+                            <div class="wpf-clear"></div>
+                        </div>
+                        <label style="padding-left:8px;"> <?php wpforo_phrase('Post Title') ?> * </label>
+                	<?php endif; ?>
 	                <?php 
 					$reply_title = wpforo_phrase('RE', false) . ': '. $topic_title; 
 					$reply_title = apply_filters( 'wpforo_reply_form_field_title', $reply_title, $args );
@@ -239,7 +269,7 @@ class wpForoTemplate{
 						'dfw'=> false,			// replace the default fullscreen with DFW (supported on the front - end in WordPress 3.4)
 						'editor_height' => '180',
 						'tinymce'=> array(
-							'toolbar1' => 'bold,italic,underline,strikethrough,forecolor,bullist,numlist,hr,alignleft,aligncenter,alignright,alignjustify,link,unlink,blockquote,pre,undo,redo,pastetext,source_code,emoticons',
+							'toolbar1' => 'fontsizeselect,bold,italic,underline,strikethrough,forecolor,bullist,numlist,hr,alignleft,aligncenter,alignright,alignjustify,link,unlink,blockquote,pre,undo,redo,pastetext,source_code,emoticons',
 							'toolbar2' => '', 
 							'toolbar3' => '', 
 							'toolbar4' => '',
@@ -358,6 +388,7 @@ class wpForoTemplate{
 	function buttons( $buttons, $forum = array(), $topic = array(), $post = array(), $is_topic = FALSE ){
 		
 		$button_html = array(); 
+		$login = is_user_logged_in();
 		
 		$forumid = (isset($forum['forumid'])) ? $forum['forumid'] : 0;
 		$topicid = (isset($topic['topicid'])) ? $topic['topicid'] : 0;
@@ -400,101 +431,120 @@ class wpForoTemplate{
 				case 'quote':
 					if($is_closed) break;
 					if( WPF()->perm->forum_can('cr', $forumid) ) {
-						$button_html[] = '<span id="wpfquotepost'.intval($postid).'" class="wpforo-quote wpf-action"><i class="fa fa-quote-left fa-0x"></i>' . wpforo_phrase('Quote', false).'</span>';
+						$button_html[] = '<span id="wpfquotepost'.intval($postid).'" class="wpforo-quote wpf-action"><i class="fa fa-quote-left wpfsx"></i>' . wpforo_phrase('Quote', false).'</span>';
 			   		}else{
-			   			$button_html[] = '<span class="wpf-action not_reg_user"><i class="fa fa-quote-left fa-0x"></i>' . wpforo_phrase('Quote', false).'</span>';
+			   			$button_html[] = '<span class="wpf-action not_reg_user"><i class="fa fa-quote-left wpfsx"></i>' . wpforo_phrase('Quote', false).'</span>';
 			   		}	
 					 break; 
 				case 'like':
-					if( WPF()->perm->forum_can('l', $forumid) ) {
+					if( WPF()->perm->forum_can('l', $forumid) && $login ) {
 						$like_status = ( WPF()->post->is_liked( $postid, WPF()->current_userid ) === FALSE ? 'wpforo-like' : 'wpforo-unlike' );
 						$like_icon = ( $like_status == 'wpforo-like') ? 'up' : 'down';
-						$button_html[] = '<span id="wpflike'. intval($postid) .'" class="wpf-action '. sanitize_html_class($like_status) .'"><i id="likeicon'. intval($postid) .'" class="fa fa-thumbs-o-'. esc_attr($like_icon) .' fa-0x"></i><span id="liketext'. intval($postid) .'">' . wpforo_phrase( str_replace('wpforo-', '', $like_status), false) . '</span></span>';
+						$button_html[] = '<span id="wpflike'. intval($postid) .'" class="wpf-action '. sanitize_html_class($like_status) .'"><i id="likeicon'. intval($postid) .'" class="fa fa-thumbs-o-'. esc_attr($like_icon) .' wpfsx"></i><span id="liketext'. intval($postid) .'">' . wpforo_phrase( str_replace('wpforo-', '', $like_status), false) . '</span></span>';
 					}	
 				 	break; 
 				case 'report':
-					if( WPF()->perm->forum_can('r', $forumid) ) {
+					if( WPF()->perm->forum_can('r', $forumid) && $login ) {
 						$button_html[] = '<span id="wpfreport'. intval($postid) .'" class="wpf-action wpforo-report"><i class="fa fa-exclamation-triangle"></i>' . wpforo_phrase('Report', false).'</span>';
 					}	
 				 	break; 
 				case 'sticky':
+					$sticky_status = ( $is_sticky ? 'wpforo-unsticky' : 'wpforo-sticky');
 					if( WPF()->perm->forum_can('s', $forumid) ) {
-						$sticky_status = ( $is_sticky ? 'wpforo-unsticky' : 'wpforo-sticky');
-						$button_html[] = '<span id="wpfsticky'. intval($topicid) .'" class="wpf-action '. sanitize_html_class($sticky_status) .'"><i class="fa fa-exclamation fa-0x"></i><span id="stickytext'. intval($topicid) .'">' . wpforo_phrase( str_replace('wpforo-', '', $sticky_status), false).'</span></span>';
+						$button_html[] = '<span id="wpfsticky'. intval($topicid) .'" class="wpf-action '. sanitize_html_class($sticky_status) .'"><i class="fa fa-exclamation wpfsx"></i><span id="stickytext'. intval($topicid) .'">' . wpforo_phrase( str_replace('wpforo-', '', $sticky_status), false).'</span></span>';
 					}
 				 	break; 
 				case 'private':
-					if( WPF()->perm->forum_can('p', $forumid) || (WPF()->current_userid == $post['userid'] && WPF()->perm->forum_can('op', $forumid)) ) {
-						$private_status = ( $is_private ? 'wpforo-public' : 'wpforo-private');
-						$private_icon = ( $private_status == 'wpforo-public') ? 'eye' : 'eye-slash';
-						$button_html[] = '<span id="wpfprivate'. intval($topicid) .'" class="wpf-action '. sanitize_html_class($private_status) .'"><i id="privateicon'. intval($topicid) .'"  class="fa fa-'. esc_attr($private_icon) .' fa-0x"></i><span id="privatetext'. intval($topicid) .'">' . wpforo_phrase( str_replace('wpforo-', '', $private_status), false).'</span></span>';
-                    }
+					if( $login ){
+						if( WPF()->perm->forum_can('p', $forumid) || (WPF()->current_userid == $post['userid'] && WPF()->perm->forum_can('op', $forumid)) ) {
+							$private_status = ( $is_private ? 'wpforo-public' : 'wpforo-private');
+							$private_icon = ( $private_status == 'wpforo-public') ? 'eye' : 'eye-slash';
+							$button_html[] = '<span id="wpfprivate'. intval($topicid) .'" class="wpf-action '. sanitize_html_class($private_status) .'"><i id="privateicon'. intval($topicid) .'"  class="fa fa-'. esc_attr($private_icon) .' wpfsx"></i><span id="privatetext'. intval($topicid) .'">' . wpforo_phrase( str_replace('wpforo-', '', $private_status), false).'</span></span>';
+						}
+					}
 				 	break; 
 				case 'solved':
+					$solved_status = ( $is_solved ? 'wpforo-unsolved' : 'wpforo-solved');
 					if( WPF()->perm->forum_can('sv', $forumid) || (WPF()->current_userid == $post['userid'] && WPF()->perm->forum_can('osv', $forumid)) ) {
-						$solved_status = ( $is_solved ? 'wpforo-unsolved' : 'wpforo-solved');
-						$button_html[] = '<span id="wpfsolved'. intval($postid) .'" class="wpf-action '. sanitize_html_class($solved_status) .'"><i class="fa fa-check-circle fa-0x"></i><span id="solvedtext'. intval($postid) .'">' . wpforo_phrase( str_replace('wpforo-', '', $solved_status), false).'</span></span>';
+						$button_html[] = '<span id="wpfsolved'. intval($postid) .'" class="wpf-action '. sanitize_html_class($solved_status) .'"><i class="fa fa-check-circle wpfsx"></i><span id="solvedtext'. intval($postid) .'">' . wpforo_phrase( str_replace('wpforo-', '', $solved_status), false).'</span></span>';
                     }
 				 	break;
                 case 'approved':
-                    if( WPF()->perm->forum_can('au', $forumid) ) {
+                    if( WPF()->perm->forum_can('au', $forumid) && $login ) {
                         $approve_status = ( !$is_approve ? 'wpforo-unapprove' : 'wpforo-approve');
                         $approve_icon = ( $approve_status == 'wpforo-unapprove') ? 'fa-exclamation-circle' : 'fa-check';
-                        $button_html[] = '<span id="wpfapprove'. intval($postid) .'" class="wpf-action '. sanitize_html_class($approve_status) .'"><i id="approveicon'. intval($postid) .'"   class="fa '. esc_attr($approve_icon) .' fa-0x"></i><span id="approvetext'. intval($postid) .'">' . wpforo_phrase( str_replace('wpforo-', '', $approve_status), false).'</span></span>';
+                        $button_html[] = '<span id="wpfapprove'. intval($postid) .'" class="wpf-action '. sanitize_html_class($approve_status) .'"><i id="approveicon'. intval($postid) .'"   class="fa '. esc_attr($approve_icon) .' wpfsx"></i><span id="approvetext'. intval($postid) .'">' . wpforo_phrase( str_replace('wpforo-', '', $approve_status), false).'</span></span>';
                     }
                     break;
                 case 'close':
-					if( WPF()->perm->forum_can('cot', $forumid) ) {
+					if( WPF()->perm->forum_can('cot', $forumid) && $login ) {
 						$open_status = ( $is_closed ? 'wpforo-open' : 'wpforo-close' );
 						$open_icon = ($open_status == 'wpforo-open') ? 'unlock' : 'lock';
-						$button_html[] = '<span id="wpfclose'. intval($topicid) .'" class="wpf-action '. sanitize_html_class($open_status) .'"><i id="closeicon'. intval($topicid) .'" class="fa fa-'. esc_attr($open_icon) .' fa-0x"></i><span id="closetext'. intval($topicid) .'">' . wpforo_phrase( str_replace('wpforo-', '', $open_status), false).'</span></span>';
+						$button_html[] = '<span id="wpfclose'. intval($topicid) .'" class="wpf-action '. sanitize_html_class($open_status) .'"><i id="closeicon'. intval($topicid) .'" class="fa fa-'. esc_attr($open_icon) .' wpfsx"></i><span id="closetext'. intval($topicid) .'">' . wpforo_phrase( str_replace('wpforo-', '', $open_status), false).'</span></span>';
 					}
 				 	break; 
 				case 'move':
-					if( WPF()->perm->forum_can('mt', $forumid) ) {
-						$button_html[] = '<span class="wpf-action wpforo-move"><i class="fa fa-share-square-o fa-0x"></i>' . wpforo_phrase('Move', false).'</span>';	
+					if( WPF()->perm->forum_can('mt', $forumid) && $login ) {
+						$button_html[] = '<span class="wpf-action wpforo-move"><i class="fa fa-share-square-o wpfsx"></i>' . wpforo_phrase('Move', false).'</span>';	
 					}
 				 	break; 
 				case 'edit':
-					if($is_closed) break;
+						if($is_closed) break;
+						$diff = current_time( 'timestamp', 1 ) - strtotime($post['created']);
 						if( WPF()->member->current_user_is_new() && $post['status'] ){
-							//New registered user's unapproved topic/post | No Edit button. 
+								//New registered user's unapproved topic/post | No Edit button. 
+						}
+						elseif( !$login && isset($post['email']) 
+							   			&& wpforo_is_owner($post['userid'], $post['email'])
+							   			&& WPF()->perm->forum_can( ($is_topic ? 'eot' : 'eor' ), $forumid ) 
+										&& $diff < WPF()->post->options[($is_topic ? 'eot' : 'eor' ).'_durr'] 
+							  ) {
+								$a = ( $is_topic ) ? 'wpfedittopicpid' : ''; 
+								$b = ( $is_topic ) ? $postid : $postid;
+								$button_html[] = '<span id="'. esc_attr( $a . $b ) .'" class="wpforo-edit wpf-action"><i class="fa fa-edit wpfsx"></i>' . wpforo_phrase('Edit', false).'</span>';
+							
+						}
+						elseif( $login ) {
+							if( WPF()->perm->forum_can( ($is_topic ? 'et' : 'er'), $forumid ) || 
+							   		(	WPF()->current_userid == $post['userid'] 
+									 	&& WPF()->perm->forum_can( ($is_topic ? 'eot' : 'eor' ), $forumid ) 
+									 	&& $diff < WPF()->post->options[($is_topic ? 'eot' : 'eor' ).'_durr'] 
+									) 
+							  ) {
+								$a = ( $is_topic ) ? 'wpfedittopicpid' : ''; 
+								$b = ( $is_topic ) ? $postid : $postid;
+								$button_html[] = '<span id="'. esc_attr( $a . $b ) .'" class="wpforo-edit wpf-action"><i class="fa fa-edit wpfsx"></i>' . wpforo_phrase('Edit', false).'</span>';
+							}
+						} 
+				 	break; 
+				case 'delete':
+					if( $login ){
+						if( WPF()->member->current_user_is_new() && $post['status'] ){
+							//New registered user's unapproved topic/post | No Delete button. 
 						}
 						else{
 							$diff = current_time( 'timestamp', 1 ) - strtotime($post['created']);
-							if( WPF()->perm->forum_can( ($is_topic ? 'et' : 'er'), $forumid ) || (WPF()->current_userid == $post['userid'] && WPF()->perm->forum_can( ($is_topic ? 'eot' : 'eor' ), $forumid ) && $diff < WPF()->post->options[($is_topic ? 'eot' : 'eor' ).'_durr'] ) ) {
-								$a = ( $is_topic ) ? 'wpfedittopicpid' : ''; 
-								$b = ( $is_topic ) ? $postid : $postid;
-								$button_html[] = '<span id="'. esc_attr( $a . $b ) .'" class="wpforo-edit wpf-action"><i class="fa fa-edit fa-0x"></i>' . wpforo_phrase('Edit', false).'</span>';
+							if( WPF()->perm->forum_can( ($is_topic ? 'dt' : 'dr' ), $forumid ) || (WPF()->current_userid == $post['userid'] && WPF()->perm->forum_can( ($is_topic ? 'dot' : 'dor' ), $forumid ) && $diff < WPF()->post->options[($is_topic ? 'dot' : 'dor' ).'_durr']) ){
+								$a = ( $is_topic ) ? 'wpftopicdelete' : 'wpfreplydelete'; 
+								$b = ( $is_topic ) ? $topicid : $postid;
+								$button_html[] = '<span id="'. esc_attr( $a . $b ) .'" class="wpf-action wpforo-delete"><i class="fa fa-times wpfsx"></i>' . wpforo_phrase('Delete', false).'</span>';
 							}
-						}
-				 	break; 
-				case 'delete':
-					if( WPF()->member->current_user_is_new() && $post['status'] ){
-						//New registered user's unapproved topic/post | No Delete button. 
-					}
-					else{
-						$diff = current_time( 'timestamp', 1 ) - strtotime($post['created']);
-						if( WPF()->perm->forum_can( ($is_topic ? 'dt' : 'dr' ), $forumid ) || (WPF()->current_userid == $post['userid'] && WPF()->perm->forum_can( ($is_topic ? 'dot' : 'dor' ), $forumid ) && $diff < WPF()->post->options[($is_topic ? 'dot' : 'dor' ).'_durr']) ){
-							$a = ( $is_topic ) ? 'wpftopicdelete' : 'wpfreplydelete'; 
-							$b = ( $is_topic ) ? $topicid : $postid;
-							$button_html[] = '<span id="'. esc_attr( $a . $b ) .'" class="wpf-action wpforo-delete"><i class="fa fa-times fa-0x"></i>' . wpforo_phrase('Delete', false).'</span>';
 						}
 					}
 				 	break; 
 				case 'link':
 					$url = ( $is_topic ) ? WPF()->topic->get_topic_url( $topic ) : wpforo_post( $postid, 'url' );
-					$button_html[] = '<a href="'. esc_url($url) .'"><i class="fa fa-link fa-0x"></i></a>';
+					$button_html[] = '<a href="'. esc_url($url) .'"><i class="fa fa-link wpfsx"></i></a>';
 				 	break; 
 				case 'positivevote':
-					if( WPF()->perm->forum_can('v', $forumid) ) {
+					if( WPF()->perm->forum_can('v', $forumid) && $login ) {
 						$button_html[] = '<i itemtype="' . ( $is_topic ? 'topic' : 'reply' ) . '" id="wpfvote-up-'. wpforo_bigintval($postid) .'" class="voteup fa fa-play fa-rotate-270 wpfcl-0"></i>';
 					}else{
 						$button_html[] = '<i class="not_reg_user fa fa-play fa-rotate-270 wpfcl-0"></i>';
 					}
 				 	break; 
 				case 'negativevote':
-					if( WPF()->perm->forum_can('v', $forumid) ) {
+					if( WPF()->perm->forum_can('v', $forumid) && $login ) {
 						$button_html[] = '<i itemtype="' . ( $is_topic ? 'topic' : 'reply' ) . '" id="wpfvote-down-'. wpforo_bigintval($postid) .'" class="votedown fa fa-play fa-rotate-90 wpfcl-0"></i>';
 					}else{
 						$button_html[] = '<i class="not_reg_user fa fa-play fa-rotate-90 wpfcl-0"></i>';
@@ -503,7 +553,7 @@ class wpForoTemplate{
 				case 'isanswer': 
 					$is_answer = WPF()->post->is_answered( $postid );
 					$is_answer = ( $is_answer == 0 )  ? '-not' : '';
-					if( is_user_logged_in() ){
+					if( $login ){
 						$button_html[] = '<div id="wpf-answer-'. intval($postid) .'" class="wpf-toggle'. esc_attr($is_answer) .'-answer"><i class="fa fa-check"></i></div>';
 					}else{
 						$button_html[] = '<div class="wpf-toggle'. esc_attr($is_answer) .'-answer not_reg_user"><i class="fa fa-check"></i></div>';
@@ -1541,29 +1591,23 @@ class wpForoTemplate{
 				    if( is_array($v) ){
 				        $field_html .= '<optgroup label="' . esc_attr($k) . '">';
 				        foreach ($v as $_k => $_v){
-//				            >>> its some #1 code
                             $data = explode('=>', $_v);
                             $item_value = isset($data[0]) ? $data[0] : 'no_value';
                             $item_label = isset($data[1]) ? $data[1] : $item_value;
                             $value = stripslashes(htmlspecialchars($value));
                             $item_value = stripslashes(htmlspecialchars($item_value));
                             $selected = ( $item_value == $value ) ? 'selected="selected"' : '';
-
                             $field_html .= '<option value="' . esc_attr($item_value) . '" ' . $selected . '>' . stripslashes($item_label) . '</option>';
-//				            <<< its some #1 code
                         }
                         $field_html .= '</optgroup>';
                     }else{
-//				        >>> its some #1 code
                         $data = explode('=>', $v);
                         $item_value = isset($data[0]) ? $data[0] : 'no_value';
                         $item_label = isset($data[1]) ? $data[1] : $item_value;
                         $value = stripslashes(htmlspecialchars($value));
                         $item_value = stripslashes(htmlspecialchars($item_value));
                         $selected = ( $item_value == $value ) ? 'selected="selected"' : '';
-
                         $field_html .= '<option value="' . esc_attr($item_value) . '" ' . $selected . '>' . stripslashes($item_label) . '</option>';
-//				        <<< its some #1 code
                     }
 				}
 			}
@@ -1598,7 +1642,10 @@ class wpForoTemplate{
 				<li><input ' . $isRequired . ' name="' . esc_attr($varname) . '[avatar_type]" id="wpfat_gravatar" value="gravatar" ' . ( $value == '' || $value == NULL ? 'checked="checked"' : '' ) . ' type="radio" />&nbsp; <label for="wpfat_gravatar">' . wpforo_phrase('Wordpress avatar system', false) . '</label></li>
 				<li><input name="' . esc_attr($varname) . '[avatar_type]" id="wpfat_remote" value="remote" ' . ( $value && strpos($value, 'wpforo/avatars') === FALSE ? 'checked="checked"' : '' ) . ' type="radio" />&nbsp; <label for="wpfat_remote">' . wpforo_phrase('Specify avatar by URL:', false) . '</label> <input autocomplete="off" name="' . esc_attr($varname) . '[avatar_url]" value="" maxlength="300" data-wpfucf-minmaxlength="1,300" type="url" /></li>';
 				if( WPF()->perm->usergroup_can('upa') ) {
-					$field_html .= '<li><input name="' . esc_attr($varname) . '[avatar_type]" id="wpfat_custom" value="custom" type="radio" />&nbsp;<label for="wpfat_custom">' . wpforo_phrase('Upload an avatar', false) . '</label>' . ( strpos($value, 'wpforo/avatars') !== FALSE ? '<br /><img src="' . esc_url($value) . '" class="wpf-custom-avatar-img"/>' : '' ) .'&nbsp; <input class="wpf-custom-avatar" name="avatar" type="file" />&nbsp;</li>';
+					if( strpos($value, 'gravatar.com') === FALSE && strpos($value, 'facebook.com') === FALSE ){
+						$url = $value . '?lm=' . time();
+					}
+					$field_html .= '<li><input name="' . esc_attr($varname) . '[avatar_type]" id="wpfat_custom" value="custom" type="radio" ' . ( (strpos($url, 'wpforo/avatars') !== FALSE) ? 'checked' : '' ) . ' />&nbsp;<label for="wpfat_custom"> ' . wpforo_phrase('Upload an avatar', false) . '</label>' . ( strpos($url, 'wpforo/avatars') !== FALSE ? '<br /><img src="' . esc_url($url) . '" class="wpf-custom-avatar-img"/>' : '' ) .'&nbsp; <input class="wpf-custom-avatar" name="avatar" type="file" />&nbsp;</li>';
 				}
 			$field_html .= '</ul>
 			<script type="text/javascript">jQuery(document).ready(function($){$( "input[name=\'member\[avatar_url\]\']" ).click(function(){$( "#wpfat_remote" ).prop(\'checked\', true);}); $( "input[name=\'avatar\']" ).click(function(){$( "#wpfat_custom" ).prop(\'checked\', true);});});</script>';
@@ -1708,13 +1755,13 @@ class wpForoTemplate{
 					else{
 					    switch ($args['type']){
                             case 'url':
-                                $value = sprintf('<a href="%s" target="_blank">%s</a>', $value, $value);
+                                $value = sprintf('<a href="%s" target="_blank" rel="nofollow">%s</a>', $value, $value);
                             break;
                             case 'email':
-                                $value = sprintf('<a href="mailto:%s">%s</a>', $value, $value);
+                                $value = sprintf('<a href="mailto:%s" rel="nofollow">%s</a>', $value, $value);
                             break;
                             case 'phone':
-                                $value = sprintf('<a href="tel:%s">%s</a>', $value, $value);
+                                $value = sprintf('<a href="tel:%s" rel="nofollow">%s</a>', $value, $value);
                             break;
                             case 'file':
                                 if( !empty($value) ){
@@ -1727,10 +1774,16 @@ class wpForoTemplate{
 
                         switch ($args['name']){
                             case 'skype':
-                                $value = sprintf('<a href="skype:%s?userinfo">%s</a>', $value, $value);
+                                $value = sprintf('<a href="skype:%s?userinfo" rel="nofollow">%s</a>', $value, $value);
                             break;
                             case 'location':
-                                $value = sprintf('<a href="//maps.google.com/?q=%s" target="_blank">%s</a>', $value, $value);
+                                $value = sprintf('<a href="//maps.google.com/?q=%s" target="_blank" rel="nofollow">%s</a>', $value, $value);
+                            break;
+							case 'signature':
+                                $value = wpforo_signature( $value, array('echo' => 0) );
+                            break;
+							case 'about':
+                                $value = wpforo_nofollow_tag( $value );
                             break;
                         }
 
@@ -1792,5 +1845,30 @@ class wpForoTemplate{
 
 		return $html;
 	}
+
+	public function forum_subscribe_link(){
+	    if ( WPF()->current_userid || WPF()->current_user_email ): ?>
+            <?php
+            $args = array( "userid" => WPF()->current_userid, "itemid" => WPF()->current_object['forumid'], "type" => "forum", 'user_email' => WPF()->current_user_email );
+            $subscribe = WPF()->sbscrb->get_subscribe( $args );
+            if( isset( $subscribe['subid'] ) ): ?>
+                <span class="wpf-unsubscribe-forum wpf-action" id="wpfsubscribe-<?php echo WPF()->current_object['forumid'] ?>"><?php wpforo_phrase('Unsubscribe') ?></span>
+            <?php else: ?>
+                <span class="wpf-subscribe-forum wpf-action" id="wpfsubscribe-<?php echo WPF()->current_object['forumid'] ?>"><?php wpforo_phrase('Subscribe for new topics') ?></span>
+            <?php endif; ?>
+        <?php endif;
+    }
+
+    public function topic_subscribe_link(){
+        if ( WPF()->current_userid || WPF()->current_user_email ){
+            $args = array( "userid" => WPF()->current_userid , "itemid" => WPF()->current_object['topicid'], "type" => "topic", 'user_email' => WPF()->current_user_email );
+            $subscribe = WPF()->sbscrb->get_subscribe( $args );
+            if( isset( $subscribe['subid'] ) ): ?>
+                <span class="wpf-unsubscribe-topic wpf-action" id="wpfsubscribe-<?php echo WPF()->current_object['topicid'] ?>" ><?php wpforo_phrase('Unsubscribe') ?></span>
+            <?php else: ?>
+                <span class="wpf-subscribe-topic wpf-action" id="wpfsubscribe-<?php echo WPF()->current_object['topicid'] ?>"  ><?php wpforo_phrase('Subscribe for new replies') ?></span>
+            <?php endif;
+        }
+    }
 
 }

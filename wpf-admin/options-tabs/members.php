@@ -54,6 +54,28 @@
                 </td>
 			</tr>
             <tr>
+				<th>
+                	<label><?php _e('Custom Redirection URLs after following actions', 'wpforo'); ?>:</label>
+                	<p class="wpf-info">
+                    	<?php _e('For member profile, account and subscription pages use following URLs:', 'wpforo');
+                    	echo "<br/>";
+                        echo wpforo_home_url('profile');
+						echo "<br/>";
+                        echo wpforo_home_url('account');
+                        echo "<br/>";
+                        echo wpforo_home_url('subscriptions');
+                        ?>
+                    </p>
+                </th>
+				<td>
+					<ul>
+                        <li><input style="width:30%;padding: 3px 10px 3px 3px; vertical-align:middle; font-size:13px" type="url" name="wpforo_member_options[redirect_url_after_login]"  value="<?php wpfo(WPF()->member->options['redirect_url_after_login']) ?>" /> &nbsp;<label style="font-size:13px"><?php _e('Redirect after login', 'wpforo') ?></label></li>
+                        <li><input style="width:30%;padding: 3px 10px 3px 3px; vertical-align:middle; font-size:13px" type="url" name="wpforo_member_options[redirect_url_after_register]" value="<?php wpfo(WPF()->member->options['redirect_url_after_register']) ?>" /> &nbsp;<label style="font-size:13px"><?php _e('Redirect after registration', 'wpforo') ?></label></li>
+                        <li><input style="width:30%;padding: 3px 10px 3px 3px; vertical-align:middle; font-size:13px" type="url" name="wpforo_member_options[redirect_url_after_confirm_sbscrb]"  value="<?php wpfo(WPF()->member->options['redirect_url_after_confirm_sbscrb']) ?>" /> &nbsp;<label style="font-size:13px"><?php _e('Redirect after subscription confirmation', 'wpforo') ?></label></li>
+                    </ul>
+                </td>
+			</tr>
+            <tr>
 				<th colspan="2">
                 	<h3 style="font-weight:400; padding:5px 0px 10px 0px; margin:0px;"><?php _e('Member Reputation and Titles', 'wpforo'); ?></h3>
                 </th>

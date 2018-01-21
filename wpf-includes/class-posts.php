@@ -24,6 +24,7 @@ class wpForoPost{
             'layout_extended_intro_posts_toggle' => 1,
             'layout_extended_intro_posts_count' => 4,
             'layout_extended_intro_posts_length' => 50,
+			'recent_posts_type' => 'topics',
             'topics_per_page' => 10,
             'eot_durr' => 300,
             'dot_durr' => 300,
@@ -51,8 +52,8 @@ class wpForoPost{
 		if( empty($args) && empty($_REQUEST['post']) ){ WPF()->notice->add('Reply request error', 'error'); return FALSE; }
 		if( empty($args) && !empty($_REQUEST['post']) ){ $args = $_REQUEST['post']; $args['body'] = $_REQUEST['postbody']; }
 		if( !isset($args['body']) || !$args['body'] ){ WPF()->notice->add('Post is empty', 'error'); return FALSE; }
-		$args['name'] = (isset($args['name']) ? $args['name'] : '' );
-		$args['email'] = (isset($args['email']) ? $args['email'] : '' );
+		$args['name'] = (isset($args['name']) ? strip_tags($args['name']) : '' );
+		$args['email'] = (isset($args['email']) ? sanitize_email($args['email']) : '' );
 		if( isset($args['userid']) && $args['userid'] == 0 && $args['name'] && $args['email'] ) $guestposting = true;
 		
 		extract($args);
@@ -67,8 +68,18 @@ class wpForoPost{
 		}
 		
 		if( !$guestposting && !WPF()->perm->forum_can('cr', $topic['forumid']) ){
-			WPF()->notice->add('You haven\'t permission to create post into this forum', 'error');
+			WPF()->notice->add('You don\'t have permission to create post in this forum', 'error');
 			return FALSE;
+		}
+		
+		if( !is_user_logged_in() ){
+			if( !$args['name'] || !$args['email'] ){
+				WPF()->notice->add('Please insert required fields!', 'error');
+				return FALSE;
+			}
+			else{
+				WPF()->member->set_guest_cookies( $args );
+			}
 		}
 		
 		do_action( 'wpforo_start_add_post', $args );
@@ -161,6 +172,8 @@ class wpForoPost{
 		
 		if( empty($args) && (!isset($_REQUEST['post']) || empty($_REQUEST['post'])) ) return FALSE;
 		if( empty($args) && !empty($_REQUEST['post']) ){ $args = $_REQUEST['post']; $args['body'] = $_REQUEST['postbody']; }
+		if( isset($args['name']) ){ $args['name'] = strip_tags($args['name']); }
+		if( isset($args['email']) ){ $args['email'] = sanitize_email($args['email']); }
 		
 		do_action( 'wpforo_start_edit_post', $args );
 		
@@ -170,6 +183,24 @@ class wpForoPost{
 		}
 		$args['postid'] = intval($args['postid']);
 		if( !$post = $this->get_post($args['postid']) ){ WPF()->notice->add('No Posts found for update', 'error'); return FALSE; }
+		
+		if( !is_user_logged_in() ){
+			if( !isset($post['email']) || !$post['email'] ){
+				WPF()->notice->add('Permission denied', 'error');
+				return FALSE;
+			}
+			elseif( !wpforo_current_guest( $post['email'] ) ){
+				WPF()->notice->add('You are not allowed to edit this post', 'error');
+				return FALSE;
+			}
+			if( !$args['name'] || !$args['email'] ){
+				WPF()->notice->add('Please insert required fields!', 'error');
+				return FALSE;
+			}
+			else{
+				WPF()->member->set_guest_cookies( $args );
+			}
+		}
 		
 		$args['userid'] = $post['userid'];
 		$args['status'] = $post['status'];
@@ -186,7 +217,7 @@ class wpForoPost{
 			if( !(WPF()->perm->forum_can('er', $post['forumid']) ||
 					(WPF()->current_userid == $post['userid'] && WPF()->perm->forum_can('eor', $post['forumid']) &&
 						$diff < WPF()->post->options['eor_durr'])) ){
-				WPF()->notice->add('You haven\'t permission to edit post from this forum', 'error');
+				WPF()->notice->add('You don\t have permission to edit post from this forum', 'error');
 				return FALSE;
 			}
 		}
@@ -259,7 +290,7 @@ class wpForoPost{
 
 		$diff = current_time( 'timestamp', 1 ) - strtotime($post['created']);
 		if( !(WPF()->perm->forum_can('dr', $post['forumid']) || (WPF()->current_userid == $post['userid'] && WPF()->perm->forum_can('dor', $post['forumid']) && $diff < WPF()->post->options['dor_durr'])) ){
-			WPF()->notice->add('You haven\'t permission to delete post from this forum', 'error');
+			WPF()->notice->add('You don\t have permission to delete post from this forum', 'error');
 			return FALSE;
 		}
 		
@@ -268,7 +299,7 @@ class wpForoPost{
 		
 		//Delete post
 		if( WPF()->db->delete(WPF()->db->prefix . 'wpforo_posts',  array( 'postid' => intval($postid) ), array( '%d' )) ){
-			$last_post = $this->get_posts( array('topicid' => intval($post['topicid']), 'order' => 'DESC', 'row_count' => 1) );
+			$last_post = $this->get_posts( array('topicid' => intval($post['topicid']), 'orderby' => 'postid', 'order' => 'DESC', 'row_count' => 1, 'status' => 0, 'private' => 0) );
 			if(is_array($last_post) && !empty($last_post)){
 				$last_post = $last_post[0];
 			}else{
@@ -293,7 +324,7 @@ class wpForoPost{
 				}
 			}
 			
-			if(WPF()->db->query( "UPDATE IGNORE " . WPF()->db->prefix . "wpforo_topics SET `last_post` = " . intval($last_post['postid']) . ", `posts` = IF( (`posts` - 1) < 0, 0, `posts` - 1 ) $answ_incr WHERE `topicid` = " . intval( $post['topicid'] ))){
+			if(WPF()->db->query( "UPDATE IGNORE " . WPF()->db->prefix . "wpforo_topics SET `modified` = '" . esc_sql($last_post['modified']) . "', `last_post` = " . intval($last_post['postid']) . ", `posts` = IF( (`posts` - 1) < 0, 0, `posts` - 1 ) $answ_incr WHERE `topicid` = " . intval( $post['topicid'] ))){
 				if( WPF()->db->query( "UPDATE IGNORE `" . WPF()->db->prefix . "wpforo_forums` SET `last_post_date` = '" . esc_sql($last_post['created']) . "', `last_userid` = " . intval($last_post['userid']) . ", `last_postid` = " . intval($last_post['postid']) . ", `posts` = IF( (`posts` - 1) < 0, 0, `posts` - 1 ) WHERE `forumid` = " . intval( $post['forumid'] ))){
 					if( WPF()->db->query( "UPDATE IGNORE `"  . WPF()->db->prefix . "wpforo_profiles` SET `posts` = IF( (`posts` - 1) < 0, 0, `posts` - 1 ) $answ_incr $comm_incr WHERE `userid` = " . intval($post['userid']) ) ){
 						WPF()->member->reset($post['userid']);
@@ -340,7 +371,7 @@ class wpForoPost{
 			return array();
 		}
 		
-		if( isset($post['status']) && $post['status'] && !wpforo_is_owner($post['userid'])){
+		if( isset($post['status']) && $post['status'] && !wpforo_is_owner($post['userid'], $post['email'])){
 			if( isset($post['forumid']) && $post['forumid'] && !WPF()->perm->forum_can('au', $post['forumid']) ){
 				return array();
 			}
@@ -383,7 +414,8 @@ class wpForoPost{
 		  'private'		=> NULL, 		// 0 or 1 ...
 		  'email'		=> NULL, 		// example@example.com ...  
 		  'check_private' => TRUE,
-		  'where'		=> NULL, 	
+		  'where'		=> NULL, 
+		  'owner'		=> NULL,
 		);
 		
 		$args = wpforo_parse_args( $args, $default );
@@ -397,8 +429,10 @@ class wpForoPost{
 			$include = wpforo_parse_args( $include );
 			$exclude = wpforo_parse_args( $exclude );
 			
+			$guest = array();
 			$wheres = array();
 			$table_as_prefix = '`'.WPF()->db->prefix.'wpforo_posts`.';
+			if(!is_user_logged_in()) $guest = WPF()->member->get_guest_cookies();
 			
 			if(!empty($include)) $wheres[] = $table_as_prefix . "`postid` IN(" . implode(', ', array_map('intval', $include)) . ")";
 			if(!empty($exclude)) $wheres[] = $table_as_prefix . "`postid` NOT IN(" . implode(', ', array_map('intval', $exclude)) . ")";
@@ -418,6 +452,9 @@ class wpForoPost{
 				}
 				elseif( isset(WPF()->current_userid) && WPF()->current_userid ){
 					$wheres[] = " ( " . $table_as_prefix .  "`status` = 0 OR (" . $table_as_prefix .  "`status` = 1 AND " . $table_as_prefix .  "`userid` = " .intval(WPF()->current_userid). ") )";
+				}
+				elseif( isset($guest['email']) ){
+					$wheres[] = " ( " . $table_as_prefix .  "`status` = 0 OR (" . $table_as_prefix .  "`status` = 1 AND " . $table_as_prefix .  "`email` = '" . sanitize_email($guest['email']) . "') )";
 				}
 				else{
 					$wheres[] = " " . $table_as_prefix .  "`status` = 0";
@@ -451,12 +488,19 @@ class wpForoPost{
 					if( isset($post['forumid']) && !WPF()->perm->forum_can('vf', $post['forumid']) ){
 						unset($posts[$key]);
 					}
-					if( isset($posts[$key]) && isset($post['forumid']) && isset($post['private']) && $post['private'] && !wpforo_is_owner($post['userid']) ){
-						if( !WPF()->perm->forum_can('vp', $post['forumid']) ){
-							unset($posts[$key]);
+					if( isset($post['forumid']) && isset($post['private']) && $post['private'] && !$owner ){
+						if(!WPF()->perm->forum_can('vp', $post['forumid'])){ 
+							if(is_null($owner)){
+								$topic_userid = wpforo_topic($post['topicid'], 'userid');
+								if(!wpforo_is_owner($topic_userid) && !wpforo_is_owner($post['userid'])){
+									unset($posts[$key]);
+								}
+							}else{
+								unset($posts[$key]);
+							}
 						}
 					}
-					if( isset($posts[$key]) && isset($post['forumid']) && isset($post['status']) && $post['status'] && !wpforo_is_owner($post['userid']) ){
+					if( isset($post['forumid']) && isset($post['status']) && $post['status'] && !wpforo_is_owner($post['userid'], $post['email']) ){
 						if( !WPF()->perm->forum_can('au', $post['forumid']) ){
 							unset($posts[$key]);
 						}
@@ -480,12 +524,12 @@ class wpForoPost{
 				if( isset($post['forumid']) && !WPF()->perm->forum_can('vf', $post['forumid']) ){
 					unset($posts[$key]);
 				}
-				if( isset($posts[$key]) && isset($post['forumid']) && isset($post['private']) && $post['private'] && !wpforo_is_owner($post['userid']) ){
+				if( isset($posts[$key]) && isset($post['forumid']) && isset($post['private']) && $post['private'] && !wpforo_is_owner($post['userid'], $post['email']) ){
 					if( !WPF()->perm->forum_can('vp', $post['forumid']) ){
 						unset($posts[$key]);
 					}
 				}
-				if( isset($posts[$key]) && isset($post['forumid']) && isset($post['status']) && $post['status'] && !wpforo_is_owner($post['userid']) ){
+				if( isset($posts[$key]) && isset($post['forumid']) && isset($post['status']) && $post['status'] && !wpforo_is_owner($post['userid'], $post['email']) ){
 					if( !WPF()->perm->forum_can('au', $post['forumid']) ){
 						unset($posts[$key]);
 					}

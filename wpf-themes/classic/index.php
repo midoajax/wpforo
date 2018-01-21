@@ -55,7 +55,8 @@
 						'offset' => ($paged - 1) * WPF()->post->options['posts_per_page'],
 						'row_count' => WPF()->post->options['posts_per_page'],
 						'orderby' => 'posts',
-						'order' => 'DESC'
+						'order' => 'DESC',
+						'groupids' => WPF()->usergroup->get_visible_usergroup_ids()
 					);
 					if(!empty($users_include)) $args['include'] = $users_include;
 					$items_count = 0;
@@ -69,17 +70,17 @@
 					if( $template == 'forum' || $template == 'topic' ) : ?>
 						<?php if(!isset($forum_slug)) : ?>
                         	<h1 id="wpforo-title">
-								<?php echo esc_html(WPF()->general_options['title']) ?>
-                            	<?php if( wpforo_feature('rss-feed') ): ?>
-                                    <div class="wpforo-feed"> 
+                                <?php echo esc_html(WPF()->general_options['title']) ?>
+                                <?php if( wpforo_feature('rss-feed') ): ?>
+                                    <div class="wpforo-feed">
                                         <span class="wpf-feed-forums">
                                             <a href="<?php WPF()->feed->rss2_url( true, 'forum' ); ?>"  title="<?php wpforo_phrase('Forums RSS Feed') ?>" target="_blank">
-                                                <span><?php wpforo_phrase('Forums') ?></span> <i class="fa fa-rss fa-0x"></i>
+                                                <span><?php wpforo_phrase('Forums') ?></span> <i class="fa fa-rss wpfsx"></i>
                                             </a>
                                         </span><sep> | </sep>
                                         <span class="wpf-feed-topics">
                                             <a href="<?php WPF()->feed->rss2_url( true, 'topic' ); ?>"  title="<?php wpforo_phrase('Topics RSS Feed') ?>" target="_blank">
-                                                <span><?php wpforo_phrase('Topics') ?></span> <i class="fa fa-rss fa-0x"></i>
+                                                <span><?php wpforo_phrase('Topics') ?></span> <i class="fa fa-rss wpfsx"></i>
                                             </a>
                                         </span>
                                      </div>
@@ -126,18 +127,9 @@
                                                 <div id="wpforo-description"><?php echo $forum['description'] ?></div>
                                                 <?php endif; ?>
                                                 <div class="wpf-action-link">
-                                                <?php if ( is_user_logged_in() ): ?>
-                                                    <?php 
-                                                    $args = array( "userid" => WPF()->current_userid , "itemid" => $forum['forumid'], "type" => "forum" );
-                                                    $subscribe = WPF()->sbscrb->get_subscribe( $args );
-                                                    if( isset( $subscribe['subid'] ) ): ?>
-                                                        <span class="wpf-unsubscribe-forum wpf-action" id="wpfsubscribe-<?php echo intval($forum['forumid']) ?>"><?php wpforo_phrase('Unsubscribe') ?></span> 
-                                                    <?php else: ?>
-                                                        <span class="wpf-subscribe-forum wpf-action" id="wpfsubscribe-<?php echo intval($forum['forumid']) ?>"><?php wpforo_phrase('Subscribe for new topics') ?></span> 
-                                                    <?php endif; ?>
-                                                <?php endif; ?>
+                                                    <?php WPF()->tpl->forum_subscribe_link() ?>
                                                 	<?php if( wpforo_feature('rss-feed') ): ?>
-                                                    	<span class="wpf-feed">| <a href="<?php WPF()->feed->rss2_url(); ?>" title="<?php wpforo_phrase('Forum RSS Feed') ?>" target="_blank"><span><?php wpforo_phrase('RSS') ?></span> <i class="fa fa-rss fa-0x"></i></a></span>
+                                                    	<span class="wpf-feed">| <a href="<?php WPF()->feed->rss2_url(); ?>" title="<?php wpforo_phrase('Forum RSS Feed') ?>" target="_blank"><span><?php wpforo_phrase('RSS') ?></span> <i class="fa fa-rss wpfsx"></i></a></span>
                                                 	<?php endif; ?>
                                                 </div>	
                                             </div>
@@ -149,7 +141,7 @@
                                             <div class="wpf-clear"></div>
                                         </div>
                                         
-                                        <?php if( is_user_logged_in() && WPF()->perm->forum_can( 'ct', $cat['forumid'] ) ) WPF()->tpl->topic_form($forum['forumid']); ?>
+                                        <?php if( WPF()->perm->forum_can( 'ct', $forum['forumid'] ) ) WPF()->tpl->topic_form($forum['forumid']); ?>
                                         
                                         <?php
                                             $args = array(
@@ -175,6 +167,8 @@
                                             <p class="wpf-p-error"><?php wpforo_phrase('No topics were found here') ?>  </p>
                                         <?php endif; ?>
                                         
+                                    <?php else : ?>
+                                        <p class="wpf-p-error"><?php wpforo_phrase('You have not permsiions to see this page, please register or login for further information') ?></p>
                                     <?php endif; //chekcing permissions (can view forum) ?>
                                     
                                 <?php else : ?>
@@ -195,18 +189,20 @@
 									if( WPF()->perm->forum_can( 'vt', $forum['forumid'] ) ):
 										
 										if( is_array($topic) && !empty($topic) ) : ?>
-										
-											<?php if( isset($topic['private']) && $topic['private'] && !wpforo_is_owner($topic['userid']) && !WPF()->perm->forum_can( 'vp', $forum['forumid'] ) ): ?>
-                                            	<p class="wpf-p-error"><?php wpforo_phrase('Permission denied') ?></p>
+							
+											<?php $owner = wpforo_is_owner($topic['userid'], $topic['email']); ?>
+											<?php if( isset($topic['private']) && $topic['private'] && !$owner && !WPF()->perm->forum_can( 'vp', $forum['forumid'] ) ): ?>
+                                            	<p class="wpf-p-error"><?php wpforo_phrase('Topic are private, please register or login for further information') ?></p>
 											<?php else: ?>
-                                            	
+			
 												<?php
                                                 $cat_layout = WPF()->forum->get_layout( array( 'topicid' =>  $topic['topicid'] ) );
 												$args = array(
                                                     'offset' => ($paged - 1) * WPF()->post->options['posts_per_page'],
                                                     'row_count' => WPF()->post->options['posts_per_page'],
                                                     'topicid' => $topic['topicid'],
-													'forumid' => $forum['forumid']
+													'forumid' => $forum['forumid'],
+													//'owner' => $owner
                                                 );
                                                 $items_count = 0;
                                                 $posts = WPF()->post->get_posts( $args, $items_count);
@@ -215,18 +211,7 @@
 												<?php if( is_array($posts) && !empty($posts) ) : ?>
                                                     <div class="wpf-head-bar">
                                                         <h1 id="wpforo-title"><?php $icon_title = WPF()->tpl->icon('topic', $topic, false, 'title'); if( $icon_title ) echo '<span class="wpf-status-title">[' . esc_html($icon_title) . ']</span> ' ?><?php echo esc_html($topic['title']) ?>&nbsp;&nbsp;</h1>
-                                                        <?php if ( is_user_logged_in() ): ?>
-                                                            <div class="wpf-action-link">
-                                                                <?php 
-                                                                $args = array( "userid" => WPF()->current_userid , "itemid" => $topic['topicid'], "type" => "topic" );
-                                                                $subscribe = WPF()->sbscrb->get_subscribe( $args );
-                                                                if( isset( $subscribe['subid'] ) ): ?>
-                                                                    <span class="wpf-unsubscribe-topic wpf-action" id="wpfsubscribe-<?php echo intval($topic['topicid']) ?>" ><?php wpforo_phrase('Unsubscribe') ?></span>
-                                                                <?php else: ?>
-                                                                    <span class="wpf-subscribe-topic wpf-action" id="wpfsubscribe-<?php echo intval($topic['topicid']) ?>"  ><?php wpforo_phrase('Subscribe for new replies') ?></span>
-                                                                <?php endif; ?>
-                                                            </div>	
-                                                        <?php endif; ?>
+                                                        <div class="wpf-action-link"><?php WPF()->tpl->topic_subscribe_link() ?></div>
                                                     </div>
                                                         
                                                    <?php WPF()->tpl->pagenavi( $paged, $items_count, true, 'wpf-navi-post-top' ); ?>
@@ -236,7 +221,7 @@
                                                     <?php WPF()->tpl->pagenavi($paged, $items_count, true, 'wpf-navi-post-bottom'); ?>
                                                     
                                                     <?php 
-                                                        if(is_user_logged_in()){
+                                                       if( WPF()->perm->forum_can( 'cr', $forum['forumid'] ) ) {
                                                             $default = array(
                                                                 "topic_closed" => $topic['closed'], 	
                                                                 "topicid" => $topic['topicid'],  		
@@ -256,7 +241,9 @@
 										<?php else : ?>	
 											<?php include( wpftpl('404.php') ) ?>
 										<?php endif; ?>
-                                        
+
+                                    <?php else : ?>
+                                        <p class="wpf-p-error"><?php wpforo_phrase('You have not permsiions to see this page, please register or login for further information') ?></p>
 									<?php endif; //checking permission can view topic ?>
 								
 							<?php else : ?>

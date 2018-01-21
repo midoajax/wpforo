@@ -714,7 +714,7 @@ function wpforo_member_badge( $member = array(), $sep = '', $type = 'full' ){
 
 
 function wpforo_member_nicename( $member = array(), $prefix = '', $bracket = true, $wrap = true, $class = 'wpf-author-nicename', $echo = true ){
-	if( empty($member) || !isset($member['user_nicename']) ) return '';
+	if( !wpforo_feature('mention-nicknames') || empty($member) || !isset($member['user_nicename']) ) return '';
 	$nicename = '';
 	if( $wrap ){ $nicename .= '<div class="' . $class . '" title="' . wpforo_phrase('You can mention a person using @nicename in post content to send that person an email message. When you post a topic or reply, forum sends an email message to the user letting them know that they have been mentioned on the post.', false) . '">';}
 	if( $bracket ) $nicename .= '(';
@@ -749,6 +749,7 @@ function wpforo_post( $postid, $var = 'item', $echo = false ){
 		 $post = WPF()->cache->get_item( $postid, 'post' );
 	}
 	if( empty($post) ){
+		$post = array();
 		if( !$cache && $var == 'url' ){
 			$post['url'] = WPF()->post->get_post_url($postid);
 		}
@@ -802,6 +803,7 @@ function wpforo_topic( $topicid, $var = 'item', $echo = false ){
 	if( $cache ) $topic = WPF()->cache->get_item( $topicid, 'topic' );
 	
 	if( empty($topic) ){
+		$topic = array();
 		if( !$cache && $var == 'url' ){
 			$topic['url'] = WPF()->topic->get_topic_url( $topicid );
 		}
@@ -842,6 +844,7 @@ function wpforo_forum( $forumid, $var = 'item', $echo = false ){
 	if( $cache ) $forum = WPF()->cache->get_item( $forumid, 'forum' );
 	
 	if( empty($forum) ){
+		$forum = array();
 		if( !$cache && ($var == 'childs' || $var == 'counts') ){
 			if( $var == 'childs' ) { 
 				WPF()->forum->get_childs($forumid, $data);
@@ -885,7 +888,7 @@ function wpforo_member( $object, $var = 'item', $echo = false ){
 	$member = array();
 	if( empty( $object ) ) return $member;
 	
-	if( is_array( $object ) && isset($object['userid']) && $object['userid'] == 0 ){ 
+	if( is_array( $object ) && isset($object['userid']) && !$object['userid'] ){ 
 		$member = WPF()->member->get_guest( $object );
 	}
 	else{
@@ -910,8 +913,9 @@ function wpforo_member_link( $member, $prefix = '', $length = 30, $class = '', $
 	$nofollow = ( !wpforo_feature('seo-profile')) ? ' rel="nofollow" ' : '';
 	$color = (isset($member['color']) && $member['color'] ) ? 'style="color:' . $member['color'] . '"' : '';
 	$class = ($class) ? 'class="' . $class . '"' : '';
+	$title = ($member['display_name']) ? 'title="' . esc_attr($member['display_name']) . '"' : '';
 	if( isset($member['profile_url']) && $member['profile_url'] ){
-		?><a href="<?php echo esc_url($member['profile_url']) ?>" <?php echo $nofollow ?> <?php echo $color ?> <?php echo $class ?>><?php if( strpos($prefix, '%s') !== FALSE ): ?><?php echo sprintf( wpforo_phrase($prefix, FALSE), esc_html(wpforo_text($display_name, $length, FALSE)) ); ?><?php else: ?><?php if( $prefix ){ echo wpforo_phrase( $prefix, false) . ' '; } ?><?php if( $length ){ echo esc_html(wpforo_text($display_name, $length, false)); } else { echo esc_html($display_name); } ?><?php endif; ?></a><?php
+		?><a href="<?php echo esc_url($member['profile_url']) ?>" <?php echo $nofollow ?> <?php echo $color ?> <?php echo $class ?> <?php echo $title ?>><?php if( strpos($prefix, '%s') !== FALSE ): ?><?php echo sprintf( wpforo_phrase($prefix, FALSE), esc_html(wpforo_text($display_name, $length, FALSE)) ); ?><?php else: ?><?php if( $prefix ){ echo wpforo_phrase( $prefix, false) . ' '; } ?><?php if( $length ){ echo esc_html(wpforo_text($display_name, $length, false)); } else { echo esc_html($display_name); } ?><?php endif; ?></a><?php
 	}
 	else{
 		?><?php if( strpos($prefix, '%s') !== FALSE ): ?><?php echo sprintf( wpforo_phrase($prefix, FALSE), esc_html(wpforo_text($display_name, $length, FALSE)) ); ?><?php else: ?><?php if( $prefix ){ echo wpforo_phrase( $prefix, false) . ' '; } ?><?php if( $length ){ echo esc_html(wpforo_text($display_name, $length, false)); } else { echo esc_html($display_name); } ?><?php endif; ?><?php
@@ -921,31 +925,43 @@ function wpforo_member_link( $member, $prefix = '', $length = 30, $class = '', $
 add_shortcode('wpforo-lostpassword', 'wpforo_lostpassword');
 function wpforo_lostpassword(){ ?>
     <p id="wpforo-title"><?php wpforo_phrase('Reset Password') ?></p>
-
     <form name="wpflogin" action="<?php echo wp_lostpassword_url(); ?>" method="POST">
-        <div class="wpforo-login-wrap">
+        <div class="wpforo-login-wrap wpfbg-9">
             <div class="wpforo-login-content">
-                <table class="wpforo-login-table wpfcl-1" width="100%" border="0" cellspacing="0" cellpadding="0" style="width:100%; display:table;">
-                    <tbody style="width:100%;">
-                    <tr class="wpfbg-9">
-                        <td class="wpf-login-label">
-                            <p class="wpf-label wpfcl-1">
-                                <label for="userlogin"><?php wpforo_phrase('Email or Username') ?>:</label>
-                            </p>
-                        </td>
-                        <td class="wpf-login-field">
-                            <input id="userlogin" autofocus required type="text" name="user_login" class="wpf-login-text wpfw-60" />
-                            <p><?php wpforo_phrase('Enter your email address and we\'ll send you a link you can use to pick a new password.') ?></p>
-                        </td>
-                    </tr>
-                    <tr class="wpfbg-9">
-                        <td class="wpf-login-label">&nbsp;</td>
-                        <td class="wpf-login-field">
-                            <input type="submit" name="submit" value="<?php wpforo_phrase('Reset Password') ?>" />
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+                <h3><?php wpforo_phrase('Forgot Your Password?') ?></h3>
+				<div class="wpforo-table wpforo-login-table">
+				  <div class="wpf-tr row-0">
+					<div class="wpf-td wpfw-1 row_0-col_0" style="padding-top:10px;">
+					  <div class="wpf-field wpf-field-type-text">
+						<div class="wpf-field-wrap">
+							<label for="userlogin" style="display: block; text-align: center; font-size: 14px; padding-bottom: 10px;"><?php wpforo_phrase('Please Insert Your Email or Username') ?></label>
+							<input id="userlogin" autofocus required type="text" name="user_login" class="wpf-login-text" />
+							<div style="text-align: center; font-size: 13px; padding-top: 10px; line-height: 18px;"><?php wpforo_phrase('Enter your email address or username and we\'ll send you a link you can use to pick a new password.') ?></div>
+						</div>
+                		<div class="wpf-field-cl"></div>
+              		  </div>
+					  <div class="wpf-field wpf-field-type-text wpf-field-hook">
+						<div class="wpf-field-wrap">
+							<?php do_action('lostpassword_form') ?><div class="wpf-field-cl"></div>
+						</div>
+						<div class="wpf-field-cl"></div>
+					  </div>
+					  <div class="wpf-field">
+						<div class="wpf-field-wrap" style="text-align:center; width:100%;">
+							<input type="submit" name="submit" value="<?php wpforo_phrase('Reset Password') ?>" />
+						</div>
+						<div class="wpf-field-cl"></div>
+					  </div>
+					  <div class="wpf-field wpf-extra-field-end">
+						<div class="wpf-field-wrap" style="text-align:center; width:100%;">
+							<?php do_action('wpforo_lostpass_form_end') ?>
+							<div class="wpf-field-cl"></div>
+						</div>
+					  </div>
+			          <div class="wpf-cl"></div>
+				    </div>
+			      </div>
+			    </div>
             </div>
         </div>
     </form>
@@ -962,41 +978,45 @@ function wpforo_resetpassword(){ ?>
         <input type="hidden" name="rp_login" value="<?php echo $_REQUEST['rp_login'] ?>">
         <div class="wpforo-login-wrap">
             <div class="wpforo-login-content">
-                <table class="wpforo-login-table wpfcl-1" width="100%" border="0" cellspacing="0" cellpadding="0" style="width:100%; display:table;">
-                    <tbody style="width:100%;">
-                    <tr class="wpfbg-9">
-                        <td class="wpf-login-label">
-                            <p class="wpf-label wpfcl-1">
-                                <label for="pass1"><?php wpforo_phrase('New password') ?></label>
-                            </p>
-                        </td>
-                        <td class="wpf-login-field">
-                            <input type="password" name="pass1" id="pass1" class="input" size="20" value="" autocomplete="off" required autofocus />
-                        </td>
-                    </tr>
-                    <tr class="wpfbg-9">
-                        <td class="wpf-login-label">
-                            <p class="wpf-label wpfcl-1">
-                                <label for="pass2"><?php wpforo_phrase('Repeat new password') ?></label>
-                            </p>
-                        </td>
-                        <td class="wpf-login-field">
-                            <input type="password" name="pass2" id="pass2" class="input" size="20" value="" autocomplete="off" required />
-                        </td>
-                    </tr>
-                    <tr class="wpfbg-9">
-                        <td colspan="2">
-                            <p class="description" style="text-align: center;"><?php echo wp_get_password_hint(); ?></p>
-                        </td>
-                    </tr>
-                    <tr class="wpfbg-9">
-                        <td class="wpf-login-label">&nbsp;</td>
-                        <td class="wpf-login-field">
-                            <input type="submit" name="submit" value="<?php wpforo_phrase('Reset Password'); ?>" />
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+				<div class="wpforo-table wpforo-login-table">
+				  <div class="wpf-tr row-0">
+					<div class="wpf-td wpfw-1 row_0-col_0" style="padding-top:10px;">
+					  <div class="wpf-field wpf-field-type-text">
+						<div class="wpf-field-wrap">
+							<label for="userlogin" style="display: block; text-align: center; font-size: 14px; padding-bottom: 10px;"><?php wpforo_phrase('New password') ?></label>
+							<input type="password" name="pass1" id="pass1" class="input" size="20" value="" autocomplete="off" required autofocus />
+						</div>
+						<div class="wpf-field-cl"></div>
+					  </div>
+					  <div class="wpf-field wpf-field-type-text">
+						<div class="wpf-field-wrap">
+							<label for="userlogin" style="display: block; text-align: center; font-size: 14px; padding-bottom: 10px;"><?php wpforo_phrase('Repeat new password') ?></label>
+							<input type="password" name="pass2" id="pass2" class="input" size="20" value="" autocomplete="off" required />
+						</div>
+						<div class="wpf-field-cl"></div>
+					  </div>
+					  <div class="wpf-field wpf-field-type-text">
+						<div class="wpf-field-wrap">
+							<?php echo wp_get_password_hint(); ?>
+						</div>
+						<div class="wpf-field-cl"></div>
+					  </div>
+					  <div class="wpf-field">
+						<div class="wpf-field-wrap" style="text-align:center; width:100%;">
+							<input type="submit" name="submit" value="<?php wpforo_phrase('Reset Password'); ?>" />
+						</div>
+						<div class="wpf-field-cl"></div>
+					  </div>
+					  <div class="wpf-field wpf-extra-field-end">
+						<div class="wpf-field-wrap" style="text-align:center; width:100%;">
+							<?php do_action('wpforo_resetpass_form_end') ?>
+							<div class="wpf-field-cl"></div>
+						</div>
+					  </div>
+					  <div class="wpf-cl"></div>
+					</div>
+				  </div>
+				</div>
             </div>
         </div>
     </form>
@@ -1107,13 +1127,56 @@ function wpforo_user_avatar( $user, $size, $attr = '', $lastmod = false ){
 	if( $lastmod ){
 		$url = wpforo_avatar_url( $avatar_html );
 		if($url){
-			if( strpos($url, 'gravatar.com') === FALSE ){
+			if( strpos($url, '?') === FALSE ){
 				$avatar_html = str_replace($url, $url . '?lm=' . time(), $avatar_html);
 			}
 		}
 	}
 	return $avatar_html;
 }
+
+
+function wpforo_signature( $member, $args = array() ){
+	
+	$signature = '';
+	$default = array('nofollow' => 1, 'kses' => 1, 'echo' => 1);
+	if( empty($args) ){
+		$args = $default;
+	}else{
+		$args = wpforo_parse_args( $args, $default );	
+	}
+	
+	if( is_int($member) && $member > 0 ){
+		$member = wpforo_member( $member );
+		$signature = ( isset($member['signature']) ) ? $member['signature'] : '';
+	}
+	elseif( is_array($member) && !empty($member) ){
+		$signature = ( isset($member['signature']) ) ? $member['signature'] : '';
+	}
+	elseif( is_string($member) ){
+		$signature = $member;
+	}
+	
+	$signature = stripslashes($signature);
+	
+	if(!empty($args)){
+		extract($args, EXTR_OVERWRITE);
+		if(isset($kses) && $kses) $signature = wpforo_kses($signature, 'user_description');
+		if(isset($nofollow) && $nofollow) $signature = wpforo_nofollow_tag($signature);
+	}
+	else{
+		$signature = wpautop(wpforo_nofollow(wpforo_kses($signature, 'user_description')));
+	}
+	
+	$signature = wpautop($signature);
+	
+	if($echo){
+		echo $signature;
+	}else{
+		return $signature;
+	}
+}
+
 
 function wpforo_register_fields(){
     $fields = WPF()->member->get_register_fields();

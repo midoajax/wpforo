@@ -31,10 +31,10 @@
                     <td class="post-title page-title column-title" style="border-bottom:1px dotted #CCCCCC; vertical-align:middle; padding-left:20px; background:<?php echo esc_html($bgcolor) ?>;">
                         <strong><?php echo $ugroup['groupid'] ?></strong>
                         <div class="row-actions">
-                            <?php if( $ugroup['groupid'] != 1 ): ?>
-                                <span class="edit"><a title="<?php _e( 'Edit this usergroup', 'wpforo') ?>"  href="<?php echo admin_url( 'admin.php?page=wpforo-usergroups&gid=' . intval($ugroup['groupid']) . '&action=edit' ) ?>"><?php _e( 'Edit', 'wpforo') ?></a> |</span>
-                                <?php if( $ugroup['groupid'] != 4 ): ?><span class="trash"><a class="submitdelete" title="<?php _e( 'Delete this usergroup', 'wpforo') ?>" href="<?php echo admin_url( 'admin.php?page=wpforo-usergroups&gid=' . intval($ugroup['groupid']) . '&action=del' ) ?>"><?php _e( 'Delete', 'wpforo') ?></a> |</span><?php endif; ?>
-                            <?php endif; ?>
+							<span class="edit"><a title="<?php _e( 'Edit this usergroup', 'wpforo') ?>"  href="<?php echo admin_url( 'admin.php?page=wpforo-usergroups&gid=' . intval($ugroup['groupid']) . '&action=edit' ) ?>"><?php _e( 'Edit', 'wpforo') ?></a> |</span>
+							<?php if( $ugroup['groupid'] != 4 && $ugroup['groupid'] != 1 ): ?>
+								<span class="trash"><a class="submitdelete" title="<?php _e( 'Delete this usergroup', 'wpforo') ?>" href="<?php echo admin_url( 'admin.php?page=wpforo-usergroups&gid=' . intval($ugroup['groupid']) . '&action=del' ) ?>"><?php _e( 'Delete', 'wpforo') ?></a> |</span>
+							<?php endif; ?>
                             <span class="view"><a title="<?php _e( 'View users list in this usergroup', 'wpforo') ?>"  href="<?php echo admin_url( 'admin.php?ids=&page=wpforo-members&s=&action=-1&groupid=' . intval($ugroup['groupid']) . '&paged=1&action2=-1' ) ?>" rel="permalink"><?php _e( 'View', 'wpforo') ?></a></span>
                         </div>
                     </td>
@@ -128,20 +128,23 @@
                             </select>
                         </div>
                     <?php endif; ?>
-                    <?php if( !isset( $_GET['gid'] ) ): ?>
                     <div style="display:block; float:left; width:40%;">
-                    	<div class="wpf-label-big"><?php _e('Default Forum Access', 'wpforo') ?></div>
-                        <select name="usergroup[access]"  style="background:#FDFDFD; display:block;">
-							<?php $accesses = WPF()->perm->get_accesses(); ?>
-                            <?php foreach( $accesses as $accesse ): ?>
-                            	<option value="<?php echo esc_attr($accesse['access']) ?>" <?php if( $accesse['access'] == 'standard' ) echo ' selected="selected"'; ?>><?php echo esc_html($accesse['title']) ?></option>
-                            <?php endforeach ?>
-						</select>
-                        <div class="wpf-info" style="line-height:17px; display:block; margin-top:6px;">
-							<?php _e('This is only used when a new Usergroup is created, it automatically gets the selected Forum Access in all forums.', 'wpforo') ?>
-                        </div>
+                    	<?php if( !isset( $_GET['gid'] ) ): ?>
+							<div class="wpf-label-big"><?php _e('Default Forum Access', 'wpforo') ?></div>
+							<select name="usergroup[access]"  style="background:#FDFDFD; display:block;">
+								<?php $accesses = WPF()->perm->get_accesses(); ?>
+								<?php foreach( $accesses as $accesse ): ?>
+									<option value="<?php echo esc_attr($accesse['access']) ?>" <?php if( $accesse['access'] == 'standard' ) echo ' selected="selected"'; ?>><?php echo esc_html($accesse['title']) ?></option>
+								<?php endforeach ?>
+							</select>
+							<div class="wpf-info" style="line-height:17px; display:block; margin-top:6px;">
+								<?php _e('This is only used when a new Usergroup is created, it automatically gets the selected Forum Access in all forums.', 'wpforo') ?>
+							</div>
+						<?php endif; ?>
+						<div style="padding: 10px 1px 5px 1px;">
+							<label><?php _e('Display on Members List', 'wpforo') ?> <input type="checkbox" name="usergroup[visible]" value="1" <?php echo ( $group['visible'] ) ? 'checked="checked"' : ''; ?> /> </label>
+						</div>
                     </div>
-                    <?php endif; ?>
                     <div style="clear:both;"></div>
                 </div>
 				

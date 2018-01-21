@@ -377,7 +377,7 @@ add_action('wp_ajax_wpforo_like_ajax', 'wpf_like');
 
 function wpf_like(){
 	$response = array('stat' => 0, 'likers' => '', 'notice' => WPF()->notice->get_notices());
-	if(!is_user_logged_in()){
+	if( !is_user_logged_in() ){
 		WPF()->notice->add( sprintf( wpforo_phrase('Please %s or %s', FALSE), '<a href="' . wpforo_login_url() . '">'.wpforo_phrase('Login', FALSE).'</a>', '<a href="' . wpforo_register_url() . '">'.wpforo_phrase('Register', FALSE).'</a>' ) );
 		$response['notice'] = WPF()->notice->get_notices();
 		echo json_encode($response);
@@ -396,7 +396,7 @@ function wpf_like(){
 		exit();
 	}
 	if( !WPF()->perm->forum_can( 'l', $post['forumid']) ){
-		WPF()->notice->add('You haven\'t permission to like posts from this forum', 'error');
+		WPF()->notice->add('You don\t have permission to like posts from this forum', 'error');
 		$response['notice'] = WPF()->notice->get_notices();
 		echo json_encode($response);
 		exit();
@@ -539,7 +539,7 @@ function wpf_answer(){
 		exit();
 	}
 	if( !(WPF()->perm->forum_can( 'at', $post['forumid'] ) ||  ( WPF()->perm->forum_can( 'oat', $post['forumid']) && WPF()->current_userid == $topic['userid'] ) ) ){
-		WPF()->notice->add('You haven\'t permission to make topic answered', 'error');
+		WPF()->notice->add('You don\t have permission to make topic answered', 'error');
 		$response['notice'] = WPF()->notice->get_notices();
 		echo json_encode($response);
 		exit();
@@ -556,12 +556,11 @@ function wpf_answer(){
 }
 
 add_action('wp_ajax_wpforo_quote_ajax', 'wpf_quote');
+add_action('wp_ajax_nopriv_wpforo_quote_ajax', 'wpf_quote' );
 function wpf_quote(){
-	
-	if(!is_user_logged_in()) return;
-	
-	$post  = WPF()->db->get_row('SELECT `userid`, `body` FROM '.WPF()->db->prefix.'wpforo_posts WHERE postid =' . intval($_POST['postid']), ARRAY_A);
-    $post = apply_filters('wpforo_quote_post_ajax', $post);
+	$post  = WPF()->db->get_row('SELECT `userid`, `name`, `email`, `body` FROM '.WPF()->db->prefix.'wpforo_posts WHERE postid =' . intval($_POST['postid']), ARRAY_A);
+	if( !WPF()->perm->forum_can( 'cr', $post['forumid']) ) return;
+	$post = apply_filters('wpforo_quote_post_ajax', $post);
 	$poster = wpforo_member( $post );
 	echo '<blockquote><div class="wpforo-post-quote-author"><strong>' . wpforo_phrase('Posted by', FALSE) . ': ' . ( $poster['display_name'] ? esc_textarea($poster['display_name']) : esc_textarea($poster['user_login']) ) . '</strong></div>' . wpautop($post['body']) . '</blockquote><br />';
 	exit();
@@ -619,10 +618,11 @@ function wpf_report(){
 }
 
 add_action('wp_ajax_wpforo_sticky_ajax', 'wpf_sticky');
+add_action('wp_ajax_nopriv_wpforo_sticky_ajax', 'wpf_sticky' );
 function wpf_sticky(){
-	if(!is_user_logged_in()) return;
-	
 	if( !isset($_POST['postid']) || !( $p_id = intval($_POST['postid']) ) ){ echo 0; exit(); }
+	$topic  = WPF()->db->get_row('SELECT `forumid` FROM '.WPF()->db->prefix.'wpforo_topics WHERE topicid =' . intval($p_id), ARRAY_A);
+	if( !WPF()->perm->forum_can( 's', $topic['forumid']) ) return;
 	if( $_POST['status'] == 'sticky' ){
 		$sql = "UPDATE " . WPF()->db->prefix . "wpforo_topics SET type = 1 WHERE topicid = " . intval($p_id);
 		WPF()->db->query( $sql );
@@ -638,7 +638,6 @@ function wpf_sticky(){
 add_action('wp_ajax_wpforo_private_ajax', 'wpf_private');
 function wpf_private(){
 	if(!is_user_logged_in()) return;
-	
 	if( !isset($_POST['postid']) || !( $p_id = intval($_POST['postid']) ) ){ echo 0; exit(); }
 	if( $_POST['status'] == 'private' ){
 		$sql = "UPDATE " . WPF()->db->prefix . "wpforo_topics SET private = 1 WHERE topicid = " . intval($p_id);
@@ -657,21 +656,24 @@ function wpf_private(){
 }
 
 add_action('wp_ajax_wpforo_solved_ajax', 'wpf_solved');
+add_action('wp_ajax_nopriv_wpforo_solved_ajax', 'wpf_solved' );
 function wpf_solved(){
-	if(!is_user_logged_in()) return;
-	
 	if( !isset($_POST['postid']) || !( $p_id = intval($_POST['postid']) ) ){ echo 0; exit(); }
 	$post  = WPF()->post->get_post($_POST['postid']);
-	if( $_POST['status'] == 'solved' ){
-		$sql = "UPDATE " . WPF()->db->prefix . "wpforo_posts SET is_answer = 1 WHERE postid = " . intval($p_id);
-		WPF()->db->query( $sql );
-	}elseif( $_POST['status'] == 'unsolved' ){
-		$sql = "UPDATE ".WPF()->db->prefix ."wpforo_posts SET is_answer = 0 WHERE postid = " . intval($p_id);
-		WPF()->db->query( $sql );
+	if( WPF()->perm->forum_can( 'sv', $post['forumid']) || WPF()->perm->forum_can( 'osv', $post['forumid']) ){
+		if( $_POST['status'] == 'solved' ){
+			$sql = "UPDATE " . WPF()->db->prefix . "wpforo_posts SET is_answer = 1 WHERE postid = " . intval($p_id);
+			WPF()->db->query( $sql );
+		}elseif( $_POST['status'] == 'unsolved' ){
+			$sql = "UPDATE ".WPF()->db->prefix ."wpforo_posts SET is_answer = 0 WHERE postid = " . intval($p_id);
+			WPF()->db->query( $sql );
+		}
+		if( isset($post['topicid']) && $post['topicid'] ) wpforo_clean_cache($post['topicid'], 'topic');
+		echo 1;
+		exit();
+	}else{
+		 return;
 	}
-	if( isset($post['topicid']) && $post['topicid'] ) wpforo_clean_cache($post['topicid'], 'topic');
-	echo 1;
-	exit();
 }
 
 add_action('wp_ajax_wpforo_approve_ajax', 'wpf_approved');
@@ -724,19 +726,21 @@ function wpf_close(){
 }
 
 add_action('wp_ajax_wpforo_edit_ajax', 'wpf_edit');
+add_action('wp_ajax_nopriv_wpforo_edit_ajax', 'wpf_edit' );
 function wpf_edit(){
-	if(!is_user_logged_in()) return;
 	
 	if( !isset($_POST['postid']) || !$_POST['postid'] ){ echo 0; exit(); }
-	$sql = 'SELECT t.title AS topic_title, p.title AS post_title, p.`body` 
+	$sql = 'SELECT t.forumid AS forumid, t.title AS topic_title, p.title AS post_title, p.`body` 
       FROM '.WPF()->db->prefix.'wpforo_posts p 
       INNER JOIN '.WPF()->db->prefix.'wpforo_topics t ON t.topicid = p.topicid 
       WHERE p.postid =' . intval($_POST['postid']);
 	if($post = WPF()->db->get_row($sql, ARRAY_A) ){
-	    $post = apply_filters('wpforo_edit_post_ajax', $post);
-		$post['body'] = wpautop($post['body']);
-		echo json_encode($post);
-		exit();
+		if( WPF()->perm->forum_can('eor', $post['forumid']) || WPF()->perm->forum_can('eot', $post['forumid']) ){
+			$post = apply_filters('wpforo_edit_post_ajax', $post);
+			$post['body'] = wpautop($post['body']);
+			echo json_encode($post);
+			exit();
+		}
 	}
 	echo 0;
 	exit();
@@ -775,19 +779,27 @@ function wpf_delete(){
 }
 
 add_action('wp_ajax_wpforo_subscribe_ajax', 'wpf_subscribe');
+add_action('wp_ajax_nopriv_wpforo_subscribe_ajax', 'wpf_subscribe');
 function wpf_subscribe(){
-	if(!is_user_logged_in()) return FALSE;
-	
 	$args = array(
-		'itemid' => intval($_POST['itemid']),
+		'itemid' => wpforo_bigintval($_POST['itemid']),
 		'type'   => sanitize_text_field($_POST['type']),
-		'userid' => intval(WPF()->current_userid)
+		'userid' => WPF()->current_userid,
+        'active' => 0,
+        'user_name' => '',
+        'user_email' => ''
 	);
+
+    if( !WPF()->current_userid ){
+        if( WPF()->current_user_email ) $args['user_email'] = WPF()->current_user_email;
+        if( WPF()->current_user_display_name ) $args['user_name'] = WPF()->current_user_display_name;
+    }
+    if( !$args['userid'] && !$args['user_email'] ) return false;
 	
 	if(isset($_POST['status']) && $_POST['status'] == 'subscribe'){
 		
 		if($_POST['type'] == 'forum'){
-			$forum = WPF()->forum->get_forum(intval($_POST['itemid']));
+			$forum = WPF()->forum->get_forum(wpforo_bigintval($_POST['itemid']));
 			if( isset($forum['forumid']) && $forum['forumid'] ){
 				if( !WPF()->perm->forum_can('vf', $forum['forumid']) ){
 					WPF()->notice->add('You are not permitted to subscribe here', 'error');
@@ -795,9 +807,9 @@ function wpf_subscribe(){
 				}
 			}
 		}elseif($_POST['type'] == 'topic'){
-			$topic  = WPF()->topic->get_topic(intval($_POST['itemid']));
+			$topic  = WPF()->topic->get_topic(wpforo_bigintval($_POST['itemid']));
 			if( isset($topic['forumid']) && $topic['forumid'] ){
-				if( isset($topic['private']) && $topic['private'] && !wpforo_is_owner($topic['userid']) ){
+				if( isset($topic['private']) && $topic['private'] && !wpforo_is_owner($topic['userid'], $topic['email']) ){
 					if( !WPF()->perm->forum_can('vp', $topic['forumid']) ){
 						WPF()->notice->add('You are not permitted to subscribe here', 'error');
 						$return = 0;
@@ -811,7 +823,7 @@ function wpf_subscribe(){
 		if( wpforo_feature('subscribe_conf') ){
 			############### Sending Email  ##################
 			$confirmlink = WPF()->sbscrb->get_confirm_link($args);
-			$member_name = (isset(WPF()->current_user_display_name) && WPF()->current_user_display_name) ? WPF()->current_user_display_name : urldecode(WPF()->current_user['user_nicename']);
+            $member_name = ( WPF()->current_userid ? wpforo_make_dname( WPF()->current_user['display_name'], WPF()->current_user['user_nicename'] ) : ( $args['user_name'] ? $args['user_name'] : $args['user_email'] ) );
 			if($_POST['type'] == 'forum'){
 				$item_title = $forum['title'];
 			}elseif($_POST['type'] == 'topic'){
@@ -942,11 +954,9 @@ function wpforo_frontend_enqueue(){
                 wp_enqueue_style('wpforo-font-awesome-rtl');
             }
         }
-        if(is_user_logged_in()){
-            wp_register_script('wpforo-ajax', WPFORO_URL . '/wpf-assets/js/ajax.js', array('jquery'), WPFORO_VERSION, false);
-            wp_enqueue_script('wpforo-ajax');
-            wp_localize_script('wpforo-ajax', 'wpf_ajax_obj', array( 'url' => admin_url('admin-ajax.php') ));
-        }
+		wp_register_script('wpforo-ajax', WPFORO_URL . '/wpf-assets/js/ajax.js', array('jquery'), WPFORO_VERSION, false);
+		wp_enqueue_script('wpforo-ajax');
+		wp_localize_script('wpforo-ajax', 'wpf_ajax_obj', array( 'url' => admin_url('admin-ajax.php') ));
         if (is_rtl()) {
 			wp_register_style('wpforo-style-rtl', WPFORO_TEMPLATE_URL . '/style-rtl.css', false, WPFORO_VERSION );
 			wp_enqueue_style('wpforo-style-rtl');
@@ -1215,8 +1225,8 @@ function wpforo_avatar( $avatar, $id_or_email, $size, $default, $alt ) {
         $id = (int) $id_or_email;
         $user = get_user_by( 'id' , $id );
     }elseif( is_object( $id_or_email ) ) {
-        if ( ! empty( $id_or_email->user_id ) ) {
-            $id = (int) $id_or_email->user_id;
+        if ( ! empty( $id_or_email->ID ) ) {
+            $id = (int) $id_or_email->ID;
             $user = get_user_by( 'id' , $id );
         }
     }else{
@@ -1234,18 +1244,18 @@ add_filter( 'get_avatar' , 'wpforo_avatar' , 10, 5 );
 
 function wpforo_mention_nickname_to_link($match){
     $return = $match[0];
-    if( $member = WPF()->member->get_member($match[2]) ){
+    if( $member = WPF()->member->get_member($match[1]) ){
         $href = WPF()->member->profile_url($member);
         $dname   = wpforo_make_dname($member['display_name'], $member['user_nicename']);
-        $return = sprintf('%s<a href="%s" title="%s">@%s</a>%s', $match[1], $href, $dname, $match[2], $match[3]);
+        $return = sprintf('<a href="%s" title="%s">@%s</a>%s', $href, $dname, $match[1], $match[2]);
     }
 
     return  $return;
 }
 
 function wpforo_mentioned_code_to_link($text){
-    $text = htmlspecialchars_decode($text);
-    $text = preg_replace_callback('#(^|[\r\n\t\s\0<>\[\]])@([^\r\n\t\s\0<>\[\]]+)($|[\r\n\t\s\0<>\[\]])#isu', 'wpforo_mention_nickname_to_link', $text);
+    //$text = htmlspecialchars_decode($text);
+    $text = preg_replace_callback('#@([^\r\n\t\s\0<>\[\]!,\.\(\)\'\"\|\?\@]+)($|[\r\n\t\s\0<>\[\]!,\.\(\)\'\"\|\?\@])#isu', 'wpforo_mention_nickname_to_link', $text);
     return $text;
 }
 add_filter('wpforo_body_text_filter', 'wpforo_mentioned_code_to_link');
@@ -1254,7 +1264,7 @@ function wpforo_send_mail_to_mentioned_users($item){
     if( !WPF()->sbscrb->options['user_mention_notify'] ) return false;
     $return = false;
     $body = strip_tags($item['body']);
-    if( preg_match_all('#(?:^|[\r\n\t\s\0<>\[\]])@([^\r\n\t\s\0<>\[\]]+)(?:$|[\r\n\t\s\0<>\[\]])#isu', $body, $matches, PREG_SET_ORDER) ){
+    if( preg_match_all('#@([^\r\n\t\s\0<>\[\]!,\.\(\)\'\"\|\?\@]+)(?:$|[\r\n\t\s\0<>\[\]!,\.\(\)\'\"\|\?\@])#isu', $body, $matches, PREG_SET_ORDER) ){
 
         $dname = wpforo_make_dname( WPF()->current_user['display_name'], WPF()->current_user['user_nicename'] );
         $_to_words = array($dname);
@@ -1308,7 +1318,6 @@ add_action( 'wpforo_after_add_topic', 'wpforo_send_mail_to_mentioned_users' );
 add_action( 'wpforo_after_add_post', 'wpforo_send_mail_to_mentioned_users' );
 
 function wpforo_topic_auto_subscribe($item){
-	if(!is_user_logged_in()) return FALSE;
 	if(!isset($_POST['wpforo_topic_subs']) || !$_POST['wpforo_topic_subs'] ) return FALSE;
 	
 	if( isset($item['forumid']) && $item['forumid'] ){
@@ -1328,18 +1337,26 @@ function wpforo_topic_auto_subscribe($item){
 	}
 	
 	$args = array(
-		'itemid' => intval($item['topicid']),
+		'itemid' => wpforo_bigintval($item['topicid']),
 		'type'   => 'topic',
-		'userid' => intval(WPF()->current_userid)
+		'userid' => WPF()->current_userid,
+        'user_name' => '',
+        'user_email' => ''
 	);
+
+    if( !WPF()->current_userid ){
+        if( WPF()->current_user_email ) $args['user_email'] = WPF()->current_user_email;
+        if( WPF()->current_user_display_name ) $args['user_name'] = WPF()->current_user_display_name;
+    }
+    if( !$args['userid'] && !$args['user_email'] ) return false;
 	
 	$args['confirmkey'] = WPF()->sbscrb->get_confirm_key();
 	
 	if( wpforo_feature('subscribe_conf') ){
 		############### Sending Email  ##################
 		$confirmlink = WPF()->sbscrb->get_confirm_link($args);
-		$member_name = (isset(WPF()->current_user_display_name) && WPF()->current_user_display_name) ? WPF()->current_user_display_name : urldecode(WPF()->current_user['user_nicename']);
-		$subject = WPF()->sbscrb->options['confirmation_email_subject'];
+        $member_name = ( WPF()->current_userid ? wpforo_make_dname( WPF()->current_user['display_name'], WPF()->current_user['user_nicename'] ) : ( $args['user_name'] ? $args['user_name'] : $args['user_email'] ) );
+        $subject = WPF()->sbscrb->options['confirmation_email_subject'];
 		$message = WPF()->sbscrb->options['confirmation_email_message'];
 		$topic  = WPF()->topic->get_topic( $item['topicid'] );
 		$from_tags = array("[member_name]", "[entry_title]", "[confirm_link]");
@@ -1350,8 +1367,8 @@ function wpforo_topic_auto_subscribe($item){
 		
 		add_filter( 'wp_mail_content_type', 'wpforo_set_html_content_type' );
 		$headers = wpforo_mail_headers();
-		
-		if( wp_mail( WPF()->current_user_email , sanitize_text_field($subject), $message, $headers ) ){
+
+		if( wp_mail( WPF()->current_user_email, sanitize_text_field($subject), $message, $headers ) ){
 			if( $response = WPF()->sbscrb->add($args) ) return $response;
 		}else{
 			WPF()->notice->add('Can\'t send confirmation email', 'error');
@@ -1383,7 +1400,13 @@ function wpforo_forum_subscribers_mail_sender( $topic ){
 	foreach($subscribers as $subscriber){
 		
 		if( is_array($subscriber) ){
-			$member = WPF()->member->get_member( $subscriber['userid'] );
+		    if( $subscriber['userid'] ){
+                $member = WPF()->member->get_member( $subscriber['userid'] );
+            }elseif( $subscriber['user_email'] ){
+                $member = array('groupid' => 4, 'display_name' => ($subscriber['user_name'] ? $subscriber['user_name'] : $subscriber['user_email']), 'user_email' => $subscriber['user_email']);
+            }else{
+		        continue;
+            }
 			$unsubscribe_link = WPF()->sbscrb->get_unsubscribe_link($subscriber['confirmkey']);
 		}else{
 			$member = array('display_name' => $subscriber, 'user_email' => $subscriber);
@@ -1391,7 +1414,9 @@ function wpforo_forum_subscribers_mail_sender( $topic ){
 		}
 		
 		if( isset($topic['forumid']) && $topic['forumid'] ){
-			if( isset($topic['private']) && $topic['private'] && isset($subscriber['userid']) && $topic['userid'] != $subscriber['userid'] ){
+			if( isset($topic['private']) && $topic['private'] && isset($subscriber['userid'])
+                && ( ( $topic['userid'] && $subscriber['userid'] && $topic['userid'] != $subscriber['userid'] )
+                    || ( $topic['email'] && $subscriber['user_email'] && $topic['email'] != $subscriber['user_email'] ) ) ){
 				$subscriber_groupid = ( isset($member['groupid']) && $member['groupid'] ) ? $member['groupid'] : WPF()->usergroup->get_groupid_by_userid($subscriber['userid']);
 				if( !WPF()->perm->forum_can('vp', $topic['forumid'], $subscriber_groupid) ){
 					continue;
@@ -1468,7 +1493,13 @@ function wpforo_topic_subscribers_mail_sender( $post ){
 	foreach($subscribers as $subscriber){
 		
 		if( is_array($subscriber) ){
-			$member = WPF()->member->get_member( $subscriber['userid'] );
+            if( $subscriber['userid'] ){
+                $member = WPF()->member->get_member( $subscriber['userid'] );
+            }elseif( $subscriber['user_email'] ){
+                $member = array('groupid' => 4, 'display_name' => ($subscriber['user_name'] ? $subscriber['user_name'] : $subscriber['user_email']), 'user_email' => $subscriber['user_email']);
+            }else{
+                continue;
+            }
 			$unsubscribe_link = WPF()->sbscrb->get_unsubscribe_link($subscriber['confirmkey']);
 		}else{
 			$member = array('display_name' => $subscriber, 'user_email' => $subscriber);
@@ -1483,17 +1514,14 @@ function wpforo_topic_subscribers_mail_sender( $post ){
 			
 			$subscriber_groupid = ( isset($member['groupid']) && $member['groupid'] ) ? $member['groupid'] : WPF()->usergroup->get_groupid_by_userid($subscriber['userid']);
 			
-			if( isset($topic['private']) && $topic['private'] && $topic['userid'] != $subscriber['userid']){
+			if( isset($topic['private']) && $topic['private']
+                && ( ( $topic['userid'] && $subscriber['userid'] && $topic['userid'] != $subscriber['userid'] )
+                    || ( $topic['email'] && $subscriber['user_email'] && $topic['email'] != $subscriber['user_email'] ) ) ){
 				if( !WPF()->perm->forum_can('vp', $topic['forumid'], $subscriber_groupid) ){
 					continue;
 				}
 			}
-			if( isset($topic['status']) && $topic['status'] == 1){
-				if( !WPF()->perm->forum_can('au', $topic['forumid'], $subscriber_groupid) ){
-					continue;
-				}
-			}
-			if( isset($post['status']) && $post['status'] == 1){
+			if( (isset($topic['status']) && $topic['status'] == 1) || (isset($post['status']) && $post['status'] == 1) ){
 				if( !WPF()->perm->forum_can('au', $topic['forumid'], $subscriber_groupid) ){
 					continue;
 				}
@@ -1825,6 +1853,8 @@ function wpforo_create_cache(){
 add_action( 'wp_footer', 'wpforo_create_cache', 10 );
 
 function wpforo_redirect_to_custom_lostpassword() {
+    if( !wpforo_feature('resetpass-url') ) return;
+
     if ( 'GET' == $_SERVER['REQUEST_METHOD'] ) {
         if ( is_user_logged_in() ) {
             wp_redirect( wpforo_home_url() );
@@ -1835,9 +1865,11 @@ function wpforo_redirect_to_custom_lostpassword() {
         exit;
     }
 }
-//add_action('login_form_lostpassword', 'wpforo_redirect_to_custom_lostpassword');
+add_action('login_form_lostpassword', 'wpforo_redirect_to_custom_lostpassword');
 
 function wpforo_redirect_to_custom_password_reset(){
+    if( !wpforo_feature('resetpass-url') ) return;
+
     if ( 'GET' == $_SERVER['REQUEST_METHOD'] ) {
         // Verify key / login combo
         $user = check_password_reset_key( $_REQUEST['key'], $_REQUEST['login'] );
@@ -1857,10 +1889,12 @@ function wpforo_redirect_to_custom_password_reset(){
         exit;
     }
 }
-//add_action( 'login_form_rp', 'wpforo_redirect_to_custom_password_reset' );
-//add_action( 'login_form_resetpass', 'wpforo_redirect_to_custom_password_reset' );
+add_action( 'login_form_rp', 'wpforo_redirect_to_custom_password_reset' );
+add_action( 'login_form_resetpass', 'wpforo_redirect_to_custom_password_reset' );
 
 function wpforo_do_lostpass(){
+    if( !wpforo_feature('resetpass-url') ) return;
+
     if( isset($_POST['user_login']) && $_POST['user_login'] ){
         $errors = retrieve_password();
         if ( is_wp_error( $errors ) ) {
@@ -1877,9 +1911,11 @@ function wpforo_do_lostpass(){
         exit();
     }
 }
-//add_action('login_form_lostpassword', 'wpforo_do_lostpass');
+add_action('login_form_lostpassword', 'wpforo_do_lostpass');
 
 function wpforo_do_password_reset() {
+    if( !wpforo_feature('resetpass-url') ) return;
+
     if ( 'POST' == $_SERVER['REQUEST_METHOD'] ) {
         $rp_key = $_REQUEST['rp_key'];
         $rp_login = $_REQUEST['rp_login'];
@@ -1932,17 +1968,19 @@ function wpforo_do_password_reset() {
 
     }
 }
-//add_action( 'login_form_rp', 'wpforo_do_password_reset' );
-//add_action( 'login_form_resetpass', 'wpforo_do_password_reset' );
+add_action( 'login_form_rp', 'wpforo_do_password_reset' );
+add_action( 'login_form_resetpass', 'wpforo_do_password_reset' );
 
 function wpforo_replace_retrieve_password_message( $message, $key, $user_login, $user_data ) {
     if( wpforo_feature('resetpass-url') ){
 		$reset_password_url = wpforo_home_url( '?wpforo=resetpassword&rp_key='.esc_attr( $key ).'&rp_login='.esc_attr( $user_login ) );
-		if( empty(WPF()->sbscrb->options['reset_password_email_message']) ) return preg_replace('#<?http[^\r\n\t\s]+wp-login\.php[^\r\n\t\s]+#isu', "<$reset_password_url>", $message);
-		return str_replace(array('[user_login]', '[reset_password_url]'), array($user_login, "<$reset_password_url>"), WPF()->sbscrb->options['reset_password_email_message']);
+		if( empty(WPF()->sbscrb->options['reset_password_email_message']) ){
+            $message = preg_replace('#<?http[^\r\n\t\s]+wp-login\.php[^\r\n\t\s]+#isu', "<$reset_password_url>", $message);
+        }else{
+            $message = str_replace(array('[user_login]', '[reset_password_url]'), array($user_login, "<$reset_password_url>"), WPF()->sbscrb->options['reset_password_email_message']);
+        }
 	}
-	else{
-		return $message;
-	}
+
+    return $message;
 }
-//add_filter( 'retrieve_password_message', 'wpforo_replace_retrieve_password_message', 10, 4 );
+add_filter( 'retrieve_password_message', 'wpforo_replace_retrieve_password_message', 10, 4 );

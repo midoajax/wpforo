@@ -24,12 +24,10 @@ class wpForoTopic{
 	public function add( $args = array() ){
 		
 		if( empty($args) && empty($_REQUEST['topic']) ) return FALSE;
-		if( empty($args) && !empty($_REQUEST['topic']) ){ 
-			$args = $_REQUEST['topic']; 
-			$args['body'] = $_REQUEST['postbody']; 
-		}
-		
+		if( empty($args) && !empty($_REQUEST['topic']) ){ $args = $_REQUEST['topic']; $args['body'] = $_REQUEST['postbody']; }
 		if( !isset($args['body']) || !$args['body'] ){ WPF()->notice->add('Post is empty', 'error'); return FALSE; }
+		$args['name'] = (isset($args['name']) ? strip_tags($args['name']) : '' );
+		$args['email'] = (isset($args['email']) ? sanitize_email($args['email']) : '' );
 		
 		if( !isset($args['forumid']) || !$args['forumid'] = intval($args['forumid']) ){
 			WPF()->notice->add('Add Topic error: No forum selected', 'error');
@@ -37,13 +35,23 @@ class wpForoTopic{
 		}
 		
 		if( !WPF()->perm->forum_can( 'ct', $args['forumid']) ){
-			WPF()->notice->add('You haven\'t permission to create topic into this forum', 'error');
+			WPF()->notice->add('You don\t have permission to create topic into this forum', 'error');
 			return FALSE;
 		}
 		
 		if( !isset($args['title']) || !$args['title'] = trim(strip_tags($args['title'])) ){
 			WPF()->notice->add('Please insert required fields!', 'error');
 			return FALSE;
+		}
+		
+		if( !is_user_logged_in() ){
+			if( !$args['name'] || !$args['email'] ){
+				WPF()->notice->add('Please insert required fields!', 'error');
+				return FALSE;
+			}
+			else{
+				WPF()->member->set_guest_cookies( $args );
+			}
 		}
 		
 		do_action( 'wpforo_start_add_topic', $args );
@@ -154,8 +162,13 @@ class wpForoTopic{
 					do_action( 'wpforo_after_add_topic', $args );
 					
 					wpforo_clean_cache($topicid, 'topic', $args);
-					WPF()->member->reset($userid);
-					WPF()->notice->add('Your topic successfully added', 'success');
+					if(!is_user_logged_in() && $status){
+						WPF()->notice->add('Your topic successfully added and awaiting moderation', 'success');
+					}
+					else{
+						WPF()->member->reset($userid);
+						WPF()->notice->add('Your topic successfully added', 'success');
+					}
 					return $topicid;
 				}
 			}
@@ -171,12 +184,32 @@ class wpForoTopic{
 		if( empty($args) && empty($_REQUEST['topic']) ) return FALSE;
 		if( !isset($args['topicid']) && isset($_GET['id']) ) $args['topicid'] = intval($_GET['id']);
 		if( empty($args) && !empty($_REQUEST['topic']) ){ $args = $_REQUEST['topic']; $args['body'] = $_REQUEST['postbody']; }
+		if( isset($args['name']) ){ $args['name'] = strip_tags($args['name']); }
+		if( isset($args['email']) ){ $args['email'] = sanitize_email($args['email']); }
 		
 		do_action( 'wpforo_start_edit_topic', $args );
 		
 		if( !$topic = $this->get_topic( $args['topicid'] ) ){
 			WPF()->notice->add('Topic not found.', 'error');
 			return FALSE;
+		}
+		
+		if( !is_user_logged_in() ){
+			if( !isset($topic['email']) || !$topic['email'] ){
+				WPF()->notice->add('Permission denied', 'error');
+				return FALSE;
+			}
+			elseif( !wpforo_current_guest( $topic['email'] ) ){
+				WPF()->notice->add('You are not allowed to edit this post', 'error');
+				return FALSE;
+			}
+			if( !$args['name'] || !$args['email'] ){
+				WPF()->notice->add('Please insert required fields!', 'error');
+				return FALSE;
+			}
+			else{
+				WPF()->member->set_guest_cookies( $args );
+			}
 		}
 		
 		$args['status'] = $topic['status'];
@@ -343,7 +376,7 @@ class wpForoTopic{
 
 		$diff = current_time( 'timestamp', 1 ) - strtotime($topic['created']);
 		if( !(WPF()->perm->forum_can('dt', $topic['forumid']) || (WPF()->current_userid == $topic['userid'] && WPF()->perm->forum_can('dot', $topic['forumid']) && $diff < WPF()->post->options['dot_durr'])) ){
-			WPF()->notice->add('You haven\'t permission to delete topic from this forum', 'error');
+			WPF()->notice->add('You don\t have permission to delete topic from this forum', 'error');
 			return FALSE;
 		}
 		
@@ -377,9 +410,30 @@ class wpForoTopic{
 				WPF()->db->delete(
 					WPF()->db->prefix.'wpforo_views', array( 'topicid' => $topicid ), array( '%d' )
 				);
+				$last_topic = $this->get_topics( array('forumid' => intval($forumid), 'orderby' => 'modified', 'order' => 'DESC', 'row_count' => 1, 'status' => 0, 'private' => 0) );
+				if(is_array($last_topic) && !empty($last_topic)){
+					$last_topic = $last_post[0];
+					if( isset($last_topic['last_post']) ) {
+						$last_post = WPF()->post->get_post($last_topic['last_post']);
+						if( is_array($last_post) && !empty($last_post) ){
+							$last_topic['last_post_userid'] = $last_post['userid'];
+						}
+						else{
+							$last_topic['last_post_userid'] = $last_topic['userid'];
+						}
+					}
+				}else{
+					$last_topic = array( 'topicid' => 0, 'last_post' => 0, 'last_post_userid' => 0, 'modified' => '0000-00-00 00:00:00');
+				}
+				
 				if(WPF()->db->query(
 						"UPDATE IGNORE "  . WPF()->db->prefix . "wpforo_forums 
-						SET `topics` = IF( (`topics` - 1) < 0, 0, `topics` - 1 )
+						SET 
+						`last_topicid` = " . intval($last_topic['topicid']) . ",
+						`last_postid` = " . intval($last_topic['last_post']) . ",
+						`last_userid` = " . intval($last_topic['last_post_userid']) . ",
+						`last_post_date` = '" . esc_sql($last_topic['modified']) . "',
+						`topics` = IF( (`topics` - 1) < 0, 0, `topics` - 1 )
 						WHERE `forumid` = " . intval($forumid)
 					)
 				){
@@ -472,13 +526,13 @@ class wpForoTopic{
 				return array();
 			}
 			
-			if( isset($topic['private']) && $topic['private'] && !wpforo_is_owner($topic['userid']) ){
+			if( isset($topic['private']) && $topic['private'] && !wpforo_is_owner($topic['userid'], $topic['email']) ){
 				if( isset($topic['forumid']) && $topic['forumid'] && !WPF()->perm->forum_can('vp', $topic['forumid']) ){
 					return array();
 				}
 			}
 			
-			if( isset($topic['status']) && $topic['status'] && !wpforo_is_owner($topic['userid'])){
+			if( isset($topic['status']) && $topic['status'] && !wpforo_is_owner($topic['userid'], $topic['email'])){
 				if( isset($topic['forumid']) && $topic['forumid'] && !WPF()->perm->forum_can('au', $topic['forumid']) ){
 				    WPF()->current_object['status'] = 'unapproved';
 					return array();
@@ -518,14 +572,16 @@ class wpForoTopic{
 		  'type'		=> 0, 			//0, 1, etc . . .
 		  'status'		=> NULL, 			//0, 1, etc . . .
 		  'private'		=> NULL, 			//0, 1, etc . . .''
-            'pollid'    => NULL,
+          'pollid'    => NULL,
 		  'orderby'		=> 'type, topicid', 	// type, topicid, modified, created
 		  'order'		=> 'DESC', 		// ASC DESC
 		  'offset' 		=> NULL,			// this use when you give row_count
-		  'row_count'	=> NULL 			// 4 or 1 ...
+		  'row_count'	=> NULL, 			// 4 or 1 ...
+		  'where'		=> NULL, 
 		);
 		
 		$args = wpforo_parse_args( $args, $default );
+		
 		if(is_array($args) && !empty($args)){
 			
 			extract($args, EXTR_OVERWRITE);
@@ -536,14 +592,19 @@ class wpForoTopic{
 			$exclude = wpforo_parse_args( $exclude );
 			$forumids = wpforo_parse_args( $forumids );
 			
+			$guest = array();
 			$wheres = array();
+			$table_as_prefix = '`'.WPF()->db->prefix.'wpforo_topics`.';
 			
-			if(!empty($include))        $wheres[] = "`topicid` IN(" . implode(', ', array_map('intval', $include)) . ")";
-			if(!empty($exclude))        $wheres[] = "`topicid` NOT IN(" . implode(', ', array_map('intval', $exclude)) . ")";
-			if(!empty($forumids))       $wheres[] = "`forumid` IN(" . implode(', ', array_map('intval', $forumids)) . ")";
-			if(!is_null($forumid)) $wheres[] = "`forumid` = " . intval($forumid);
-			if(!is_null($userid)) $wheres[] = "`userid` = " . intval($userid);
+			if(!empty($include))    $wheres[] = "`topicid` IN(" . implode(', ', array_map('intval', $include)) . ")";
+			if(!empty($exclude))    $wheres[] = "`topicid` NOT IN(" . implode(', ', array_map('intval', $exclude)) . ")";
+			if(!empty($forumids))   $wheres[] = "`forumid` IN(" . implode(', ', array_map('intval', $forumids)) . ")";
+			if(!is_null($forumid)) 	$wheres[] = "`forumid` = " . intval($forumid);
+			if(!is_null($userid)) 	$wheres[] = "`userid` = " . intval($userid);
+			if(!is_null($where)) 	$wheres[] = $table_as_prefix . $where;
+			
 			if($type != 0) $wheres[] = " `type` = " . intval($type);
+			if(!is_user_logged_in()) $guest = WPF()->member->get_guest_cookies();
 			
 			if(empty($forumids)){
 				if( isset($forumid) && !WPF()->perm->forum_can('vf', $forumid) ){
@@ -558,6 +619,9 @@ class wpForoTopic{
 				elseif( isset(WPF()->current_userid) && WPF()->current_userid ){
 					$wheres[] = " ( `private` = 0 OR (`private` = 1 AND `userid` = " .intval(WPF()->current_userid). ") )";
 				}
+				elseif( isset($guest['email']) ){
+					$wheres[] = " ( `private` = 0 OR (`private` = 1 AND `email` = '" . sanitize_email($guest['email']) . "') )";
+				}
 				else{
 					$wheres[] = " `private` = 0";
 				}
@@ -569,6 +633,9 @@ class wpForoTopic{
 				}
 				elseif( isset(WPF()->current_userid) && WPF()->current_userid ){
 					$wheres[] = " ( `status` = 0 OR (`status` = 1 AND `userid` = " .intval(WPF()->current_userid). ") )";
+				}
+				elseif( isset($guest['email']) ){
+					$wheres[] = " ( `status` = 0 OR (`status` = 1 AND `email` = '" . sanitize_email($guest['email']) . "') )";
 				}
 				else{
 					$wheres[] = " `status` = 0";
@@ -607,12 +674,12 @@ class wpForoTopic{
 					if( !WPF()->perm->forum_can('vf', $topic['forumid']) ){
 						unset($topics[$key]);
 					}
-					if( isset($topics[$key]) && isset($topic['private']) && $topic['private'] && !wpforo_is_owner($topic['userid']) ){
+					if( isset($topics[$key]) && isset($topic['private']) && $topic['private'] && !wpforo_is_owner($topic['userid'], $topic['email']) ){
 						if( !WPF()->perm->forum_can('vp', $topic['forumid']) ){
 							unset($topics[$key]);
 						}
 					}
-					if( isset($topics[$key]) && isset($topic['status']) && $topic['status'] && !wpforo_is_owner($topic['userid']) ){
+					if( isset($topics[$key]) && isset($topic['status']) && $topic['status'] && !wpforo_is_owner($topic['userid'], $topic['email']) ){
 						if( !WPF()->perm->forum_can('au', $topic['forumid']) ){
 							unset($topics[$key]);
 						}
@@ -636,12 +703,12 @@ class wpForoTopic{
 				if( !WPF()->perm->forum_can('vf', $topic['forumid']) ){
 					unset($topics[$key]);
 				}
-				if( isset($topics[$key]) && isset($topic['private']) && $topic['private'] && !wpforo_is_owner($topic['userid']) ){
+				if( isset($topics[$key]) && isset($topic['private']) && $topic['private'] && !wpforo_is_owner($topic['userid'], $topic['email']) ){
 					if( !WPF()->perm->forum_can('vp', $topic['forumid']) ){
 						unset($topics[$key]);
 					}
 				}
-				if( isset($topics[$key]) && isset($topic['status']) && $topic['status'] && !wpforo_is_owner($topic['userid']) ){
+				if( isset($topics[$key]) && isset($topic['status']) && $topic['status'] && !wpforo_is_owner($topic['userid'], $topic['email']) ){
 					if( !WPF()->perm->forum_can('au', $topic['forumid']) ){
 						unset($topics[$key]);
 					}

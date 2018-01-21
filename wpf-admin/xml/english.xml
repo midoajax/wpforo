@@ -281,11 +281,11 @@
 	<phrase name="You have been successfully subscribed"><![CDATA[You have been successfully subscribed]]></phrase>
 	<phrase name="You have been successfully unsubscribed"><![CDATA[You have been successfully unsubscribed]]></phrase>
 	<phrase name="You have no permission to edit this topic"><![CDATA[You have no permission to edit this topic]]></phrase>
-	<phrase name="You haven\'t permission to create post into this forum"><![CDATA[You haven\'t permission to create post into this forum]]></phrase>
-	<phrase name="You haven\'t permission to create topic into this forum"><![CDATA[You haven\'t permission to create topic into this forum]]></phrase>
-	<phrase name="You haven\'t permission to delete post from this forum"><![CDATA[You haven\'t permission to delete post from this forum]]></phrase>
-	<phrase name="You haven\'t permission to delete topic from this forum"><![CDATA[You haven\'t permission to delete topic from this forum]]></phrase>
-	<phrase name="You haven\'t permission to edit post from this forum"><![CDATA[You haven\'t permission to edit post from this forum]]></phrase>
+	<phrase name="You don\'t have permission to create post in this forum"><![CDATA[You don\'t have permission to create post in this forum]]></phrase>
+	<phrase name="You don\t have permission to create topic into this forum"><![CDATA[You don\t have permission to create topic into this forum]]></phrase>
+	<phrase name="You don\t have permission to delete post from this forum"><![CDATA[You don\t have permission to delete post from this forum]]></phrase>
+	<phrase name="You don\t have permission to delete topic from this forum"><![CDATA[You don\t have permission to delete topic from this forum]]></phrase>
+	<phrase name="You don\t have permission to edit post from this forum"><![CDATA[You don\t have permission to edit post from this forum]]></phrase>
 	<phrase name="You successfully replied"><![CDATA[You successfully replied]]></phrase>
 	<phrase name="Your Answer"><![CDATA[Your Answer]]></phrase>
 	<phrase name="Your forum successfully added"><![CDATA[Your forum successfully added]]></phrase>
@@ -403,4 +403,19 @@
 	<phrase name="in forum"><![CDATA[in forum]]></phrase>
 	<phrase name="After registration you will receive an email confirmation with a link to set a new password"><![CDATA[After registration you will receive an email confirmation with a link to set a new password]]></phrase>
 	<phrase name="You can mention a person using @nicename in post content to send that person an email message. When you post a topic or reply, forum sends an email message to the user letting them know that they have been mentioned on the post."><![CDATA[You can mention a person using @nicename in post content to send that person an email message. When you post a topic or reply, forum sends an email message to the user letting them know that they have been mentioned on the post.]]></phrase>
+	<phrase name="View entire topic"><![CDATA[View entire topic]]></phrase>
+	<phrase name="Author Name"><![CDATA[Author Name]]></phrase>
+	<phrase name="Your name"><![CDATA[Your name]]></phrase>
+	<phrase name="Author Email"><![CDATA[Author Email]]></phrase>
+	<phrase name="Your email"><![CDATA[Your email]]></phrase>
+	<phrase name="Your topic successfully added and awaiting moderation"><![CDATA[Your topic successfully added and awaiting moderation]]></phrase>
+	<phrase name="You are not allowed to edit this post"><![CDATA[You are not allowed to edit this post]]></phrase>
+	<phrase name="Google reCAPTCHA verification failed"><![CDATA[Google reCAPTCHA verification failed]]></phrase>
+	<phrase name="ERROR: Can't connect to Google reCAPTCHA API"><![CDATA[ERROR: Can't connect to Google reCAPTCHA API]]></phrase>
+	<phrase name="Welcome!"><![CDATA[Welcome!]]></phrase>
+	<phrase name="Join us today!"><![CDATA[Join us today!]]></phrase>
+	<phrase name="Enter your email address or username and we'll send you a link you can use to pick a new password."><![CDATA[Enter your email address or username and we'll send you a link you can use to pick a new password.]]></phrase>
+	<phrase name="Please Insert Your Email or Username"><![CDATA[Please Insert Your Email or Username]]></phrase>
+	<phrase name="Reset Password"><![CDATA[Reset Password]]></phrase>
+	<phrase name="Forgot Your Password?"><![CDATA[Forgot Your Password?]]></phrase>
 </language>

@@ -9,8 +9,9 @@
 
 <?php if( wpforo_feature('user-register') ): ?>
     <form name="wpfreg" action="" enctype="multipart/form-data" method="POST">
-      <div class="wpforo-register-wrap">
+      <div class="wpforo-register-wrap wpfbg-9">
         <div class="wpforo-register-content">
+		<h3><?php wpforo_phrase('Join us today!') ?></h3>
          <div class="wpf-table wpforo-register-table wpfbg-9" style="padding-bottom:0px;">
 			  
 			  <?php wpforo_fields( $fields ); ?>

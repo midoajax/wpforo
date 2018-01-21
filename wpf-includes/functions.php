@@ -21,6 +21,7 @@ function wpforo_verify_form( $mode = 'full' ){
 			exit('Error 2253 | Please contact to forum admin.');
 		}
 	}
+	do_action('wpforo_verify_form_end');
 }
 
 function wpforo_home_url($str = '', $echo = false, $absolute = true){
@@ -878,23 +879,22 @@ function wpforo_remove_links( $content ){
 }
 
 add_filter('wpforo_content_filter', 'wpforo_nofollow_tag', 20);
-function wpforo_nofollow_tag( $content ){
-    $content = preg_replace_callback('|<a[^><]*href=[\'\"]+([^\'\"]+)[\'\"]+[^><]*>.+?</a>|is', 'wpforo_nofollow', $content);
+function wpforo_nofollow_tag($content){
+    $content = preg_replace_callback('#<a[^><]*?href=[\'\"]([^\'\"]+)[\'\"][^><]*?>#isu', 'wpforo_nofollow', $content);
     return $content;
 }
 function wpforo_nofollow($match){
-	$dofollow = WPF()->tools_misc['dofollow'];
-	if(!empty($dofollow)){ $dofollow = explode("\n", $dofollow); if(!empty($dofollow)) $dofollow = array_map("trim", $dofollow); }
-	$url = get_bloginfo('url'); $parse = parse_url($url);
-	if( isset($match[0]) ) $link = $match[0];
-    if( isset($match[1]) && strpos($match[1], $parse['host']) === FALSE ){
+    $link = $match[0];
+    $dofollow = trim(WPF()->tools_misc['dofollow']);
+    $dofollow = array_filter(array_map("trim", explode("\n", $dofollow)));
+    $parse = parse_url( wpforo_get_request_uri() );
+    $host = $parse['host'];
+    $main_host = preg_replace('#^.*?([^\.]+?\.[^\.]+?)$#isu', '$1', $host);
+    if( strpos($link, 'rel=') === false && strpos($match[1], $main_host) === false ){
 		$link_url = parse_url($match[1]);
-		if(!empty($dofollow) && isset($link_url['host']) && $link_url['host'] && in_array($link_url['host'], $dofollow) ){
-			return $link;
-		}
-		else{
-			$link = preg_replace('|(<a[^><]+)>|is', '$1 rel="nofollow">', $match[0]);
-		}
+		if( !(!empty($dofollow) && !empty($link_url['host']) && in_array($link_url['host'], $dofollow)) ){
+            $link = str_replace('>', ' rel="nofollow">', $match[0]);
+        }
     }
     return $link;
 }
@@ -1605,10 +1605,17 @@ function wpforo_db_check( $args = array() ){
 	}
 }
 
-function wpforo_is_owner( $userid ){
+function wpforo_is_owner( $userid, $email = '' ){
     if( isset(WPF()->current_userid) && WPF()->current_userid ){
         if( $userid == WPF()->current_userid ) return true;
     }
+	elseif( !is_user_logged_in() && $email ){
+		$guest = WPF()->member->get_guest_cookies();
+		if( isset($guest['email']) && $guest['email'] == $email ) {
+			return true;
+		}
+		return false;
+	}
 	return false;
 }
 
@@ -1801,4 +1808,14 @@ function wpforo_is_session_started(){
         }
     }
     return FALSE;
+}
+
+function wpforo_current_guest( $email ){
+	$guest = WPF()->member->get_guest_cookies();
+	if(!isset($guest['email']) || !$guest['email']) return false;
+	if( $email == $guest['email']){ 
+		return true; 
+	}else{
+		return false; 
+	}
 }

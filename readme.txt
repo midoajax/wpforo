@@ -1,134 +1,124 @@
-﻿=== Forums - wpForo ===
+﻿=== wpForo Forum ===
 Contributors: gVectors Team
-Tags: forums, forum, forum plugin, community, discussion, WordPress forum plugin
+Tags: forum, forums, forum plugin, WordPress forum plugin, community, discussion
 Requires at least: 4.1
 Tested up to: 4.9
-Stable tag: 1.4.3
-Requires PHP: 5.5 and higher
+Stable tag: 1.4.5
+Requires PHP: 5.4 and higher
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Number one forum plugin for WordPress. Full-fledged forum solution with modern and mobile responsive design. Take your forum to next level!
+Number one WordPress forum plugin. Full-fledged forum solution with modern and responsive forum design. Community builder WordPress forum plugin.
 
 == Description ==
 
-The Best WordPress forum plugin made by [gVectors Team](https://gvectors.com/). Everything you need to run an efficient and professional community. Powerful and beautiful forum with unique features.
+wpForo Forums is the best WordPress forum plugin. Full-fledged yet easy and light forum solution for your WordPress website. Comes with modern and responsive forum layouts and styles. This WordPress forum plugin brings everything you need to run an efficient and professional community. Powerful and beautiful forum with unique features.
 
-	Just 5 minutes Installation and Configuration
-	1. Activate wpForo and find forum on yoursite.com/community/ page
-	2. Create new Forums in Dashboard > Forums > Forums admin page
-	3. If the default colors don't fit your theme, navigate to Dashboard > Forums > Settings > Styles admin page and change forum color style.
+= 5 Minute Forum Installation! = 
+
+	1. Activate plugin and find forums on /community/ page, (/community-2/ if /community/ is used),
+	2. Manage Forums in Dashboard > Forums > Forums admin page,
+	3. Manage Forum Menu in Dashboard > Appearance > Menu admin page,
+	4. Manage Forum Widgets in Dashboard > Appearance > Widgets admin page,
+	5. Manage Forum Colors in Dashboard > Forums > Settings > Styles admin page, you can choose forum color styles.
 
 Support Forum and Demo: [https://wpforo.com/community/](https://wpforo.com/community/)
 Forum Documentation: [https://wpforo.com/documentation/](https://wpforo.com/documentation/)
 
 
-= Forums can be displayed with three different layouts = 
+= Multi-layout WordPress Forum Plugin = 
 
-1. [**Extended Layout:**](https://wpforo.com/docs/categories-and-forums/forum-layouts/extended-layout/)
-2. [**Simplified Layout:**](https://wpforo.com/docs/categories-and-forums/forum-layouts/simplified-layout/)
-3. [**Question and Answer Layout:**](https://wpforo.com/docs/categories-and-forums/forum-layouts/question-answer-layout/)
+1. [**Extended Forum Layout**](https://wpforo.com/docs/categories-and-forums/forum-layouts/extended-layout/)
+2. [**Simplified Forum Layout**](https://wpforo.com/docs/categories-and-forums/forum-layouts/simplified-layout/)
+3. [**Question and Answer Forum Layout**](https://wpforo.com/docs/categories-and-forums/forum-layouts/question-answer-layout/)
 
-= Available Translations =
+= Available Forum Translations =
 
-* | Czech forum by Glados (The Witcher)
-* | Dutch forum by Ger Metselaar i.o.v. Parma multimedia BV
-* | French forum by J. Coopmann, F. Lanternier, Y. Le Cottier
-* | French forum by Alain Bergevin
-* | German forum by Markus Herrmann, Pascal Feiler
-* | Hebrew forum by Gal Zilberman
-* | Japanese forum by Seg Way
-* | Persian forum by wpforo.ir
-* | Portuguese (Brazil) forum by Lucas Felix
-* | Polish forum by  Bogusław Górecki
-* | Russian forum by Dmitry Butkevich
-* | Spanish forum by Ignacio Sancho(ISANlab)
-* | Spanish forum (Mexico) by Poncho Camacho
-* | Swedish forum by Mathias Persson
-* | Korean forum by Jeehwan Song
+**Czech** , **Dutch**, **French**, **French**, **German**, **Hebrew**, **Japanese**, **Persian**, **Portuguese**, **Polish**, **Russian**, **Spanish** , **Spanish** , **Swedish**, **Korean**.
 
-= WPFORO FEATURES =
+= FORUM FEATURES =
 
 * Designed for small and extremely large forums/communities.
-* Multi-layout design fits almost all type of discussions needs.
+* Multi-layout forum design.
 * Super responsive forum on all kind of devices.
 * Built-in forum SEO functions.
 * Built-in forum Cache System.
 * Built-in forum Antispam and Akismet integration.
 * Advanced forum user profile system.
-* User Rating, Badges and Member Rating Titles.
+* Forum Member Rating and Badges.
 * Built-in forum/topic subscription. 
 * Drag and Drop forum management system.
 * Topic and Post front-end moderation.
 * Forum styles with different colors.
-* Built-in, powerful Usergroup system.
+* Built-in, powerful forum Usergroup system.
 * Forum Access sets per Usergroup per Forum.
-* Phrase System in Dashboard for quick translation. 
+* Forum Phrase System for quick translation. 
 * WordPress .MO/.PO translation files. 
 * Easy to migrate with [Go2wpForo](https://wpforo.com/community/migrate-to-wpforo-from-other-forum-plugins/migrate-to-wpforo-go2wpforo-tool/) tool.
 
-= Need more features? =
+= Need more forum features? =
 
-Find wpForo forum plugin adons on [gVectors Team website...](https://gvectors.com/product-category/wpforo/)
+Find wpForo forum plugin addons on [gVectors Team website...](https://gvectors.com/product-category/wpforo/)
 
 
 == Installation ==
 
-1. Install wpForo forum plugin through the WordPress plugins screen directly or upload wpForo forum plugin files to the `/wp-content/plugins/wpforo` directory 
-2. Activate wpForo forum through the 'Plugins' screen in WordPress
-3. If you have more than 100 users wpForo forum plugin will ask you synchronize users and create forum user profile. You just need to click on [Create Profile Data] button in wpForo message box after wpForo forum plugin activation.
-4. wpForo forum "Getting Started" documentation https://wpforo.com/docs/root/getting-started/
+1. Install wpForo Forum plugin in Dashboard > Plugins admin page. Then activate it.
+2. If you have more than 100 users wpForo forum plugin prompts you synchronize users.
+3. Manage Forums in Dashboard > Forums > Forums admin page,
+4. Manage Forum Menu in Dashboard > Appearance > Menu admin page,
+5. Manage Forum Colors in Dashboard > Forums > Settings > Styles admin page, you can choose forum color styles.
 
 
 == Frequently Asked Questions ==
 
-= Getting Started - Forum Page =
+= Forum Page - How to change forum page? =
 
-**Forum Page** - wpForo creates a forum page with `/community/` slug. Forum URL can be changed in Dashboard > Forums > Settings > General Tab. Make sure you use WordPress permalinks. wpForo forums don't work with default `?p=1` URL structure. Forum page only contains [wpforo] forum shortcode. [Forum doc >](https://wpforo.com/docs/root/getting-started/forum-page/)
+**Forum Page** - wpForo creates a forum page with `/community/` slug. Forum URL can be changed in Dashboard > Forums > Settings > General Tab. Make sure you use WordPress permalinks. wpForo forums don't work with default `?p=1` URL structure. Forum page only contains [wpforo] forum shortcode.
 
-= Forum Menu =  
+= Forum Menu - How to manage forum menu? =  
 
-**Forum Menu** - wpForo forum menu is a regular WordPress menu. In Dashboard > Appearance > Menu admin page wpForo forum creates new navigation menu (forum top menu bar) called "wpForo Navigation (wpForo Menu)". Forum menu is attached to wpForo Menu location. [Forum doc >](https://wpforo.com/docs/root/getting-started/forum-menu/)
+**Forum Menu** - wpForo forum menu is a regular WordPress menu. In Dashboard > Appearance > Menu admin page wpForo forum creates new navigation menu (forum top menu bar) called "wpForo Navigation (wpForo Menu)". Forum menu is attached to wpForo Menu location.
 
-= Forum Sidebar =  
+= Forum Sidebar - Does forum has sidebar and widgets? =  
 
-**Forum Sidebar and Widgets** - wpForo forum comes with own right (RTL left) sidebar and widgets (Recent Forum Topics, Recent Forum Posts, Forum Search, Forum Online Users). [Forum doc >](https://wpforo.com/docs/root/getting-started/forum-sidebar-and-widgets/)
+**Forum Sidebar and Widgets** - wpForo forum comes with own right (RTL left) sidebar and widgets (Recent Forum Topics, Recent Forum Posts, Forum Search, Forum Online Users).
 
-= Forum Layouts =
+= Forum Layouts - What is forum layout? =
 
-**Forum Layouts** - wpForo Forums has Forum Layouts and allows to create hybrid forums. wpForo theme has built in multi-layout system. Each forum section (category with forums and subForums) can be displayed with different forum layout. [Forum doc >](https://wpforo.com/docs/root/categories-and-forums/forum-layouts/)
+**Forum Layouts** - wpForo Forums has Forum Layouts and allows to create hybrid forums. wpForo theme has built in multi-layout system. Each forum section (category with forums and subForums) can be displayed with different forum layout. 
 
-= Forum Manager = 
+= Forum Manager - How to add / edit/ delete forums? = 
 
-**Forum Manager** - You can add new category, forum or subForum in Dashboard > Forums > Forums admin page. The Forum add / Forum edit / Forum Delete / Forum Hierarchy cn be managed on the same admin page. [Forum doc >](https://wpforo.com/docs/root/categories-and-forums/forum-manager/)
+**Forum Manager** - You can add new category, forum or subForum in Dashboard > Forums > Forums admin page. The Forum add / Forum edit / Forum Delete / Forum Hierarchy can be managed on the same admin page.
 
-= Forum Shortcodes = 
+= Forum Shortcodes - What shortcodes are available? = 
 
-**Forum Shortcodes** - Started from version 1.0.0 you can use wpForo shortcodes. [Forum doc >](https://wpforo.com/docs/root/getting-started/forum-page/wpforo-shortcodes/)
+**Forum Shortcodes** - Started from version 1.0.0 you can use wpForo shortcodes.
 
-= Forum Styles =
+= Forum Styles - How to change forum colors? =
 
-**Forum Styles** - Please navigate to Dashboard > Forums > Settings > Styles admin page. Here you can find wpForo forum front-end colors and styles. You can choose forum colors: default (blue), red, green, orange, grey, dark. You can select forum color set or customize each color manually. [Forum doc >](https://wpforo.com/docs/root/wpforo-settings/style-settings/)
+**Forum Styles** - Please navigate to Dashboard > Forums > Settings > Styles admin page. Here you can find wpForo forum front-end colors and styles. You can choose forum colors: default (blue), red, green, orange, grey, dark. You can select forum color set or customize each color manually.
 
-= Forum Member = 
+= Forum Member - How to manage forum members? = 
 
-**Forum Member** - Forum Members are the same WordPress users. wpForo forums is fully integrated with WordPress. It comes with own Forum Login and Forum Registration page. Users get an advanced Forum Profile. You can manage all members in Dashboard > Forums > Members admin page. [Forum doc >](https://wpforo.com/docs/root/members/member-manager/)
+**Forum Member** - Forum Members are the same WordPress users. wpForo forums is fully integrated with WordPress. It comes with own Forum Login and Forum Registration page. Users get an advanced Forum Profile. You can manage all members in Dashboard > Forums > Members admin page. 
 
-= Forum Reputation = 
+= Forum Reputation - What is forum member reputation and badges? = 
 
-**Forum Member Badges and Reputation** - wpForo forum has a simple yet powerful user reputation system. Currently it based on number of forum posts. [Forum doc >](https://wpforo.com/docs/root/members/member-reputation/)
+**Forum Member Badges and Reputation** - wpForo forum has a simple yet powerful user reputation system. Currently it based on number of forum posts.
 
-= Forum Accesses = 
+= Forum Accesses - How to allow/restrict users to certain forums? = 
 
-**Forum Access and Permissions** - Forum Accesses are different sets of forum permissions (CAN's) designed to help forum admins control (allow/restrict) Users' actions in each forum. [Forum doc >](https://wpforo.com/docs/root/wpforo-settings/forum-accesses/)
+**Forum Access and Permissions** - Forum Accesses are different sets of forum permissions (CAN's) designed to help forum admins control (allow/restrict) Users' actions in each forum. 
 
-= Forum Usergroups = 
+= Forum Usergroups - What is forum users' Usergroup? = 
 
-**Forum Usergroups and Permissions** - In order to have an extended forum user permission system with full control over all forum user actions, wpForo comes with own Forum Usergroup system. [Forum doc >](https://wpforo.com/docs/root/members/usergroups-and-permissions/)
+**Forum Usergroups and Permissions** - In order to have an extended forum user permission system with full control over all forum user actions, wpForo comes with own Forum Usergroup system.
 
-= Forum Translation = 
+= Forum Translation - How to translate this forum? = 
 
-**Forum Translation** - wpForo forum can be translated using PO/MO files or you can do a quick translation using wpForo Forum Phrase system in Dashboard > Forums > Phrases admin page. [Forum doc >](https://wpforo.com/docs/root/translation/how-to-translate/)
+**Forum Translation** - wpForo forum can be translated using PO/MO files or you can do a quick translation using wpForo Forum Phrase system in Dashboard > Forums > Phrases admin page.
 
 
 
@@ -154,11 +144,49 @@ Find wpForo forum plugin adons on [gVectors Team website...](https://gvectors.co
 
 == Changelog ==
 
-= 1.4.3 | 09.12.2017 =
+= wpForo Forum 1.4.4 / 1.4.4.1 / 1.4.5 | 11.01.2018 =
+
+[wpForo v1.4.5 Release Summary](https://wpforo.com/community/wpforo-announcements/wpforo-1-4-5-is-released/)
+[wpForo v1.4.4 / 1.4.4.1 Release Summary](https://wpforo.com/community/wpforo-announcements/wpforo-1-4-4-is-released/)
+
+IMPORTANT: If you're updating from 1.4.2 or lower versions and you have customized wpforo template files in WordPress active theme's /wpforo/ folder, please remove those before updating. wpForo 1.4.4 doesn't support old template files. 
+
+* 1.4.5
+* Added: Option in Usergroup settings to display / Hide on Members list
+* Changed: Recent Posts topic view
+* Fixed Bug: Avatar size in widget
+* ---------------
+* 1.4.4 / 1.4.4.1
+* Added: Guest Posting
+* Added: Guest can subscribe to topics and forums
+* Added: Guest can edit own topics and posts
+* Added: Guest can quote others topics and posts
+* Added: Guest can attach files and set own topic as resolved
+* Added: Built-in Google reCAPTCHA API
+* Added: Secure guest posting with Google reCAPTCHA human verification
+* Added: reCAPTCHA on WP and wpForo login/register and reset password forms
+* Added: Google reCAPTCHA settings on Forums > Tools > Antispam admin page
+* Added: Redesigned Login / Register and reset Password pages
+* Added: Option to replace default Reset password page to wpForo page
+* Added: Tracks a.com as internal on b.a.com forum and doesn't add nofollow
+* Added: More intuitive user @mentioning, ignores last symbols (, . " / ! ...)
+* Added: Option to disable user @mentioning and Nicenames under avatar
+* Added: Font size changing button on topic and post editor toolbar
+* Added: Custom redirection URLs after login/register/confirm subscription.
+* Added: Recent Posts page with two displaying types Topics/replies and Posts
+* Added: Not allowed CAN's are disabled for according Forum Accesses
+* Added: Czech Translation (cs_CZ), many thanks to Pavel Polívka,
+* Fixed Bug: Problem with complete replacing website avatars to wpForo avatar
+* Fixed Bug: User can't see admin posts in own private topic.
+* Fixed Bug: Issue with Facebook avatars sources (lastmod sufix).
+* Fixed Bug: Uppercase extension problem (two avatar files for one user)
+* Fixed Bug: Delete post doesn't update topic last modified date
+* Fixed Bug: Delete topic doesn't update forum last topic information
+
+
+= wpForo Forum 1.4.3 | 09.12.2017 =
 
 [wpForo v1.4.3 Release Summary](https://wpforo.com/community/wpforo-announcements/wpforo-1-4-3-is-released/)
-
-IMPORTANT: If you have customized wpforo template files in WordPress active theme's /wpforo/ folder, please remove those before updating to 1.4.3 version. wpForo 1.4.3 doesn't support old template files. 
 
 * Added: Boosted forum core. Works many folds faster. Forum OOP optimization.
 * Added: Facebook Login on Forum Login and Registration page
@@ -208,9 +236,7 @@ NOTE: IF YOU UPDATE FROM OLDER VERSIONS
 - In case you update forum and you have a large database, please make your forum faster [using this instruction...](https://wpforo.com/community/faq/forum-is-slow/)
 
 
-= 1.4.2 | 22.10.2017 =
-
-[wpForo v1.4.2 Release Summary](https://wpforo.com/community/wpforo-announcements/wpforo-1-4-2-is-released/)
+= wpForo Forum 1.4.2 | 22.10.2017 =
 
 * Added: Recent Posts page, menu, footer link,
 * Fixed Bug: Topic views counting. Guest logging.
@@ -221,9 +247,7 @@ NOTE: IF YOU UPDATE FROM OLDER VERSIONS
 * Fixed Bug: Login/Register pop-up window when guest clicks on Add Topic button
 
 
-= 1.4.1 | 12.10.2017 =
-
-[wpForo v1.4.1 Release Summary](https://wpforo.com/community/wpforo-announcements/wpforo-1-4-1-is-released/)
+= wpForo Forum 1.4.1 | 12.10.2017 =
 
 * Added: Bold titles when Forum and Topic is not visited/read
 * Added: Option to enable/disable forum RSS Feed
@@ -234,9 +258,7 @@ NOTE: IF YOU UPDATE FROM OLDER VERSIONS
 * Fixed Bug: Forum widget avatar doesn't reflect view avatar permission 
 
 
-= 1.4.0 | 07.10.2017 =
-
-[wpForo v1.4.0 Release Summary](https://wpforo.com/community/wpforo-announcements/wpforo-1-4-0-is-released/)
+= wpForo Forum 1.4.0 | 07.10.2017 =
 
 * Added: Advanced forum user profile system,
 * Added: Redesigned forum profile home and account settings page

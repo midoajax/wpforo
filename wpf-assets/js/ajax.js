@@ -567,21 +567,21 @@ jQuery(document).ready(function($){
 				$( "#formbutton" ).val( wpforo_phrase('Update') );
 		   		$( 'html, body' ).animate({scrollTop: $("#wpf-form-wrapper").offset().top}, 1000);
 		   		if(is_topic == -1){
-	//	   			$( "#title" ).prop( "disabled", true );
 		   			$( "#title").val( response.post_title );
-					
 					$( "#formaction" ).attr('name', 'post[action]');
 					$( "#formbutton" ).attr('name', 'post[save]');
 					$( "#formtopicid" ).attr('name', 'post[topicid]');
 					$( "#title" ).attr('name', 'post[title]');
+					if( $( "#wpf_user_name" ).length ) { $( "#wpf_user_name" ).attr('name', 'post[name]'); }
+					if( $( "#wpf_user_email" ).length ) { $( "#wpf_user_email" ).attr('name', 'post[email]'); }
 				}else{
-	//				$( "#title" ).prop( "disabled", false );
 					$( "#title").val( response.topic_title );
-					
 					$( "#formaction" ).attr('name', 'topic[action]');
 					$( "#formbutton" ).attr('name', 'topic[save]');
 					$( "#formtopicid" ).attr('name', 'topic[topicid]');
 					$( "#title" ).attr('name', 'topic[title]');
+					if( $( "#wpf_user_name" ).length ) { $( "#wpf_user_name" ).attr('name', 'topic[name]'); }
+					if( $( "#wpf_user_email" ).length ) { $( "#wpf_user_email" ).attr('name', 'topic[email]'); }
 				}
 				
 	   			tinymce.execCommand('mceFocus',false,'postbody');

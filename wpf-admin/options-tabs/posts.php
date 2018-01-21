@@ -10,6 +10,15 @@
     <table class="wpforo_settings_table">
 		<tbody>
         	<?php do_action( 'wpforo_settings_post_top'); ?>
+            <tr>
+                <th><label><?php _e('Recent Posts Display Type','wpforo'); ?></label></th>
+                <td>
+                    <div class="wpf-switch-field">
+                        <input id="rpt-topics" type="radio" name="wpforo_post_options[recent_posts_type]" value="topics" <?php wpfo_check(WPF()->post->options['recent_posts_type'], 'topics'); ?>/><label for="rpt-topics"><?php _e('Topics','wpforo'); ?></label> &nbsp;
+                        <input id="rpt-posts" type="radio" name="wpforo_post_options[recent_posts_type]" value="posts" <?php wpfo_check(WPF()->post->options['recent_posts_type'], 'posts'); ?>/><label for="rpt-posts"><?php _e('Posts','wpforo'); ?></label>
+                    </div>
+                </td>
+            </tr>
 			<tr>
 				<th><label for="topics_per_page"><?php _e('Number of Topics per Page', 'wpforo'); ?></label></th>
 				<td><input id="topics_per_page" type="number" min="1" name="wpforo_post_options[topics_per_page]" value="<?php wpfo(WPF()->post->options['topics_per_page']) ?>" class="wpf-field-small" /></td>

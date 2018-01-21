@@ -151,7 +151,9 @@
 		  `role` VARCHAR(50) NOT NULL DEFAULT '',
 		  `access` VARCHAR(50) NOT NULL DEFAULT '',
 		  `color` varchar(7) NOT NULL DEFAULT '',
+		  `visible` tinyint(1) UNSIGNED NOT NULL DEFAULT 1,
 		  PRIMARY KEY (`groupid`),
+		  KEY `visible` (`visible`),
 		  UNIQUE KEY `UNIQUE_GROUP_NAME` (`name`(191))
 		) ENGINE=MyISAM $charset_collate;",
 		"CREATE TABLE IF NOT EXISTS `".WPF()->db->prefix."wpforo_languages`(  

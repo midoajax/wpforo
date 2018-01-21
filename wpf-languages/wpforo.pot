@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 "Project-Id-Version: Forum - wpForo\n"
-"POT-Creation-Date: 2017-12-10 01:01+0400\n"
+"POT-Creation-Date: 2018-01-11 00:59+0300\n"
 "PO-Revision-Date: 2016-06-28 21:09+0400\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -67,47 +67,47 @@ msgstr ""
 
 #: wpf-admin/admin.php:24 wpf-admin/admin.php:26 wpf-admin/dashboard.php:137
 #: wpf-admin/options-tabs/api.php:83 wpf-admin/options-tabs/styles.php:16
-#: wpf-admin/options.php:15 wpf-includes/wpf-hooks.php:1719
+#: wpf-admin/options.php:15 wpf-includes/wpf-hooks.php:1747
 #: wpf-includes/wpf-phrases.php:123
 msgid "Forums"
 msgstr ""
 
 #: wpf-admin/admin.php:27 wpf-includes/wpf-hooks.php:22
-#: wpf-includes/wpf-hooks.php:1735
+#: wpf-includes/wpf-hooks.php:1763
 msgid "Settings"
 msgstr ""
 
-#: wpf-admin/admin.php:28 wpf-includes/wpf-hooks.php:1744
+#: wpf-admin/admin.php:28 wpf-includes/wpf-hooks.php:1772
 msgid "Tools"
 msgstr ""
 
-#: wpf-admin/admin.php:29 wpf-includes/wpf-hooks.php:1753
+#: wpf-admin/admin.php:29 wpf-includes/wpf-hooks.php:1781
 msgid "Moderation"
 msgstr ""
 
 #: wpf-admin/admin.php:30 wpf-admin/dashboard.php:149 wpf-admin/member.php:10
-#: wpf-admin/options.php:18 wpf-includes/wpf-hooks.php:1762
+#: wpf-admin/options.php:18 wpf-includes/wpf-hooks.php:1790
 #: wpf-includes/wpf-phrases.php:178
 msgid "Members"
 msgstr ""
 
 #: wpf-admin/admin.php:31 wpf-admin/usergroup.php:8
-#: wpf-includes/wpf-hooks.php:1771
+#: wpf-includes/wpf-hooks.php:1799
 msgid "Usergroups"
 msgstr ""
 
-#: wpf-admin/admin.php:32 wpf-includes/wpf-hooks.php:1787
+#: wpf-admin/admin.php:32 wpf-includes/wpf-hooks.php:1815
 #: wpf-includes/wpf-phrases.php:600
 msgid "Phrases"
 msgstr ""
 
-#: wpf-admin/admin.php:33 wpf-includes/wpf-hooks.php:1803
+#: wpf-admin/admin.php:33 wpf-includes/wpf-hooks.php:1831
 #: wpf-includes/wpf-phrases.php:601
 msgid "Themes"
 msgstr ""
 
 #: wpf-admin/admin.php:34 wpf-admin/options.php:24
-#: wpf-includes/wpf-hooks.php:1812 wpf-includes/wpf-phrases.php:25
+#: wpf-includes/wpf-hooks.php:1840 wpf-includes/wpf-phrases.php:25
 msgid "Addons"
 msgstr ""
 
@@ -172,13 +172,14 @@ msgstr ""
 msgid "Board Statistic"
 msgstr ""
 
-#: wpf-admin/dashboard.php:141 wpf-admin/options-tabs/styles.php:22
-#: wpf-includes/class-forums.php:661 wpf-includes/wpf-phrases.php:339
+#: wpf-admin/dashboard.php:141 wpf-admin/options-tabs/posts.php:17
+#: wpf-admin/options-tabs/styles.php:22 wpf-includes/class-forums.php:661
+#: wpf-includes/wpf-phrases.php:339
 msgid "Topics"
 msgstr ""
 
-#: wpf-admin/dashboard.php:145 wpf-includes/class-forums.php:661
-#: wpf-includes/wpf-phrases.php:233
+#: wpf-admin/dashboard.php:145 wpf-admin/options-tabs/posts.php:18
+#: wpf-includes/class-forums.php:661 wpf-includes/wpf-phrases.php:233
 msgid "Posts"
 msgstr ""
 
@@ -241,7 +242,7 @@ msgstr ""
 msgid "Delete User Cache"
 msgstr ""
 
-#: wpf-admin/forum.php:13 wpf-includes/functions.php:770
+#: wpf-admin/forum.php:13 wpf-includes/functions.php:771
 #: wpf-includes/wpf-phrases.php:302
 msgid "Show on screen"
 msgstr ""
@@ -271,7 +272,7 @@ msgstr ""
 msgid "Number of Columns"
 msgstr ""
 
-#: wpf-admin/forum.php:32 wpf-includes/functions.php:784
+#: wpf-admin/forum.php:32 wpf-includes/functions.php:785
 #: wpf-includes/wpf-phrases.php:275
 msgid "Screen Options"
 msgstr ""
@@ -356,8 +357,8 @@ msgid "Are you sure you want to delete this forum?"
 msgstr ""
 
 #: wpf-admin/forum.php:153 wpf-admin/themes.php:73
-#: wpf-admin/tools-tabs/antispam.php:139 wpf-admin/usergroup.php:36
-#: wpf-admin/usergroup.php:209 wpf-includes/wpf-hooks.php:1078
+#: wpf-admin/tools-tabs/antispam.php:258 wpf-admin/usergroup.php:36
+#: wpf-admin/usergroup.php:209 wpf-includes/wpf-hooks.php:1088
 #: wpf-includes/wpf-phrases.php:66
 msgid "Delete"
 msgstr ""
@@ -427,64 +428,64 @@ msgstr ""
 msgid "Topic and Post Moderation"
 msgstr ""
 
-#: wpf-admin/options-tabs/accesses.php:9 wpf-includes/wpf-phrases.php:21
+#: wpf-admin/options-tabs/accesses.php:14 wpf-includes/wpf-phrases.php:21
 msgid "Add New Forum Access"
 msgstr ""
 
-#: wpf-admin/options-tabs/accesses.php:13 wpf-includes/wpf-phrases.php:15
+#: wpf-admin/options-tabs/accesses.php:18 wpf-includes/wpf-phrases.php:15
 msgid "Access names"
 msgstr ""
 
-#: wpf-admin/options-tabs/accesses.php:26
-#: wpf-admin/options-tabs/accesses.php:27
-#: wpf-admin/options-tabs/accesses.php:28
+#: wpf-admin/options-tabs/accesses.php:31
+#: wpf-admin/options-tabs/accesses.php:32
+#: wpf-admin/options-tabs/accesses.php:33
 msgid "This access is usually used for "
 msgstr ""
 
-#: wpf-admin/options-tabs/accesses.php:26
+#: wpf-admin/options-tabs/accesses.php:31
 msgid "Guests"
 msgstr ""
 
-#: wpf-admin/options-tabs/accesses.php:26
-#: wpf-admin/options-tabs/accesses.php:27
-#: wpf-admin/options-tabs/accesses.php:28
+#: wpf-admin/options-tabs/accesses.php:31
+#: wpf-admin/options-tabs/accesses.php:32
+#: wpf-admin/options-tabs/accesses.php:33
 msgid "usergroup"
 msgstr ""
 
-#: wpf-admin/options-tabs/accesses.php:27 wpf-includes/wpf-phrases.php:623
+#: wpf-admin/options-tabs/accesses.php:32 wpf-includes/wpf-phrases.php:623
 msgid "Registered"
 msgstr ""
 
-#: wpf-admin/options-tabs/accesses.php:28 wpf-includes/wpf-phrases.php:621
+#: wpf-admin/options-tabs/accesses.php:33 wpf-includes/wpf-phrases.php:621
 msgid "Admin"
 msgstr ""
 
-#: wpf-admin/options-tabs/accesses.php:32 wpf-includes/class-forums.php:663
-#: wpf-includes/functions.php:599 wpf-includes/wpf-phrases.php:382
+#: wpf-admin/options-tabs/accesses.php:37 wpf-includes/class-forums.php:663
+#: wpf-includes/functions.php:600 wpf-includes/wpf-phrases.php:382
 msgid "edit"
 msgstr ""
 
-#: wpf-admin/options-tabs/accesses.php:34 wpf-includes/wpf-phrases.php:39
+#: wpf-admin/options-tabs/accesses.php:39 wpf-includes/wpf-phrases.php:39
 msgid ""
 "Are you sure you want to remove this access set? Usergroups which attached "
 "to this access will lost all forum permissions."
 msgstr ""
 
-#: wpf-admin/options-tabs/accesses.php:34 wpf-includes/class-forums.php:665
-#: wpf-includes/functions.php:617 wpf-includes/functions.php:627
+#: wpf-admin/options-tabs/accesses.php:39 wpf-includes/class-forums.php:665
+#: wpf-includes/functions.php:618 wpf-includes/functions.php:628
 #: wpf-includes/wpf-phrases.php:381
 msgid "delete"
 msgstr ""
 
-#: wpf-admin/options-tabs/accesses.php:49 wpf-includes/wpf-phrases.php:14
+#: wpf-admin/options-tabs/accesses.php:54 wpf-includes/wpf-phrases.php:14
 msgid "Access name"
 msgstr ""
 
-#: wpf-admin/options-tabs/accesses.php:69 wpf-includes/wpf-phrases.php:271
+#: wpf-admin/options-tabs/accesses.php:73 wpf-includes/wpf-phrases.php:271
 msgid "Save"
 msgstr ""
 
-#: wpf-admin/options-tabs/accesses.php:69 wpf-includes/wpf-phrases.php:344
+#: wpf-admin/options-tabs/accesses.php:73 wpf-includes/wpf-phrases.php:344
 msgid "Update"
 msgstr ""
 
@@ -521,13 +522,13 @@ msgstr ""
 
 #: wpf-admin/options-tabs/api.php:37 wpf-admin/options-tabs/api.php:49
 #: wpf-admin/options-tabs/api.php:60 wpf-admin/options-tabs/api.php:71
-#: wpf-admin/options-tabs/members.php:65
+#: wpf-admin/options-tabs/members.php:87
 msgid "Enable"
 msgstr ""
 
 #: wpf-admin/options-tabs/api.php:38 wpf-admin/options-tabs/api.php:50
 #: wpf-admin/options-tabs/api.php:61 wpf-admin/options-tabs/api.php:72
-#: wpf-admin/options-tabs/members.php:66
+#: wpf-admin/options-tabs/members.php:88
 msgid "Disable"
 msgstr ""
 
@@ -568,10 +569,10 @@ msgid "Custom URL"
 msgstr ""
 
 #: wpf-admin/options-tabs/api.php:93 wpf-admin/options-tabs/emails.php:132
-#: wpf-admin/options-tabs/features.php:74 wpf-admin/options-tabs/forums.php:16
-#: wpf-admin/options-tabs/general.php:82 wpf-admin/options-tabs/members.php:152
-#: wpf-admin/options-tabs/posts.php:67 wpf-admin/options-tabs/styles.php:93
-#: wpf-admin/tools-tabs/antispam.php:180 wpf-admin/tools-tabs/cleanup.php:49
+#: wpf-admin/options-tabs/features.php:75 wpf-admin/options-tabs/forums.php:16
+#: wpf-admin/options-tabs/general.php:82 wpf-admin/options-tabs/members.php:174
+#: wpf-admin/options-tabs/posts.php:76 wpf-admin/options-tabs/styles.php:93
+#: wpf-admin/tools-tabs/antispam.php:299 wpf-admin/tools-tabs/cleanup.php:49
 #: wpf-admin/tools-tabs/misc.php:37 wpf-includes/wpf-phrases.php:345
 msgid "Update Options"
 msgstr ""
@@ -605,17 +606,25 @@ msgid ""
 msgstr ""
 
 #: wpf-admin/options-tabs/emails.php:33 wpf-admin/options-tabs/emails.php:45
-#: wpf-admin/options-tabs/emails.php:116 wpf-admin/options-tabs/features.php:63
+#: wpf-admin/options-tabs/emails.php:116 wpf-admin/options-tabs/features.php:64
 #: wpf-admin/tools-tabs/antispam.php:31 wpf-admin/tools-tabs/antispam.php:40
-#: wpf-admin/tools-tabs/antispam.php:49 wpf-admin/tools-tabs/cleanup.php:39
+#: wpf-admin/tools-tabs/antispam.php:49 wpf-admin/tools-tabs/antispam.php:148
+#: wpf-admin/tools-tabs/antispam.php:157 wpf-admin/tools-tabs/antispam.php:167
+#: wpf-admin/tools-tabs/antispam.php:176 wpf-admin/tools-tabs/antispam.php:185
+#: wpf-admin/tools-tabs/antispam.php:194 wpf-admin/tools-tabs/antispam.php:203
+#: wpf-admin/tools-tabs/antispam.php:212 wpf-admin/tools-tabs/cleanup.php:39
 #: wpf-includes/wpf-phrases.php:367
 msgid "Yes"
 msgstr ""
 
 #: wpf-admin/options-tabs/emails.php:34 wpf-admin/options-tabs/emails.php:46
-#: wpf-admin/options-tabs/emails.php:117 wpf-admin/options-tabs/features.php:64
+#: wpf-admin/options-tabs/emails.php:117 wpf-admin/options-tabs/features.php:65
 #: wpf-admin/tools-tabs/antispam.php:32 wpf-admin/tools-tabs/antispam.php:41
-#: wpf-admin/tools-tabs/antispam.php:50 wpf-admin/tools-tabs/cleanup.php:40
+#: wpf-admin/tools-tabs/antispam.php:50 wpf-admin/tools-tabs/antispam.php:149
+#: wpf-admin/tools-tabs/antispam.php:158 wpf-admin/tools-tabs/antispam.php:168
+#: wpf-admin/tools-tabs/antispam.php:177 wpf-admin/tools-tabs/antispam.php:186
+#: wpf-admin/tools-tabs/antispam.php:195 wpf-admin/tools-tabs/antispam.php:204
+#: wpf-admin/tools-tabs/antispam.php:213 wpf-admin/tools-tabs/cleanup.php:40
 #: wpf-includes/wpf-phrases.php:197
 msgid "No"
 msgstr ""
@@ -730,190 +739,194 @@ msgstr ""
 msgid "Show Forum Statistic"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:15 wpf-includes/wpf-phrases.php:694
+#: wpf-admin/options-tabs/features.php:15
+msgid "Show Member Mention Nicknames"
+msgstr ""
+
+#: wpf-admin/options-tabs/features.php:16 wpf-includes/wpf-phrases.php:694
 msgid "Log Viewed Forums and Topics"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:16 wpf-includes/wpf-phrases.php:258
+#: wpf-admin/options-tabs/features.php:17 wpf-includes/wpf-phrases.php:258
 msgid "Replace Author Link to Forum Profile"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:17 wpf-includes/wpf-phrases.php:259
+#: wpf-admin/options-tabs/features.php:18 wpf-includes/wpf-phrases.php:259
 msgid "Replace Comment Author Link to Forum Profile"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:18 wpf-includes/wpf-phrases.php:633
+#: wpf-admin/options-tabs/features.php:19 wpf-includes/wpf-phrases.php:633
 msgid "Enable User Registration"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:18 wpf-includes/wpf-phrases.php:634
+#: wpf-admin/options-tabs/features.php:19 wpf-includes/wpf-phrases.php:634
 msgid ""
 "This option is not synced with WordPress \"Anyone can register\" option in "
 "Dashboard > Settings > General admin page. If this option is enabled new "
 "users will always be able to register."
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:19
+#: wpf-admin/options-tabs/features.php:20
 msgid "Enable User Registration email confirmation"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:19
+#: wpf-admin/options-tabs/features.php:20
 msgid ""
 "If you have enabled this option, after registering, user can not login "
 "without confirming the email."
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:20 wpf-includes/wpf-phrases.php:261
+#: wpf-admin/options-tabs/features.php:21 wpf-includes/wpf-phrases.php:261
 msgid "Replace Registration Page URL to Forum Registration Page URL"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:21 wpf-includes/wpf-phrases.php:260
+#: wpf-admin/options-tabs/features.php:22 wpf-includes/wpf-phrases.php:260
 msgid "Replace Login Page URL to Forum Login Page URL"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:22 wpf-includes/wpf-phrases.php:695
-msgid "Replace WP Reset Password URL to Forum reset password page"
+#: wpf-admin/options-tabs/features.php:23 wpf-includes/wpf-phrases.php:695
+msgid "Replace Reset Password Page URL to Forum Reset Password Page URL"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:23 wpf-includes/wpf-phrases.php:257
+#: wpf-admin/options-tabs/features.php:24 wpf-includes/wpf-phrases.php:257
 msgid "Replace Author Avatar with Forum Profile Avatar"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:24 wpf-includes/wpf-phrases.php:77
+#: wpf-admin/options-tabs/features.php:25 wpf-includes/wpf-phrases.php:77
 msgid "Enable Avatars"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:25 wpf-includes/wpf-phrases.php:78
+#: wpf-admin/options-tabs/features.php:26 wpf-includes/wpf-phrases.php:78
 msgid "Enable Custom Avatars"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:26 wpf-includes/wpf-phrases.php:31
+#: wpf-admin/options-tabs/features.php:27 wpf-includes/wpf-phrases.php:31
 msgid "Allow Member Signature"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:27 wpf-includes/wpf-phrases.php:80
+#: wpf-admin/options-tabs/features.php:28 wpf-includes/wpf-phrases.php:80
 msgid "Enable Member Rating"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:28 wpf-includes/wpf-phrases.php:81
+#: wpf-admin/options-tabs/features.php:29 wpf-includes/wpf-phrases.php:81
 msgid "Enable Member Rating Titles"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:29 wpf-includes/wpf-phrases.php:79
+#: wpf-admin/options-tabs/features.php:30 wpf-includes/wpf-phrases.php:79
 msgid "Enable Member Cache"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:30
+#: wpf-admin/options-tabs/features.php:31
 msgid "Enable Object Cache"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:31
+#: wpf-admin/options-tabs/features.php:32
 msgid "Enable HTML Cache"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:32
+#: wpf-admin/options-tabs/features.php:33
 msgid "Enable Memory Cache"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:33 wpf-includes/wpf-phrases.php:84
+#: wpf-admin/options-tabs/features.php:34 wpf-includes/wpf-phrases.php:84
 msgid "Enable wpForo SEO for Meta Titles"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:34 wpf-includes/wpf-phrases.php:83
+#: wpf-admin/options-tabs/features.php:35 wpf-includes/wpf-phrases.php:83
 msgid "Enable wpForo SEO for Meta Tags"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:35
+#: wpf-admin/options-tabs/features.php:36
 msgid "Enable User Profile Page indexing"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:36 wpf-includes/wpf-phrases.php:696
+#: wpf-admin/options-tabs/features.php:37 wpf-includes/wpf-phrases.php:696
 msgid "Enable RSS Feed"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:37 wpf-includes/wpf-phrases.php:82
+#: wpf-admin/options-tabs/features.php:38 wpf-includes/wpf-phrases.php:82
 msgid "Enable wpForo Font-Awesome Lib"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:38
+#: wpf-admin/options-tabs/features.php:39
 msgid "Turn Off User Syncing Note"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:39 wpf-includes/wpf-phrases.php:85
+#: wpf-admin/options-tabs/features.php:40 wpf-includes/wpf-phrases.php:85
 msgid "Enable Output Buffer"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:39 wpf-includes/wpf-phrases.php:331
+#: wpf-admin/options-tabs/features.php:40 wpf-includes/wpf-phrases.php:331
 msgid ""
 "This feature is useful if you're adding content before or after [wpforo] "
 "shortcode in page content. Also it useful if forum is loaded before website "
 "header, on top of the front-end."
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:40
+#: wpf-admin/options-tabs/features.php:41
 msgid "Enable WordPress Date/Time Format"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:40 wpf-includes/wpf-phrases.php:598
+#: wpf-admin/options-tabs/features.php:41 wpf-includes/wpf-phrases.php:598
 msgid ""
 "You can manage WordPress date and time format in WordPress Settings > "
 "General admin page."
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:41 wpf-includes/wpf-phrases.php:609
+#: wpf-admin/options-tabs/features.php:42 wpf-includes/wpf-phrases.php:609
 msgid "Enable Subscription Confirmation"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:41 wpf-includes/wpf-phrases.php:610
+#: wpf-admin/options-tabs/features.php:42 wpf-includes/wpf-phrases.php:610
 msgid "Forum and Topic subscription with double opt-in/confirmation system."
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:42
+#: wpf-admin/options-tabs/features.php:43
 msgid "Topic subscription option on post editor"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:42
+#: wpf-admin/options-tabs/features.php:43
 msgid ""
 "This option adds topic subscription checkbox next to new topic and post "
 "submit button."
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:43
+#: wpf-admin/options-tabs/features.php:44
 msgid "Topic subscription option on post editor - checked/enabled"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:43
+#: wpf-admin/options-tabs/features.php:44
 msgid ""
 "Enable this option if you want the topic subscription checkbox to be checked "
 "by default."
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:44 wpf-includes/wpf-phrases.php:637
+#: wpf-admin/options-tabs/features.php:45 wpf-includes/wpf-phrases.php:637
 msgid "Insert Forum Attachments to Media Library"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:44 wpf-includes/wpf-phrases.php:638
+#: wpf-admin/options-tabs/features.php:45 wpf-includes/wpf-phrases.php:638
 msgid ""
 "Enable this option to be able manage forum attachments in Dashboard > Media "
 "> Library admin page."
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:45 wpf-includes/wpf-phrases.php:602
+#: wpf-admin/options-tabs/features.php:46 wpf-includes/wpf-phrases.php:602
 msgid "Enable Debug Mode"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:45 wpf-includes/wpf-phrases.php:603
+#: wpf-admin/options-tabs/features.php:46 wpf-includes/wpf-phrases.php:603
 msgid ""
 "If you got some issue with wpForo, please enable this option before asking "
 "for support, this outputs hidden important information to help us debug your "
 "issue."
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:46 wpf-includes/wpf-phrases.php:134
+#: wpf-admin/options-tabs/features.php:47 wpf-includes/wpf-phrases.php:134
 msgid "Help wpForo to grow, show plugin info"
 msgstr ""
 
-#: wpf-admin/options-tabs/features.php:46 wpf-includes/wpf-phrases.php:227
+#: wpf-admin/options-tabs/features.php:47 wpf-includes/wpf-phrases.php:227
 msgid ""
 "Please enable this option to help wpForo get more popularity as your thank "
 "to the hard work we do for you totally free. This option adds a very small "
@@ -1009,9 +1022,9 @@ msgstr ""
 msgid "Online status timeout"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:16 wpf-admin/options-tabs/posts.php:19
-#: wpf-admin/options-tabs/posts.php:23 wpf-admin/options-tabs/posts.php:31
-#: wpf-admin/options-tabs/posts.php:35 wpf-includes/wpf-phrases.php:391
+#: wpf-admin/options-tabs/members.php:16 wpf-admin/options-tabs/posts.php:28
+#: wpf-admin/options-tabs/posts.php:32 wpf-admin/options-tabs/posts.php:40
+#: wpf-admin/options-tabs/posts.php:44 wpf-includes/wpf-phrases.php:391
 msgid "minutes"
 msgstr ""
 
@@ -1058,92 +1071,112 @@ msgstr ""
 msgid "Lost Password URL"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:58 wpf-includes/wpf-phrases.php:175
+#: wpf-admin/options-tabs/members.php:58
+msgid "Custom Redirection URLs after following actions"
+msgstr ""
+
+#: wpf-admin/options-tabs/members.php:60
+msgid "For member profile, account and subscription pages use following URLs:"
+msgstr ""
+
+#: wpf-admin/options-tabs/members.php:72
+msgid "Redirect after login"
+msgstr ""
+
+#: wpf-admin/options-tabs/members.php:73
+msgid "Redirect after registration"
+msgstr ""
+
+#: wpf-admin/options-tabs/members.php:74
+msgid "Redirect after subscription confirmation"
+msgstr ""
+
+#: wpf-admin/options-tabs/members.php:80 wpf-includes/wpf-phrases.php:175
 msgid "Member Reputation and Titles"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:62
+#: wpf-admin/options-tabs/members.php:84
 msgid "Member Custom Titles"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:71
+#: wpf-admin/options-tabs/members.php:93
 msgid "Member Custom Title by default"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:81 wpf-includes/wpf-phrases.php:248
+#: wpf-admin/options-tabs/members.php:103 wpf-includes/wpf-phrases.php:248
 msgid "Rating Level"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:82 wpf-includes/wpf-phrases.php:185
+#: wpf-admin/options-tabs/members.php:104 wpf-includes/wpf-phrases.php:185
 msgid "Min Number of Posts"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:83 wpf-includes/wpf-phrases.php:176
+#: wpf-admin/options-tabs/members.php:105 wpf-includes/wpf-phrases.php:176
 msgid "Member Title"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:84 wpf-includes/wpf-phrases.php:294
+#: wpf-admin/options-tabs/members.php:106 wpf-includes/wpf-phrases.php:294
 msgid "Short Badge"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:85 wpf-includes/wpf-phrases.php:128
+#: wpf-admin/options-tabs/members.php:107 wpf-includes/wpf-phrases.php:128
 msgid "Full Badge"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:86 wpf-includes/wpf-phrases.php:246
+#: wpf-admin/options-tabs/members.php:108 wpf-includes/wpf-phrases.php:246
 msgid "Rating Color"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:87 wpf-includes/wpf-phrases.php:247
+#: wpf-admin/options-tabs/members.php:109 wpf-includes/wpf-phrases.php:247
 msgid "Rating Icon"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:87 wpf-includes/wpf-phrases.php:187
+#: wpf-admin/options-tabs/members.php:109 wpf-includes/wpf-phrases.php:187
 msgid "More"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:92 wpf-includes/wpf-phrases.php:158
+#: wpf-admin/options-tabs/members.php:114 wpf-includes/wpf-phrases.php:158
 msgid "Level"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:93 wpf-includes/wpf-phrases.php:212
+#: wpf-admin/options-tabs/members.php:115 wpf-includes/wpf-phrases.php:212
 msgid "Number of Posts"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:94 wpf-includes/wpf-phrases.php:63
+#: wpf-admin/options-tabs/members.php:116 wpf-includes/wpf-phrases.php:63
 msgid "Custom Title"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:97 wpf-admin/usergroup.php:23
+#: wpf-admin/options-tabs/members.php:119 wpf-admin/usergroup.php:23
 #: wpf-includes/wpf-phrases.php:56
 msgid "Color"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:98 wpf-includes/wpf-phrases.php:48
+#: wpf-admin/options-tabs/members.php:120 wpf-includes/wpf-phrases.php:48
 msgid "Badge Icon"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:104
+#: wpf-admin/options-tabs/members.php:126
 msgid "Enable Reputation Titles for selected usergroups"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:105
+#: wpf-admin/options-tabs/members.php:127
 msgid ""
 "This option depends on \"Enable Member Rating Titles\" parent option, witch "
 "located in wpForo Settings > Features Tab"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:118
+#: wpf-admin/options-tabs/members.php:140
 msgid "Enable Reputation Badges for selected usergroups"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:119
+#: wpf-admin/options-tabs/members.php:141
 msgid ""
 "This option depends on \"Enable Member Rating\" parent option, witch located "
 "in wpForo Settings > Features Tab"
 msgstr ""
 
-#: wpf-admin/options-tabs/members.php:132
+#: wpf-admin/options-tabs/members.php:154
 msgid "Display Usergroup under Post Author Avatar"
 msgstr ""
 
@@ -1160,58 +1193,62 @@ msgid ""
 "settings in vertical subTabs here."
 msgstr ""
 
-#: wpf-admin/options-tabs/posts.php:14 wpf-includes/wpf-phrases.php:214
+#: wpf-admin/options-tabs/posts.php:14
+msgid "Recent Posts Display Type"
+msgstr ""
+
+#: wpf-admin/options-tabs/posts.php:23 wpf-includes/wpf-phrases.php:214
 msgid "Number of Topics per Page"
 msgstr ""
 
-#: wpf-admin/options-tabs/posts.php:18 wpf-includes/wpf-phrases.php:30
+#: wpf-admin/options-tabs/posts.php:27 wpf-includes/wpf-phrases.php:30
 msgid "Allow Edit Own Topic for"
 msgstr ""
 
-#: wpf-admin/options-tabs/posts.php:22 wpf-includes/wpf-phrases.php:27
+#: wpf-admin/options-tabs/posts.php:31 wpf-includes/wpf-phrases.php:27
 msgid "Allow Delete Own Topic for"
 msgstr ""
 
-#: wpf-admin/options-tabs/posts.php:26 wpf-includes/wpf-phrases.php:213
+#: wpf-admin/options-tabs/posts.php:35 wpf-includes/wpf-phrases.php:213
 msgid "Number of Posts per Page"
 msgstr ""
 
-#: wpf-admin/options-tabs/posts.php:30 wpf-includes/wpf-phrases.php:29
+#: wpf-admin/options-tabs/posts.php:39 wpf-includes/wpf-phrases.php:29
 msgid "Allow Edit Own Post for"
 msgstr ""
 
-#: wpf-admin/options-tabs/posts.php:34 wpf-includes/wpf-phrases.php:28
+#: wpf-admin/options-tabs/posts.php:43 wpf-includes/wpf-phrases.php:28
 msgid "Allow Delete Own post for"
 msgstr ""
 
-#: wpf-admin/options-tabs/posts.php:40 wpf-includes/wpf-phrases.php:169
+#: wpf-admin/options-tabs/posts.php:49 wpf-includes/wpf-phrases.php:169
 msgid "Maximum upload file size"
 msgstr ""
 
-#: wpf-admin/options-tabs/posts.php:41 wpf-includes/wpf-phrases.php:371
+#: wpf-admin/options-tabs/posts.php:50 wpf-includes/wpf-phrases.php:371
 msgid ""
 "You can not set this value more than \"upload_max_filesize\" and "
 "\"post_max_size\". If you want to increase server parameters please contact "
 "to your hosting service support."
 msgstr ""
 
-#: wpf-admin/options-tabs/posts.php:44 wpf-includes/wpf-phrases.php:166
+#: wpf-admin/options-tabs/posts.php:53 wpf-includes/wpf-phrases.php:166
 msgid "MB"
 msgstr ""
 
-#: wpf-admin/options-tabs/posts.php:47 wpf-includes/wpf-phrases.php:289
+#: wpf-admin/options-tabs/posts.php:56 wpf-includes/wpf-phrases.php:289
 msgid "Server \"upload_max_filesize\" is "
 msgstr ""
 
-#: wpf-admin/options-tabs/posts.php:48 wpf-includes/wpf-phrases.php:288
+#: wpf-admin/options-tabs/posts.php:57 wpf-includes/wpf-phrases.php:288
 msgid "Server \"post_max_size\" is "
 msgstr ""
 
-#: wpf-admin/options-tabs/posts.php:56
+#: wpf-admin/options-tabs/posts.php:65
 msgid "Attachment click - message for non-permitted users"
 msgstr ""
 
-#: wpf-admin/options-tabs/posts.php:57
+#: wpf-admin/options-tabs/posts.php:66
 msgid ""
 "This message will be displayed when a non-permitted forum member clicks on "
 "attached file link in topic and posts."
@@ -1346,7 +1383,7 @@ msgid "Enable wpForo Spam Control"
 msgstr ""
 
 #: wpf-admin/tools-tabs/antispam.php:37
-msgid "Ban user when spam is suspicted"
+msgid "Ban user when spam is suspected"
 msgstr ""
 
 #: wpf-admin/tools-tabs/antispam.php:46
@@ -1400,11 +1437,92 @@ msgstr ""
 msgid "Do not allow to attach files with following extensions:"
 msgstr ""
 
-#: wpf-admin/tools-tabs/antispam.php:109
-msgid "Possible Spam Attachments"
+#: wpf-admin/tools-tabs/antispam.php:105
+msgid "Google reCAPTCHA"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:106
+msgid ""
+"reCAPTCHA protects you against spam and other types of automated abuse. It "
+"makes secure topic and post editors when Guest Posting is allowed, also it "
+"protects login and registration forms against spam attacks."
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:108
+msgid "reCAPTCHA API keys"
 msgstr ""
 
 #: wpf-admin/tools-tabs/antispam.php:110
+msgid ""
+"To start using reCAPTCHA, you need to sign up for an API key pair for your "
+"site."
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:111
+msgid "Register your site and get API keys here &raquo;"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:118
+msgid "Site Key"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:124
+msgid "Secret Key"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:131
+msgid "reCAPTCHA Settings"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:136
+msgid "reCAPTCHA Theme"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:139
+msgid "Light"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:140
+msgid "Dark"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:145
+msgid "Guest Topic Editor"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:154
+msgid "Guest Post Editor"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:164
+msgid "wpForo Login Form"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:173
+msgid "wpForo Registration Form"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:182
+msgid "wpForo Reset Password Form"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:191
+msgid "WordPress Login Form"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:200
+msgid "WordPress Registration Form"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:209
+msgid "WordPress Reset Password Form"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:228
+msgid "Possible Spam Attachments"
+msgstr ""
+
+#: wpf-admin/tools-tabs/antispam.php:229
 msgid ""
 "This tool is designed to find attachment which have been uploaded by "
 "spammers. The tool checks most common spammer filenames and suggest to "
@@ -1412,61 +1530,61 @@ msgid ""
 "before deleting."
 msgstr ""
 
-#: wpf-admin/tools-tabs/antispam.php:112
+#: wpf-admin/tools-tabs/antispam.php:231
 msgid "Directory"
 msgstr ""
 
-#: wpf-admin/tools-tabs/antispam.php:139
+#: wpf-admin/tools-tabs/antispam.php:258
 msgid "Delete this file"
 msgstr ""
 
-#: wpf-admin/tools-tabs/antispam.php:139
+#: wpf-admin/tools-tabs/antispam.php:258
 msgid "Are you sure you want to permanently delete this file?"
 msgstr ""
 
-#: wpf-admin/tools-tabs/antispam.php:150
+#: wpf-admin/tools-tabs/antispam.php:269
 msgid "Click to delete Blue marked files"
 msgstr ""
 
-#: wpf-admin/tools-tabs/antispam.php:151
+#: wpf-admin/tools-tabs/antispam.php:270
 msgid ""
 "Are you sure you want to delete all BLUE marked files listed here. Please "
 "download Wordpress /wp-content/uploads/wpforo/ folder to your local computer "
 "before deleting files, this is not undoable."
 msgstr ""
 
-#: wpf-admin/tools-tabs/antispam.php:152 wpf-admin/tools-tabs/antispam.php:158
-#: wpf-admin/tools-tabs/antispam.php:164 wpf-admin/tools-tabs/antispam.php:170
+#: wpf-admin/tools-tabs/antispam.php:271 wpf-admin/tools-tabs/antispam.php:277
+#: wpf-admin/tools-tabs/antispam.php:283 wpf-admin/tools-tabs/antispam.php:289
 msgid "Delete All"
 msgstr ""
 
-#: wpf-admin/tools-tabs/antispam.php:155
+#: wpf-admin/tools-tabs/antispam.php:274
 msgid "Click to delete Orange marked files"
 msgstr ""
 
-#: wpf-admin/tools-tabs/antispam.php:157
+#: wpf-admin/tools-tabs/antispam.php:276
 msgid ""
 "Are you sure you want to delete all ORANGE marked files listed here. Please "
 "download Wordpress /wp-content/uploads/wpforo/ folder to your local computer "
 "before deleting files, this is not undoable."
 msgstr ""
 
-#: wpf-admin/tools-tabs/antispam.php:161
+#: wpf-admin/tools-tabs/antispam.php:280
 msgid "Click to delete Red marked files"
 msgstr ""
 
-#: wpf-admin/tools-tabs/antispam.php:163
+#: wpf-admin/tools-tabs/antispam.php:282
 msgid ""
 "Are you sure you want to delete all RED marked files listed here. Please "
 "download Wordpress /wp-content/uploads/wpforo/ folder to your local computer "
 "before deleting files, this is not undoable."
 msgstr ""
 
-#: wpf-admin/tools-tabs/antispam.php:167
+#: wpf-admin/tools-tabs/antispam.php:286
 msgid "Click to delete Dark Red marked files"
 msgstr ""
 
-#: wpf-admin/tools-tabs/antispam.php:169
+#: wpf-admin/tools-tabs/antispam.php:288
 msgid ""
 "Are you sure you want to delete all DARK RED marked files listed here. "
 "Please download Wordpress /wp-content/uploads/wpforo/ folder to your local "
@@ -1565,11 +1683,11 @@ msgstr ""
 msgid "Default Access"
 msgstr ""
 
-#: wpf-admin/usergroup.php:35
+#: wpf-admin/usergroup.php:34
 msgid "Edit this usergroup"
 msgstr ""
 
-#: wpf-admin/usergroup.php:35 wpf-includes/wpf-phrases.php:73
+#: wpf-admin/usergroup.php:34 wpf-includes/wpf-phrases.php:73
 msgid "Edit"
 msgstr ""
 
@@ -1647,21 +1765,21 @@ msgstr ""
 msgid "Users will be join this usergroup"
 msgstr ""
 
-#: wpf-includes/class-api.php:76
+#: wpf-includes/class-api.php:140
 msgid "Please login into facebook and then click connect button again"
 msgstr ""
 
-#: wpf-includes/class-api.php:103
+#: wpf-includes/class-api.php:167
 msgid ""
 "Your email is required to be able authorize you here. Please try loging "
 "again. "
 msgstr ""
 
-#: wpf-includes/class-api.php:108
+#: wpf-includes/class-api.php:172
 msgid "Invalid User"
 msgstr ""
 
-#: wpf-includes/class-api.php:118 wpf-includes/wpf-phrases.php:635
+#: wpf-includes/class-api.php:182 wpf-includes/wpf-phrases.php:635
 msgid "User registration is disabled"
 msgstr ""
 
@@ -1673,53 +1791,53 @@ msgstr ""
 msgid "Add a new Forum in this Category"
 msgstr ""
 
-#: wpf-includes/class-members.php:233
+#: wpf-includes/class-members.php:239
 msgid "<strong>ERROR</strong>: Please enter a username."
 msgstr ""
 
-#: wpf-includes/class-members.php:237
+#: wpf-includes/class-members.php:243
 msgid ""
 "<strong>ERROR</strong>: This username is invalid because it uses illegal "
 "characters. Please enter a valid username."
 msgstr ""
 
-#: wpf-includes/class-members.php:246
+#: wpf-includes/class-members.php:252
 msgid ""
 "<strong>ERROR</strong>: This username is already registered. Please choose "
 "another one."
 msgstr ""
 
-#: wpf-includes/class-members.php:250
+#: wpf-includes/class-members.php:256
 msgid "<strong>ERROR</strong>: Sorry, that username is not allowed."
 msgstr ""
 
-#: wpf-includes/class-members.php:254
+#: wpf-includes/class-members.php:260
 msgid "<strong>ERROR</strong>: Please type your email address."
 msgstr ""
 
-#: wpf-includes/class-members.php:258
+#: wpf-includes/class-members.php:264
 msgid "<strong>ERROR</strong>: The email address isn&#8217;t correct."
 msgstr ""
 
-#: wpf-includes/class-members.php:263
+#: wpf-includes/class-members.php:269
 msgid ""
 "<strong>ERROR</strong>: This email is already registered, please choose "
 "another one."
 msgstr ""
 
-#: wpf-includes/class-members.php:1293
+#: wpf-includes/class-members.php:1306
 msgid "What should be done with wpForo content owned by this user?"
 msgstr ""
 
-#: wpf-includes/class-members.php:1295
+#: wpf-includes/class-members.php:1308
 msgid "What should be done with wpForo content owned by these users?"
 msgstr ""
 
-#: wpf-includes/class-members.php:1299
+#: wpf-includes/class-members.php:1312
 msgid "Delete all wpForo content."
 msgstr ""
 
-#: wpf-includes/class-members.php:1301
+#: wpf-includes/class-members.php:1314
 msgid "Attribute all content to:"
 msgstr ""
 
@@ -1764,7 +1882,7 @@ msgstr ""
 msgid " Discussion Board"
 msgstr ""
 
-#: wpf-includes/class-posts.php:34
+#: wpf-includes/class-posts.php:35
 msgid "You are not permitted to view this attachment"
 msgstr ""
 
@@ -1780,41 +1898,41 @@ msgstr ""
 msgid "Open link in a new tab"
 msgstr ""
 
-#: wpf-includes/class-template.php:1170 wpf-includes/wpf-phrases.php:328
+#: wpf-includes/class-template.php:1220 wpf-includes/wpf-phrases.php:328
 msgid "Theme file not readable"
 msgstr ""
 
-#: wpf-includes/functions-installation.php:642
+#: wpf-includes/functions-installation.php:661
 msgid "Start Profile Synchronization"
 msgstr ""
 
-#: wpf-includes/functions-installation.php:642
+#: wpf-includes/functions-installation.php:661
 msgid "Continue Synchronization"
 msgstr ""
 
-#: wpf-includes/functions-installation.php:645
+#: wpf-includes/functions-installation.php:664
 msgid ""
 "This process may take a few seconds or dozens of minutes, please be patient "
 "and don't close this page."
 msgstr ""
 
-#: wpf-includes/functions-installation.php:646
+#: wpf-includes/functions-installation.php:665
 msgid ""
 "You can permanently disable this message in Dashboard > Forums > Features "
 "admin page."
 msgstr ""
 
-#: wpf-includes/functions-installation.php:648
+#: wpf-includes/functions-installation.php:667
 msgid "wpForo Forum Installation | "
 msgstr ""
 
-#: wpf-includes/functions-installation.php:649
+#: wpf-includes/functions-installation.php:668
 msgid ""
 "Forum users' profile data are not synchronized yet, this step is required! "
 "Please click the button below to complete installation."
 msgstr ""
 
-#: wpf-includes/functions-installation.php:661
+#: wpf-includes/functions-installation.php:680
 msgid ""
 "This process may take a few seconds or dozens of minutes, please be patient "
 "and don't close this page. Database backup is not required. If you got 500 "
@@ -1822,15 +1940,15 @@ msgid ""
 "in MySQL server."
 msgstr ""
 
-#: wpf-includes/functions-installation.php:662
+#: wpf-includes/functions-installation.php:681
 msgid "Updater Database"
 msgstr ""
 
-#: wpf-includes/functions-installation.php:663
+#: wpf-includes/functions-installation.php:682
 msgid "wpForo - Update Database "
 msgstr ""
 
-#: wpf-includes/functions-installation.php:664
+#: wpf-includes/functions-installation.php:683
 msgid "Please click the button below to complete wpForo update."
 msgstr ""
 
@@ -1872,134 +1990,134 @@ msgstr ""
 msgid "Display with Avatars"
 msgstr ""
 
-#: wpf-includes/functions.php:364
+#: wpf-includes/functions.php:365
 msgid "Unapproved"
 msgstr ""
 
-#: wpf-includes/functions.php:365
+#: wpf-includes/functions.php:366
 msgid "Published"
 msgstr ""
 
-#: wpf-includes/functions.php:374 wpf-includes/wpf-phrases.php:594
+#: wpf-includes/functions.php:375 wpf-includes/wpf-phrases.php:594
 msgid "Active"
 msgstr ""
 
-#: wpf-includes/functions.php:375
+#: wpf-includes/functions.php:376
 msgid "Banned"
 msgstr ""
 
-#: wpf-includes/functions.php:388 wpf-includes/functions.php:690
+#: wpf-includes/functions.php:389 wpf-includes/functions.php:691
 #: wpf-includes/wpf-phrases.php:50
 msgid "Bulk Actions"
 msgstr ""
 
-#: wpf-includes/functions.php:393 wpf-includes/functions.php:775
+#: wpf-includes/functions.php:394 wpf-includes/functions.php:776
 #: wpf-includes/wpf-phrases.php:36
 msgid "Apply"
 msgstr ""
 
-#: wpf-includes/functions.php:402 wpf-includes/wpf-phrases.php:301
+#: wpf-includes/functions.php:403 wpf-includes/wpf-phrases.php:301
 msgid "Show all forums"
 msgstr ""
 
-#: wpf-includes/functions.php:415 wpf-includes/wpf-phrases.php:351
+#: wpf-includes/functions.php:416 wpf-includes/wpf-phrases.php:351
 msgid "filter by group"
 msgstr ""
 
-#: wpf-includes/functions.php:427
+#: wpf-includes/functions.php:428
 msgid "filter by status"
 msgstr ""
 
-#: wpf-includes/functions.php:443
+#: wpf-includes/functions.php:444
 msgid "filter by package"
 msgstr ""
 
-#: wpf-includes/functions.php:472
+#: wpf-includes/functions.php:473
 msgid "filter by user"
 msgstr ""
 
-#: wpf-includes/functions.php:492 wpf-includes/functions.php:698
+#: wpf-includes/functions.php:493 wpf-includes/functions.php:699
 #: wpf-includes/wpf-phrases.php:386
 msgid "item"
 msgstr ""
 
-#: wpf-includes/functions.php:525 wpf-includes/functions.php:541
+#: wpf-includes/functions.php:526 wpf-includes/functions.php:542
 #: wpf-includes/wpf-phrases.php:285
 msgid "Select All"
 msgstr ""
 
-#: wpf-includes/functions.php:530 wpf-includes/functions.php:546
+#: wpf-includes/functions.php:531 wpf-includes/functions.php:547
 msgid "Type"
 msgstr ""
 
-#: wpf-includes/functions.php:603 wpf-includes/wpf-phrases.php:384
+#: wpf-includes/functions.php:604 wpf-includes/wpf-phrases.php:384
 msgid "edit user"
 msgstr ""
 
-#: wpf-includes/functions.php:607 wpf-includes/wpf-phrases.php:383
+#: wpf-includes/functions.php:608 wpf-includes/wpf-phrases.php:383
 msgid "edit profile"
 msgstr ""
 
-#: wpf-includes/functions.php:612
+#: wpf-includes/functions.php:613
 msgid "unban user"
 msgstr ""
 
-#: wpf-includes/functions.php:612
+#: wpf-includes/functions.php:613
 msgid "ban user"
 msgstr ""
 
-#: wpf-includes/functions.php:612
+#: wpf-includes/functions.php:613
 msgid "Are you sure, you want to unban this user?"
 msgstr ""
 
-#: wpf-includes/functions.php:612
+#: wpf-includes/functions.php:613
 msgid "Are you sure, you want to ban this user?"
 msgstr ""
 
-#: wpf-includes/functions.php:617 wpf-includes/functions.php:627
+#: wpf-includes/functions.php:618 wpf-includes/functions.php:628
 #: wpf-includes/wpf-phrases.php:67
 msgid "Delete this item"
 msgstr ""
 
-#: wpf-includes/functions.php:617 wpf-includes/functions.php:627
+#: wpf-includes/functions.php:618 wpf-includes/functions.php:628
 #: wpf-includes/wpf-phrases.php:41
 msgid "Are you sure you whant to DELETE this item?"
 msgstr ""
 
-#: wpf-includes/functions.php:622
+#: wpf-includes/functions.php:623
 msgid "unapprove this item"
 msgstr ""
 
-#: wpf-includes/functions.php:622
+#: wpf-includes/functions.php:623
 msgid "Approve this item"
 msgstr ""
 
-#: wpf-includes/functions.php:622 wpf-includes/wpf-phrases.php:682
+#: wpf-includes/functions.php:623 wpf-includes/wpf-phrases.php:682
 msgid "unapprove"
 msgstr ""
 
-#: wpf-includes/functions.php:622 wpf-includes/wpf-phrases.php:681
+#: wpf-includes/functions.php:623 wpf-includes/wpf-phrases.php:681
 msgid "approve"
 msgstr ""
 
-#: wpf-includes/functions.php:644 wpf-includes/functions.php:645
+#: wpf-includes/functions.php:645 wpf-includes/functions.php:646
 #: wpf-includes/wpf-phrases.php:405
 msgid "view"
 msgstr ""
 
-#: wpf-includes/functions.php:669
+#: wpf-includes/functions.php:670
 msgid "Topic"
 msgstr ""
 
-#: wpf-includes/functions.php:669
+#: wpf-includes/functions.php:670
 msgid "Post"
 msgstr ""
 
-#: wpf-includes/functions.php:682 wpf-includes/wpf-phrases.php:201
+#: wpf-includes/functions.php:683 wpf-includes/wpf-phrases.php:201
 msgid "No items found"
 msgstr ""
 
-#: wpf-includes/functions.php:774 wpf-includes/wpf-phrases.php:141
+#: wpf-includes/functions.php:775 wpf-includes/wpf-phrases.php:141
 msgid "Items"
 msgstr ""
 
@@ -2022,69 +2140,69 @@ msgstr ""
 msgid "Uninstall"
 msgstr ""
 
-#: wpf-includes/wpf-hooks.php:1077 wpf-includes/wpf-phrases.php:188
+#: wpf-includes/wpf-hooks.php:1087 wpf-includes/wpf-phrases.php:188
 msgid "Move"
 msgstr ""
 
-#: wpf-includes/wpf-hooks.php:1112
+#: wpf-includes/wpf-hooks.php:1122
 msgid "Clear"
 msgstr ""
 
-#: wpf-includes/wpf-hooks.php:1112
+#: wpf-includes/wpf-hooks.php:1122
 msgid "Default"
 msgstr ""
 
-#: wpf-includes/wpf-hooks.php:1112
+#: wpf-includes/wpf-hooks.php:1122
 msgid "Select Color"
 msgstr ""
 
-#: wpf-includes/wpf-hooks.php:1135
+#: wpf-includes/wpf-hooks.php:1145
 msgid ""
 "IMPORTANT: wpForo can't work with default permalink, please change permalink "
 "structure"
 msgstr ""
 
-#: wpf-includes/wpf-hooks.php:1154 wpf-includes/wpf-phrases.php:413
+#: wpf-includes/wpf-hooks.php:1164 wpf-includes/wpf-phrases.php:413
 msgid "wpForo Usergroup"
 msgstr ""
 
-#: wpf-includes/wpf-hooks.php:1162 wpf-includes/wpf-phrases.php:412
+#: wpf-includes/wpf-hooks.php:1172 wpf-includes/wpf-phrases.php:412
 msgid "wpForo User Timezone"
 msgstr ""
 
-#: wpf-includes/wpf-hooks.php:1418 wpf-includes/wpf-hooks.php:1506
+#: wpf-includes/wpf-hooks.php:1443 wpf-includes/wpf-hooks.php:1534
 msgid "Please Moderate: "
 msgstr ""
 
-#: wpf-includes/wpf-hooks.php:1419
+#: wpf-includes/wpf-hooks.php:1444
 msgid ""
 "This topic is currently unapproved. You can approve topics in Dashboard "
 "&raquo; Forums &raquo; Moderation admin page."
 msgstr ""
 
-#: wpf-includes/wpf-hooks.php:1507
+#: wpf-includes/wpf-hooks.php:1535
 msgid ""
 "This post is currently unapproved. You can approve posts in Dashboard "
 "&raquo; Forums &raquo; Moderation admin page."
 msgstr ""
 
-#: wpf-includes/wpf-hooks.php:1680 wpf-includes/wpf-hooks.php:1726
+#: wpf-includes/wpf-hooks.php:1708 wpf-includes/wpf-hooks.php:1754
 msgid "New Forum"
 msgstr ""
 
-#: wpf-includes/wpf-hooks.php:1688
+#: wpf-includes/wpf-hooks.php:1716
 msgid "New User Group"
 msgstr ""
 
-#: wpf-includes/wpf-hooks.php:1696 wpf-includes/wpf-hooks.php:1794
+#: wpf-includes/wpf-hooks.php:1724 wpf-includes/wpf-hooks.php:1822
 msgid "New Phrase"
 msgstr ""
 
-#: wpf-includes/wpf-hooks.php:1711
+#: wpf-includes/wpf-hooks.php:1739
 msgid "Community"
 msgstr ""
 
-#: wpf-includes/wpf-hooks.php:1778
+#: wpf-includes/wpf-hooks.php:1806
 msgid "New UserGroup"
 msgstr ""
 
@@ -3409,23 +3527,23 @@ msgid "You have no permission to edit this topic"
 msgstr ""
 
 #: wpf-includes/wpf-phrases.php:522
-msgid "You haven't permission to create post into this forum"
+msgid "You don't have permission to create post in this forum"
 msgstr ""
 
 #: wpf-includes/wpf-phrases.php:523
-msgid "You haven't permission to create topic into this forum"
+msgid "You don\\t have permission to create topic into this forum"
 msgstr ""
 
 #: wpf-includes/wpf-phrases.php:524
-msgid "You haven't permission to delete post from this forum"
+msgid "You don\\t have permission to delete post from this forum"
 msgstr ""
 
 #: wpf-includes/wpf-phrases.php:525
-msgid "You haven't permission to delete topic from this forum"
+msgid "You don\\t have permission to delete topic from this forum"
 msgstr ""
 
 #: wpf-includes/wpf-phrases.php:526
-msgid "You haven't permission to edit post from this forum"
+msgid "You don\\t have permission to edit post from this forum"
 msgstr ""
 
 #: wpf-includes/wpf-phrases.php:527
@@ -3975,6 +4093,44 @@ msgid ""
 "post."
 msgstr ""
 
+#: wpf-includes/wpf-phrases.php:707
+msgid "You are not allowed to edit this post"
+msgstr ""
+
+#: wpf-includes/wpf-phrases.php:708
+msgid "Google reCAPTCHA verification failed"
+msgstr ""
+
+#: wpf-includes/wpf-phrases.php:709
+msgid "ERROR: Can't connect to Google reCAPTCHA API"
+msgstr ""
+
+#: wpf-includes/wpf-phrases.php:710
+msgid "Welcome!"
+msgstr ""
+
+#: wpf-includes/wpf-phrases.php:711
+msgid "Join us today!"
+msgstr ""
+
+#: wpf-includes/wpf-phrases.php:712
+msgid ""
+"Enter your email address or username and we'll send you a link you can use "
+"to pick a new password."
+msgstr ""
+
+#: wpf-includes/wpf-phrases.php:713
+msgid "Please Insert Your Email or Username"
+msgstr ""
+
+#: wpf-includes/wpf-phrases.php:714
+msgid "Reset Password"
+msgstr ""
+
+#: wpf-includes/wpf-phrases.php:715
+msgid "Forgot Your Password?"
+msgstr ""
+
 #: wpf-themes/classic/functions.php:39
 msgid "Extended Layout - Recent topics"
 msgstr ""
@@ -4032,56 +4188,56 @@ msgstr ""
 msgid "Discussion Board"
 msgstr ""
 
-#: wpforo.php:595
+#: wpforo.php:609
 msgid ""
 "Allows to embed hundreds of video, social network, audio and photo content "
 "providers in forum topics and posts."
 msgstr ""
 
-#: wpforo.php:596
+#: wpforo.php:610
 msgid ""
 "wpForo Polls is a complete addon to help forum members create, vote and "
 "manage polls effectively. Comes with poll specific permissions and settings."
 msgstr ""
 
-#: wpforo.php:597
+#: wpforo.php:611
 msgid ""
-"Awords myCRED points for forum activity. Integrates myCRED Badges and Ranks. "
+"Awards myCRED points for forum activity. Integrates myCRED Badges and Ranks. "
 "Converts wpForo topic and posts, likes to myCRED points."
 msgstr ""
 
-#: wpforo.php:598
+#: wpforo.php:612
 msgid ""
 "Advanced user profile builder system. Allows to add new fields and manage "
 "profile page. Creates custom Registration, Account, Member Search forms."
 msgstr ""
 
-#: wpforo.php:599
+#: wpforo.php:613
 msgid ""
 "Adds an advanced file attachment system to forum topics and posts. AJAX "
 "powered media uploading and displaying system with user specific library."
 msgstr ""
 
-#: wpforo.php:600
-msgid ""
-"Blog to Forum and Forum to Blog content synchronization. Blog posts with "
-"Forum topics and Blog comments with Forum replies."
-msgstr ""
-
-#: wpforo.php:601
+#: wpforo.php:614
 msgid ""
 "Provides a safe way to communicate directly with other members. Messages are "
 "private and can only be viewed by conversation participants."
 msgstr ""
 
-#: wpforo.php:602
+#: wpforo.php:615
+msgid ""
+"Blog to Forum and Forum to Blog content synchronization. Blog posts with "
+"Forum topics and Blog comments with Forum replies."
+msgstr ""
+
+#: wpforo.php:616
 msgid ""
 "Ads Manager is a powerful yet simple advertisement management system, that "
 "allows you to add adverting banners between forums, topics and posts."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
-msgid "wpForo"
+msgid "wpForo - Forums"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
@@ -4090,8 +4246,8 @@ msgstr ""
 
 #. Description of the plugin/theme
 msgid ""
-"Forums wpForo is a new generation of forum plugins. It's full-fledged forum "
-"solution for your community. Comes with multiple modern forum layouts."
+"WordPress Foum plugin. wpForo is a full-fledged forum solution for your "
+"community. Comes with multiple modern forum layouts."
 msgstr ""
 
 #. Author of the plugin/theme

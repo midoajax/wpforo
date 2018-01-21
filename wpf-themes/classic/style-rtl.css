@@ -6,7 +6,7 @@ RTL Style of Classic Theme
 #wpforo-wrap.wpf-dark{ padding:30px; margin:2px;}
 #wpforo-wrap .wpforo-content{width:69%; float:right; padding:0px; box-sizing: border-box;}
 #wpforo-wrap .wpforo-right-sidebar{width:28%; float:left; padding:0px 0px 0px 0px; box-sizing: border-box;}
-
+#wpforo-wrap [class*="content"]:after{clear: none;}
 #wpforo-wrap {margin:0; font-size:13px; text-align:right; width:100%; padding:10px; text-transform:none; box-sizing: border-box;} 
 #wpforo-wrap * {box-sizing: border-box; box-shadow:none; color:inherit;}
 #wpforo-wrap html, #wpforo-wrap body, #wpforo-wrap div, #wpforo-wrap span, #wpforo-wrap applet, #wpforo-wrap object, #wpforo-wrap iframe, #wpforo-wrap h1, #wpforo-wrap h2, #wpforo-wrap h3, #wpforo-wrap h4, #wpforo-wrap h5, #wpforo-wrap h6, #wpforo-wrap p, #wpforo-wrap blockquote, #wpforo-wrap pre, #wpforo-wrap a, #wpforo-wrap abbr, #wpforo-wrap acronym, #wpforo-wrap address, #wpforo-wrap big, #wpforo-wrap cite, #wpforo-wrap code, #wpforo-wrap del, #wpforo-wrap dfn, #wpforo-wrap em, #wpforo-wrap img, #wpforo-wrap ins, #wpforo-wrap kbd, #wpforo-wrap q, #wpforo-wrap s, #wpforo-wrap samp, #wpforo-wrap small, #wpforo-wrap strike, #wpforo-wrap sub, #wpforo-wrap sup, #wpforo-wrap tt, #wpforo-wrap var, #wpforo-wrap b, #wpforo-wrap u, #wpforo-wrap i, #wpforo-wrap center, #wpforo-wrap dl, #wpforo-wrap dt, #wpforo-wrap dd, #wpforo-wrap ol, #wpforo-wrap ul, #wpforo-wrap li, #wpforo-wrap fieldset, #wpforo-wrap form, #wpforo-wrap label, #wpforo-wrap legend, #wpforo-wrap table, #wpforo-wrap caption, #wpforo-wrap tbody, #wpforo-wrap tfoot, #wpforo-wrap thead, #wpforo-wrap tr, #wpforo-wrap th, #wpforo-wrap td, #wpforo-wrap article, #wpforo-wrap aside, #wpforo-wrap canvas, #wpforo-wrap details, #wpforo-wrap embed, #wpforo-wrap figure, #wpforo-wrap figcaption, #wpforo-wrap footer, #wpforo-wrap header, #wpforo-wrap hgroup, #wpforo-wrap menu, #wpforo-wrap nav, #wpforo-wrap output, #wpforo-wrap ruby, #wpforo-wrap section, #wpforo-wrap summary, #wpforo-wrap time, #wpforo-wrap mark, #wpforo-wrap audio, #wpforo-wrap video {margin: 0;padding: 0;border: 0;font-size: 100%;vertical-align: baseline;}
@@ -118,7 +118,7 @@ RTL Style of Classic Theme
 /********************************************************/
 
 .fa-1x{font-size:1.6em; padding-top:2px;}
-.fa-0x{font-size:1.05em; padding-top:1px;}
+.wpfsx{font-size:1.05em; padding-top:1px;}
 .fa-sx{font-size:0.85em; padding-top:0px;}
 
 /****************************************************/
@@ -589,6 +589,16 @@ RTL Style of Classic Theme
 #wpforo-wrap .wpf-default-attachment input[type="file"]{font-size:13px; vertical-align:middle; padding:1px 5px; line-height:16px;}
 #wpforo-wrap .wpf-default-attachment p{ font-size:12px; line-height:30px; font-style:italic; }
 
+#wpforo-wrap #wpf-topic-create .wpf-topic-guest-fields{margin-bottom:10px;}
+#wpforo-wrap #wpf-topic-create .wpf-topic-guest-fields input[type="text"]{width:100%;}
+#wpforo-wrap #wpf-topic-create .wpf-topic-guest-name{width:49%; display:block; margin-left:1%; float:right;}
+#wpforo-wrap #wpf-topic-create .wpf-topic-guest-email{width:49%; display:block; float:left;}
+
+#wpforo-wrap #wpf-post-create .wpf-post-guest-fields{margin-bottom:10px;}
+#wpforo-wrap #wpf-post-create .wpf-post-guest-fields input[type="text"]{width:100%;}
+#wpforo-wrap #wpf-post-create .wpf-post-guest-name{width:49%; display:block; margin-left:1%; float:right;}
+#wpforo-wrap #wpf-post-create .wpf-post-guest-email{width:49%; display:block; float:left;}
+
 /****************************************************/
 /******************* wpForo Members *****************/
 /****************************************************/
@@ -618,17 +628,31 @@ RTL Style of Classic Theme
 /******************* wpForo Registration *****************/
 /*********************************************************/
 #wpforo-wrap .wpforo-register-wrap .wpforo-register-content {margin-top:2px;}
-
+#wpforo-wrap .wpforo-register-wrap .wpforo-register-content > h3{ text-align: center; font-size: 18px; margin: -10px 0px 22px 0px; padding: 0px;}
+#wpforo-wrap .wpforo-register-wrap .wpf-field.wpf-field-type-submit input[type="submit"]{width: 60%; padding: 8px 20px !important; margin: 10px auto; font-size: 14px;}
+#wpforo-wrap .wpforo-register-wrap .wpforo-register-content #wpforo_recaptcha_widget{ width: 100%; display: block; text-align: center;  margin-top: 15px; margin-bottom: -10px;}
+#wpforo-wrap .wpforo-register-wrap .wpforo-register-content #wpforo_recaptcha_widget > div{ display: inline-block;}
 /*********************************************************/
 /********************* wpForo Login **********************/
 /*********************************************************/
+#wpforo-wrap .wpforo-login-wrap .wpforo-login-table{min-width: 400px; width: 50%; margin: 0px auto; text-align: center; background-color: #eeeeee;}
 #wpforo-wrap .wpforo-login-wrap .wpforo-login-content {margin-top:2px;}
 #wpforo-wrap .wpforo-login-wrap .wpf-label{padding:2px 2px 4px 2px; margin:0px; line-height:18px; font-size:16px;}
 #wpforo-wrap .wpforo-login-wrap .wpf-extra{padding:0px 5px 10px 5px;}
+#wpforo-wrap .wpforo-login-wrap .wpf-field.wpf-field-hook{ padding-top: 1px; padding-bottom: 1px;}
 #wpforo-wrap .wpforo-login-wrap .wpf-login-field input[type="submit"]{ margin:0px 5px;}
 #wpforo-wrap .wpforo-login-wrap .wpf-login-remember{padding:0px; margin:0px; cursor:pointer; font-size:13px; line-height:16px }
 #wpforo-wrap .wpforo-login-wrap .wpf-forgot-pass{padding:0px; margin:0px; cursor:pointer; font-size:13px; line-height:16px; text-decoration:none;}
 #wpforo-wrap .wpforo-login-wrap .wpforo-table .wpfw-1 .wpf-field:nth-child(even) {background-color: #eeeeee;}
+#wpforo-wrap .wpforo-login-wrap .wpf-field .wpf-field-wrap{width: 80%; text-align: center; display: block;}
+#wpforo-wrap .wpforo-login-wrap .wpf-field .wpf-field-wrap input[type="text"],
+#wpforo-wrap .wpforo-login-wrap .wpf-field .wpf-field-wrap input[type="password"],
+#wpforo-wrap .wpforo-login-wrap .wpf-field .wpf-field-wrap input[type="email"]{ padding: 10px 34px 10px 20px!important; font-size: 14px; }
+#wpforo-wrap .wpforo-login-wrap .wpf-field .wpf-field-wrap input[type="submit"]{ padding: 10px 20px 10px 20px!important; font-size: 16px; width: 80%; }
+#wpforo-wrap .wpforo-login-wrap .wpf-field .wpf-field-wrap #wpforo_recaptcha_widget{display: inline-block; padding-top: 5px;}
+#wpforo-wrap .wpforo-login-wrap .wpf-field .wpf-field-wrap .wpf-field-icon {right: 14px; top: 15px; font-size: 14px;}
+#wpforo-wrap .wpforo-login-wrap .wpf-field .wpf-field-wrap .wpf-show-password {left: 12px; top: 16px; font-size: 14px;}
+#wpforo-wrap .wpforo-login-wrap .wpforo-login-content h3{ text-align: center; font-size: 18px; margin: -20px 0px 20px 0px; padding: 0px;}
 
 /****************************************************/
 /******************* wpForo 404 *********************/
@@ -697,6 +721,10 @@ RTL Style of Classic Theme
 #wpforo-wrap .wpforo-recent-wrap .wpforo-recent-content td.wpf-spost-forum {padding:10px 5px; vertical-align:top; width:30%;}
 #wpforo-wrap .wpforo-recent-wrap .wpforo-recent-content td.wpf-stext{padding: 8px 10px;word-break: break-all;font-size: 13px;line-height: 20px;}
 #wpforo-wrap .wpforo-recent-wrap .wpf-snavi{width:100%; margin:1px auto -10px 0px; text-align:right; padding:1px 0px;}
+
+#wpforo-wrap .wpforo-recent-wrap .wpforo-recent-content.wpfr-topics td.wpf-spost-avatar {width:50px; text-align:center; padding:10px;}
+#wpforo-wrap .wpforo-recent-wrap .wpforo-recent-content.wpfr-topics td.wpf-spost-avatar img.avatar{ max-width:30px; }
+#wpforo-wrap .wpforo-recent-wrap .wpforo-recent-content.wpfr-topics .wpf-spost-topic-recent-posts{ float:left; font-size:11px; line-height:18px;}
 
 /******************************************************/
 /******************** Pagination **********************/
@@ -844,6 +872,9 @@ RTL Style of Classic Theme
 	#wpforo-wrap .wpf-td{display:block; float: none; box-sizing: border-box; width: 100%;}
 	#wpforo-wrap .wpforo-profile-wrap .wpf-profile-plugin-menu { top:12px;}
 	#wpforo-wrap .wpforo-profile-wrap .wpf-profile-plugin-menu .wpf-pp-menu .wpf-pp-menu-item span{ display:none;}
+	#wpforo-wrap .wpforo-login-wrap .wpforo-login-table{width: 80%; min-width:auto; }
+	#wpforo-wrap .wpforo-fb-login-wrap{padding: 5px 0px;}
+	#wpforo-wrap .wpforo-register-wrap .wpf-field.wpf-field-type-submit input[type="submit"]{width: 100%;}
 }
 
 @media screen and (max-width:700px) {
@@ -1075,7 +1106,7 @@ RTL Style of Classic Theme
 	#wpforo-wrap .wpf-navi.wpf-navi-post-top{margin-top:-10px;}
 	#wpforo-wrap #wpforo-stat-body .wpf-stat-item{ width:48%}
 	#wpforo-wrap #wpforo-stat-body .wpf-stat-item{ border-left:none!important;}
-	
+	#wpforo-wrap .wpforo-login-wrap .wpforo-login-table{width: 98%; background-color: transparent;}
 }
 @media screen and (max-width:350px) { 
 	#wpforo-wrap .wpf-button{white-space: normal;}
@@ -1089,3 +1120,29 @@ RTL Style of Classic Theme
 	#wpforo-wrap #wpforo-stat-body .wpf-stat-item{ width:99%}
 	#wpforo-wrap #wpforo-stat-body .wpf-stat-item{ border-left:none!important;}
 }
+
+/***********************************/
+/********* NON-CORE COMPONENTS *****/
+/***********************************/
+
+/* Emoji button */
+.mce-wpf-emoji-extra-wrap{height: auto !important;max-width: 250px!important;max-height: 250px!important;overflow: auto;}
+#wpf-emoji-wrap.wpf-emoji-wrap{display: flex;flex-wrap: wrap;justify-content: space-between;padding: 5px;}
+#wpf-emoji-wrap.wpf-emoji-wrap > span.wpf-emoji{cursor: pointer;padding: 5px;}
+#wpf-emoji-wrap.wpf-emoji-wrap > span.wpf-emoji > img{font-size: 20px;}
+#wpf-emoji-wrap.wpf-emoji-wrap > span.wpf-emoji:hover{outline: 1px dotted black;}
+#wpf-emoji-wrap.wpf-emoji-wrap > span.wpf-emoji:hover > img{filter: grayscale(100%);}
+
+/* Font size button */
+#wpforo-wrap .mce-toolbar #mceu_0.mce-listbox button {font-size: 12px; line-height: 18px; padding-right: 3px; padding-left: 0px; text-transform: lowercase; background: transparent; width: 34px;}
+#wpforo-wrap .mce-toolbar .mce-btn-group #mceu_0.mce-btn.mce-listbox {background: transparent;}
+#wpforo-wrap .mce-toolbar  #mceu_0.mce-listbox button i{display:none;}
+
+/* reCAPTCHA */
+#wpforo-wrap #wpforo_recaptcha_widget{ -webkit-transform:scale(0.9); transform:scale(0.9); }
+@media screen and (max-width:1000px){ #wpforo-wrap #wpforo_recaptcha_widget{ transform:scale(0.75);-webkit-transform:scale(0.75); }}
+@media screen and (max-width:600px){ #wpforo-wrap #wpforo_recaptcha_widget{ transform:scale(0.65);-webkit-transform:scale(0.65); -webkit-transform-origin:right 0; transform-origin:right 0; }}
+
+#wpforo-wrap .wpf-extra-fields #wpforo_recaptcha_widget{ -webkit-transform:scale(0.85); transform:scale(0.85); -webkit-transform-origin:right 0; transform-origin:right 0; }
+@media screen and (max-width:1000px){ #wpforo-wrap .wpf-extra-fields #wpforo_recaptcha_widget{ transform:scale(0.75);-webkit-transform:scale(0.75); transform-origin:right 0;-webkit-transform-origin:right 0; }}
+@media screen and (max-width:420px){ #wpforo-wrap .wpf-extra-fields #wpforo_recaptcha_widget{ transform:scale(0.65);-webkit-transform:scale(0.65); transform-origin:right 0;-webkit-transform-origin:right 0; }}

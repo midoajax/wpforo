@@ -35,6 +35,9 @@ class wpForoMember{
             'login_url' => '',
             'register_url' => '',
             'lost_password_url' => '',
+            'redirect_url_after_login' => '',
+            'redirect_url_after_register' => '',
+            'redirect_url_after_confirm_sbscrb' => '',
             'rating_title_ug' => array ( 1 => '0', 5 => '1', 4 => '1', 2 => '0', 3 => '1' ),
             'rating_badge_ug' => array ( 1 => '1', 5 => '1', 4 => '1', 2 => '1', 3 => '1' ),
             'title_usergroup' => array ( 1 => '1', 5 => '1', 4 => '1', 2 => '1', 3 => '0' )
@@ -48,6 +51,9 @@ class wpForoMember{
 
     private function init_options(){
         $this->options = get_wpf_option('wpforo_member_options', $this->default->options);
+        if( !preg_match('#^https?://[^\r\n\t\s\0]+#isu', $this->options['redirect_url_after_login']) ) $this->options['redirect_url_after_login'] = '';
+        if( !preg_match('#^https?://[^\r\n\t\s\0]+#isu', $this->options['redirect_url_after_register']) ) $this->options['redirect_url_after_register'] = '';
+        if( !preg_match('#^https?://[^\r\n\t\s\0]+#isu', $this->options['redirect_url_after_confirm_sbscrb']) ) $this->options['redirect_url_after_confirm_sbscrb'] = '';
 
         $this->login_min_length = $this->default->login_min_length;
         $this->login_max_length = $this->default->login_max_length;
@@ -480,15 +486,20 @@ class wpForoMember{
 	        $fnm = preg_replace("/[^-a-zA-Z0-9]/", "", $fnm);
 	        $fnm = trim($fnm, "-");
 	        
-			$avatar_fname = $fnm.( $fnm ? '_' : '' ).$userid.".".$ext;
-			$avatar_path = $avatar_dir."/".$avatar_fname;
+			$avatar_fname = $fnm . ( $fnm ? '_' : '' ) . $userid . "." . strtolower($ext);
+			$avatar_fname_orig = $fnm . ( $fnm ? '_' : '' ) . $userid . "." . $ext;
+			$avatar_path = $avatar_dir . "/" . $avatar_fname;
+			$avatar_path_orig = $avatar_dir . "/" . $avatar_fname_orig;
 			
 			if(is_dir($avatar_dir)){
 				if(move_uploaded_file($tmp_name, $avatar_path)) {
 					$image = wp_get_image_editor( $avatar_path );
 					if ( ! is_wp_error( $image ) ) {
 						$image->resize( 150, 150, true );
-						$image->save( $avatar_path );
+						$saved = $image->save( $avatar_path );
+						if(! is_wp_error( $saved ) && $avatar_fname != $avatar_fname_orig ) {
+							if ( defined (PHP_OS) && strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN') unlink( $avatar_path_orig );
+						}
 					}
 					$blog_url = preg_replace('#^https?\:#is', '', $upload_dir['baseurl']);
 					WPF()->db->update(WPF()->db->prefix.'wpforo_profiles', array('avatar' => $blog_url . "/wpforo/avatars/" . $avatar_fname), array('userid' => intval($userid)), array('%s'), array('%d'));
@@ -521,7 +532,6 @@ class wpForoMember{
 								'timezone' => sanitize_text_field($insert_timezone), 
 								'about' => stripslashes( wpforo_kses(trim($about), 'user_description') ), 
 								'last_login' => sanitize_text_field($user->user_registered) ) );
-		return FALSE;
 	}
 	
 	function synchronize_users(){
@@ -606,7 +616,7 @@ class wpForoMember{
             }
         }
 
-        if($cache && isset($userid)){
+        if($cache && isset($userid) && $member){
             return self::$cache['user'][$userid] = $member;
         }else{
             return $member;
@@ -624,7 +634,8 @@ class wpForoMember{
 		  'orderby' => 'userid', //
 		  'order' => 'ASC', // ASC DESC
 		  'offset' => 0, // OFFSET
-		  'row_count' => NULL // ROW COUNT
+		  'row_count' => NULL, // ROW COUNT
+		  'groupids' => array(), // array( 1, 2 )
 		);
 		
 		$args = wpforo_parse_args( $args, $default );
@@ -638,11 +649,12 @@ class wpForoMember{
 				INNER JOIN `".WPF()->db->prefix."wpforo_profiles` p ON p.`userid` = u.`ID`
 				LEFT JOIN `".WPF()->db->prefix."wpforo_usergroups` ug ON ug.`groupid` = p.`groupid`";
 			$wheres = array();
-			if(!empty($include))        $wheres[] = "u.`ID` IN(" . implode(', ', array_map('intval', $include)) . ")";
-			if(!empty($exclude))        $wheres[] = "u.`ID` NOT IN(" . implode(', ', array_map('intval', $exclude)) . ")";
-			if(!empty($status))        $wheres[] = " p.`status` IN('" . implode("','", array_map('esc_sql', array_map('sanitize_text_field', $status))  ) . "')";
-			if( !is_null($groupid) ) $wheres[] = "p.`groupid` = " . intval($groupid);
-			if( !is_null($online_time) ) $wheres[] = "p.`online_time` > " . intval($online_time);
+			if(!empty($include))        $wheres[] = " u.`ID` IN(" . implode(', ', array_map('intval', $include)) . ")";
+			if(!empty($exclude))        $wheres[] = " u.`ID` NOT IN(" . implode(', ', array_map('intval', $exclude)) . ")";
+			if(!empty($status))         $wheres[] = " p.`status` IN('" . implode("','", array_map('esc_sql', array_map('sanitize_text_field', $status))  ) . "')";
+			if(!empty($groupids))       $wheres[] = " p.`groupid` IN(" . implode(', ', array_map('intval', $groupids)) . ")";
+			if(!is_null($groupid))      $wheres[] = " p.`groupid` = " . intval($groupid);
+			if(!is_null($online_time))  $wheres[] = " p.`online_time` > " . intval($online_time);
 
 			if(!empty($wheres)) $sql .= " WHERE " . implode($wheres, " AND ");
 			
@@ -857,7 +869,7 @@ class wpForoMember{
 		$cache = WPF()->cache->on('memory_cashe');
 		
 		$src = $member['avatar'];
-		$userid = $member['userid'];
+		$userid = ( $member['userid'] ? $member['userid'] : $member['user_email'] );
 		if($cache && isset(self::$cache['avatar'][$userid])){
 			if(self::$cache['avatar'][$userid]['attr'] == $attr && self::$cache['avatar'][$userid]['size'] == $size){
 				if(isset(self::$cache['avatar'][$userid]['img'])){
@@ -1111,13 +1123,13 @@ class wpForoMember{
 		if( $this->is_online($userid)) : ?>
 			
 			<?php if($ico) : ?>
-            	<i class="fa fa-lightbulb-o fa-0x wpfcl-8" title="<?php wpforo_phrase('Online') ?>"></i>
+            	<i class="fa fa-lightbulb-o wpfsx wpfcl-8" title="<?php wpforo_phrase('Online') ?>"></i>
             <?php else : wpforo_phrase('Online'); endif ?>
             
         <?php else : ?>
         	
         	<?php if($ico) : ?>
-            	<i class="fa fa-lightbulb-o fa-0x wpfcl-0" title="<?php wpforo_phrase('Offline') ?>"></i>
+            	<i class="fa fa-lightbulb-o wpfsx wpfcl-0" title="<?php wpforo_phrase('Offline') ?>"></i>
             <?php else : wpforo_phrase('Offline'); endif ?>
             
         <?php endif;  
@@ -1263,7 +1275,10 @@ class wpForoMember{
 			    $this->update_online_time();
 			}
 			WPF()->current_user_status  = $status;
-		}
+		}elseif ( $guest = $this->get_guest_cookies() ){
+            WPF()->current_user_email  = $guest['email'];
+            WPF()->current_user_display_name  = $guest['name'];
+        }
 	}
 	
 	public function blog_posts( $userid ){
@@ -2237,5 +2252,25 @@ class wpForoMember{
 
         return $names;
     }
+	
+	public function set_guest_cookies( $args ){
+		if ( isset($args['name']) && isset($args['email']) ) {
+			$comment_cookie_lifetime = apply_filters( 'comment_cookie_lifetime', 30000000 );
+			$secure = ( 'https' === parse_url( home_url(), PHP_URL_SCHEME ) );
+            setcookie( 'comment_author_' . COOKIEHASH, $args['name'], time() + $comment_cookie_lifetime, COOKIEPATH, COOKIE_DOMAIN, $secure );
+            setcookie( 'comment_author_email_' . COOKIEHASH, $args['email'], time() + $comment_cookie_lifetime, COOKIEPATH, COOKIE_DOMAIN, $secure );
+
+            WPF()->current_user_display_name  = $args['name'];
+            WPF()->current_user_email  = $args['email'];
+        }
+	}
+	
+	public function get_guest_cookies(){
+		$guest = array();
+		$guest_cookies = wp_get_current_commenter(); 
+		$guest['name'] = ( isset($guest_cookies['comment_author']) ) ? $guest_cookies['comment_author'] : '';
+		$guest['email'] = ( isset($guest_cookies['comment_author_email']) ) ? $guest_cookies['comment_author_email'] : '';
+		return $guest;
+	}
 
 }

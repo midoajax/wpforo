@@ -5,14 +5,14 @@
 * Description: WordPress Foum plugin. wpForo is a full-fledged forum solution for your community. Comes with multiple modern forum layouts.
 * Author: gVectors Team (A. Chakhoyan, R. Hovhannisyan)
 * Author URI: https://gvectors.com/
-* Version: 1.4.3
+* Version: 1.4.5
 * Text Domain: wpforo
 * Domain Path: /wpf-languages
 */
 
 //Exit if accessed directly
 if( !defined( 'ABSPATH' ) ) exit;
-if( !defined( 'WPFORO_VERSION' ) ) define('WPFORO_VERSION', '1.4.3');
+if( !defined( 'WPFORO_VERSION' ) ) define('WPFORO_VERSION', '1.4.5');
 
 function wpforo_load_plugin_textdomain() { load_plugin_textdomain( 'wpforo', FALSE, basename( dirname( __FILE__ ) ) . '/wpf-languages/' ); }
 add_action( 'plugins_loaded', 'wpforo_load_plugin_textdomain' );
@@ -182,6 +182,7 @@ if( !class_exists( 'wpForo' ) ) {
                 'top-bar-search' => 1,
                 'breadcrumb' => 1,
                 'footer-stat' => 1,
+                'mention-nicknames' => 1,
 				'view-logging' => 1,
                 'author-link' => 0,
                 'comment-author-link' => 0,
@@ -225,7 +226,18 @@ if( !class_exists( 'wpForo' ) ) {
                 'spam_user_ban_notification' => 1,
                 'min_number_post_to_attach' => 3,
                 'min_number_post_to_link' => 0,
-                'limited_file_ext' => 'pdf|doc|docx|txt|htm|html|rtf|xml|xls|xlsx|zip|rar|tar|gz|bzip|7z'
+                'limited_file_ext' => 'pdf|doc|docx|txt|htm|html|rtf|xml|xls|xlsx|zip|rar|tar|gz|bzip|7z',
+				'rc_site_key' => '',
+				'rc_secret_key' => '',
+				'rc_theme' => 'light',
+				'rc_login_form' => 0,
+				'rc_reg_form' => 0,
+				'rc_lostpass_form' => 0,
+				'rc_wpf_login_form' => 1,
+				'rc_wpf_reg_form' => 1,
+				'rc_wpf_lostpass_form' => 1,
+				'rc_topic_editor' => 1,
+				'rc_post_editor' => 1,
             );
 
             $this->default->tools_cleanup = array(
