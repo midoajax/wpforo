@@ -53,8 +53,8 @@
                 	<input type="number" min="1" name="wpforo_post_options[max_upload_size]" value="<?php echo wpforo_print_size(WPF()->post->options['max_upload_size'], false) ?>" class="wpf-field-small" />&nbsp; <?php _e('MB', 'wpforo') ?>
                 	<p class="wpf-info">
                      	<?php
-							_e('Server "upload_max_filesize" is '); echo ini_get('upload_max_filesize') . '<br/>';
-							_e('Server "post_max_size" is '); echo ini_get('post_max_size');
+							_e('Server "upload_max_filesize" is ', 'wpforo'); echo ini_get('upload_max_filesize') . '<br/>';
+							_e('Server "post_max_size" is ', 'wpforo'); echo ini_get('post_max_size');
                         ?>
                     </p>
                 </td>
