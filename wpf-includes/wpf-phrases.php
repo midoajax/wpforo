@@ -721,4 +721,13 @@ $wpforo_phrases = array(
 	'Please Insert Your Email or Username' => __('Please Insert Your Email or Username', 'wpforo'),
 	'Reset Password' => __('Reset Password', 'wpforo'),
 	'Forgot Your Password?' => __('Forgot Your Password?', 'wpforo'),
+	
+	'Profile' => __('Profile', 'wpforo'),
+	'Nickname' => __('Nickname', 'wpforo'),
+	'URL Address Identifier' => __('URL Address Identifier', 'wpforo'),
+	'Old password' => __('Old password', 'wpforo'),
+	'Sticky' => __('Sticky', 'wpforo'),
+	'Private' => __('Private', 'wpforo'),
+	'Unapproved' => __('Unapproved', 'wpforo'),
+	
  );
