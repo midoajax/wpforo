@@ -2,6 +2,23 @@
 RTL Style of Classic Theme
 */
 
+#member_user_email,
+#member_site,
+#member_facebook,
+#member_twitter,
+#member_gtalk,
+#member_yahoo,
+#member_aim,
+#member_icq,
+#member_msn,
+#member_skype,
+#member_location,
+#member_timezone,
+#member_user_pass,
+input[name="member[avatar_url]"],
+input[type=file]{
+	direction: ltr;
+}
 #wpforo-wrap .wpforo-main{clear:both;}
 #wpforo-wrap.wpf-dark{ padding:30px; margin:2px;}
 #wpforo-wrap .wpforo-content{width:69%; float:right; padding:0px; box-sizing: border-box;}
