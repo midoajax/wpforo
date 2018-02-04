@@ -1644,7 +1644,7 @@ class wpForoTemplate{
 		elseif( $type == 'avatar' ){
 			$field_html = '<ul>
 				<li><input ' . $isRequired . ' name="' . esc_attr($varname) . '[avatar_type]" id="wpfat_gravatar" value="gravatar" ' . ( $value == '' || $value == NULL ? 'checked="checked"' : '' ) . ' type="radio" />&nbsp; <label for="wpfat_gravatar">' . wpforo_phrase('Wordpress avatar system', false) . '</label></li>
-				<li><input name="' . esc_attr($varname) . '[avatar_type]" id="wpfat_remote" value="remote" ' . ( $value && strpos($value, 'wpforo/avatars') === FALSE ? 'checked="checked"' : '' ) . ' type="radio" />&nbsp; <label for="wpfat_remote">' . wpforo_phrase('Specify avatar by URL:', false) . '</label> <input autocomplete="off" name="' . esc_attr($varname) . '[avatar_url]" value="" maxlength="300" data-wpfucf-minmaxlength="1,300" type="url" /></li>';
+				<li><input name="' . esc_attr($varname) . '[avatar_type]" id="wpfat_remote" value="remote" ' . ( $value && strpos($value, 'wpforo/avatars') === FALSE ? 'checked="checked"' : '' ) . ' type="radio" />&nbsp; <label for="wpfat_remote">' . wpforo_phrase('Specify avatar by URL', false) . '</label> <input autocomplete="off" name="' . esc_attr($varname) . '[avatar_url]" value="" maxlength="300" data-wpfucf-minmaxlength="1,300" type="url" /></li>';
 				if( WPF()->perm->usergroup_can('upa') ) {
 					if( strpos($value, 'gravatar.com') === FALSE && strpos($value, 'facebook.com') === FALSE ){
 						$url = $value . '?lm=' . time();
