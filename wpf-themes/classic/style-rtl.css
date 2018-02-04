@@ -201,7 +201,7 @@ input[type=file]{
 #wpforo-wrap .wpforo-post .wpf-left .wpforo-memberinfo .wpf-member-socnet-button img:hover{opacity:1;}
 #wpforo-wrap .wpforo-post .wpf-mod-message{display:inline-block; float:right; text-align:right;}
 #wpforo-wrap .wpforo-post .wpf-left .author-title span{display:block}
-#wpforo-wrap .wpf-author-nicename{ font-size:12px; color:#777777; font-family:"Courier New", Courier, monospace; line-height: 18px;padding-top: 4px;}
+#wpforo-wrap .wpf-author-nicename{ font-size:12px; color:#777777; line-height: 18px;padding-top: 4px;}
 #wpforo-wrap .wpforo-members-content .wpf-members-info .wpf-author-nicename{ display:inline; font-size:13px; padding-top: 0px;}
 #wpforo-wrap .wpforo-post-content .wpf-video, #wpforo-wrap .wpforo-post-content .wpf-video iframe{max-width: 98%;}
 #wpforo-wrap .wpf-member-title{ display:block; cursor:default; }
