@@ -401,6 +401,7 @@ function wpforo_activation(){
 	#################################################################
 	// Importing Language Packs and Phrases /////////////////////////
 	WPF()->phrase->xml_import('english.xml', 'install');
+	WPF()->phrase->xml_import('persian.xml', 'install');
 	
 	#################################################################
 	// Creating wpforo folders //////////////////////////////////////
