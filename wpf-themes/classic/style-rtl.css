@@ -14,7 +14,6 @@ RTL Style of Classic Theme
 #member_skype,
 #member_location,
 #member_timezone,
-#member_user_pass,
 input[name="member[avatar_url]"],
 input[type=file]{
 	direction: ltr;
