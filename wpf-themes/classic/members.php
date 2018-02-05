@@ -57,7 +57,7 @@
                                 <?php WPF()->tpl->member_buttons($member) ?>
                             </div>
                         </td>
-	                    <td class="wpf-members-regdate wpfcl-1"><?php wpforo_date($member['user_registered'], 'F j, Y') ?></td>
+	                    <td class="wpf-members-regdate wpfcl-1"><?php wpforo_date($member['user_registered'], get_option( 'date_format' )) ?></td>
 	                  </tr>
 	                    
 	                <?php $bg = ( $bg ? FALSE : TRUE ); endforeach; ?>
