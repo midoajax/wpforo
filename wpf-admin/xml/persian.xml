@@ -181,7 +181,7 @@
 	<phrase name="Registration Error"><![CDATA[خطای عضویت]]></phrase>
 	<phrase name="Relevancy"><![CDATA[ارتباط]]></phrase>
 	<phrase name="Remember Me"><![CDATA[من را به خاطر بسپار]]></phrase>
-	<phrase name="Replies"><![CDATA[پاسخ‌ها]]></phrase>
+	<phrase name="Replies"><![CDATA[پاسخ]]></phrase>
 	<phrase name="Replies not found"><![CDATA[پاسخ‌ها پیدا نشدند]]></phrase>
 	<phrase name="Reply"><![CDATA[پاسخ]]></phrase>
 	<phrase name="Reply request error"><![CDATA[خطای درخواست پاسخ]]></phrase>
@@ -266,8 +266,8 @@
 	<phrase name="Username length must be between 3 characters and 15 characters."><![CDATA[طول نام کاربری باید بین ۳ تا ۱۵ حرف باشد.]]></phrase>
 	<phrase name="View entire post"><![CDATA[مشاهده ارسال کامل]]></phrase>
 	<phrase name="View the latest post"><![CDATA[مشاهده آخرین ارسال]]></phrase>
-	<phrase name="Views"><![CDATA[نمایش‌ها]]></phrase>
-	<phrase name="Votes"><![CDATA[رای‌ها]]></phrase>
+	<phrase name="Views"><![CDATA[نمایش‌]]></phrase>
+	<phrase name="Votes"><![CDATA[رای‌]]></phrase>
 	<phrase name="Website"><![CDATA[وب سایت]]></phrase>
 	<phrase name="Welcome to our Community!"><![CDATA[به انجمن ما خوش آمدید!]]></phrase>
 	<phrase name="Wordpress avatar system"><![CDATA[سیستم چهره وردپرس]]></phrase>
@@ -320,7 +320,7 @@
 	<phrase name="posted"><![CDATA[ارسال شده]]></phrase>
 	<phrase name="prev"><![CDATA[قبلی]]></phrase>
 	<phrase name="register"><![CDATA[عضویت]]></phrase>
-	<phrase name="replies"><![CDATA[پاسخ‌ها]]></phrase>
+	<phrase name="replies"><![CDATA[پاسخ]]></phrase>
 	<phrase name="subscriptions"><![CDATA[اشتراک‌ها]]></phrase>
 	<phrase name="update"><![CDATA[بروزرسانی]]></phrase>
 	<phrase name="view"><![CDATA[مشاهده]]></phrase>
